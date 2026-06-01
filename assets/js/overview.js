@@ -19,6 +19,85 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Parallax background layers tied to scroll
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.to(".hero-bg-particles", {
+            y: "-15%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: wrapper,
+                start: "top top",
+                end: "+=300%",
+                scrub: 1
+            }
+        });
+        
+        gsap.to(".hero-bg-grid", {
+            y: "-8%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: wrapper,
+                start: "top top",
+                end: "+=300%",
+                scrub: 1
+            }
+        });
+        
+        gsap.to(".hero-bg-glow", {
+            y: "-4%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: wrapper,
+                start: "top top",
+                end: "+=300%",
+                scrub: 1
+            }
+        });
+    }
+
+    // Background Layer Animations
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    
+    if (!reduceMotion) {
+        gsap.to(".hero-bg-grid", {
+            backgroundPosition: "48px 48px",
+            duration: 6,
+            ease: "none",
+            repeat: -1
+        });
+    
+        gsap.to(".hero-bg-glow", {
+            x: 18,
+            y: -14,
+            duration: 7,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true
+        });
+    
+        gsap.to(".hero-bg-light-sweep", {
+            x: "430%",
+            duration: 7.5,
+            ease: "power2.inOut",
+            repeat: -1,
+            repeatDelay: 4
+        });
+    
+        gsap.to(".hero-bg-particles span", {
+            y: -18,
+            x: 10,
+            opacity: 0.25,
+            duration: 4.2,
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+            stagger: {
+                each: 0.45,
+                from: "random"
+            }
+        });
+    }
+
     sections.forEach((section, index) => {
         const text = section.querySelector('.hp-overview-text');
         const highlights = section.querySelectorAll('.highlight-word');
@@ -52,16 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tl.to({}, { duration: 0.8 });
 
         // Fade out with a cinematic exit
-        if (index < sections.length - 1) {
-            tl.to(text, { 
-                autoAlpha: 0, 
-                y: -60, 
-                scale: 1.05, 
-                filter: "blur(10px)", 
-                duration: 1.2, 
-                ease: "power2.in" 
-            });
-            tl.to(section, { autoAlpha: 0, duration: 0.1 });
-        }
+        tl.to(text, { 
+            autoAlpha: 0, 
+            y: -60, 
+            scale: 1.05, 
+            filter: "blur(10px)", 
+            duration: 1.2, 
+            ease: "power2.in" 
+        });
+        tl.to(section, { autoAlpha: 0, duration: 0.1 });
     });
 });

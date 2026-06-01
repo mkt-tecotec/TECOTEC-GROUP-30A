@@ -103,7 +103,8 @@
     display: flex;
     justify-content: space-between;
     list-style: none;
-    padding: 0 40px; /* added padding to extend the ruler */
+    padding: 0 40px;
+    /* added padding to extend the ruler */
     margin: 0;
     position: relative;
     min-width: 100%;
@@ -117,7 +118,7 @@
     left: 0;
     width: 100%;
     height: 12px;
-    background-image: 
+    background-image:
         /* Baseline */
         linear-gradient(to right, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
         /* Millimeter ticks every 5px */
@@ -133,9 +134,8 @@
 
 .hp-gallery-tab-item {
     position: relative;
-    flex: 1;
     text-align: center;
-    padding-bottom: 24px; /* Space for ruler ticks below the dot */
+    padding-bottom: 24px;
 }
 
 /* Draw the major tick exactly under the dot */
@@ -146,7 +146,8 @@
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
-    height: 30px; /* Taller tick that reaches behind the dot */
+    height: 30px;
+    /* Taller tick that reaches behind the dot */
     background-color: rgba(255, 255, 255, 0.3);
     z-index: 1;
     pointer-events: none;

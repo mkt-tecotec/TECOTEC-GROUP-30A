@@ -1,9 +1,23 @@
 <?php
-wp_enqueue_style('tecotec-overview', get_template_directory_uri() . '/assets/css/overview.css', array(), '1.0.0');
-wp_enqueue_script('tecotec-overview', get_template_directory_uri() . '/assets/js/overview.js', array(), '1.0.0', true);
+tecotec_enqueue_style('overview');
+tecotec_enqueue_script('overview', ['jquery']);
+
 ?>
 
 <div class="hp-overview-wrapper" id="hp-overview">
+    <!-- Background Layers -->
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-glow"></div>
+    <div class="hero-bg-noise"></div>
+    <div class="hero-bg-light-sweep"></div>
+    <div class="hero-bg-particles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
     <section class="hp-overview-section">
         <div class="container">
             <h2 class="hp-overview-text">

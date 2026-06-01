@@ -3,24 +3,8 @@
  * Component: Homepage Gallery Section - 30 Years Journey
  * Coded to match the new dark theme design (Thư viện ảnh qua các thời kỳ)
  */
-
-$css_path = get_template_directory() . '/assets/css/gallery.css';
-$js_path = get_template_directory() . '/assets/js/gallery.js';
-
-wp_enqueue_style(
-    'tecotec-gallery',
-    get_template_directory_uri() . '/assets/css/gallery.css',
-    array(),
-    file_exists($css_path) ? filemtime($css_path) : '1.0.0'
-);
-
-wp_enqueue_script(
-    'tecotec-gallery-js',
-    get_template_directory_uri() . '/assets/js/gallery.js',
-    array('jquery'),
-    file_exists($js_path) ? filemtime($js_path) : '1.0.0',
-    true
-);
+tecotec_enqueue_style('gallery');
+tecotec_enqueue_script('gallery', ['jquery']);
 
 // Gallery Data Periods (Matching the new timeline)
 $base_gallery_data = [

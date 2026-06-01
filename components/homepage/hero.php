@@ -2,7 +2,8 @@
 /**
  * Homepage Hero Banner Component
  */
-wp_enqueue_style('tecotec-hero', get_template_directory_uri() . '/assets/css/hero.css', array(), filemtime(get_template_directory() . '/assets/css/hero.css'));
+tecotec_enqueue_style('hero', ['tecotec-main-css']);
+
 ?>
 <!-- Section 1: Hero Banner -->
 <section class="hp-hero">

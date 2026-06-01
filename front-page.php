@@ -4,9 +4,10 @@
 <?php get_template_part('components/homepage/overview'); ?>
 <?php get_template_part('components/homepage/timeline'); ?>
 
-<!-- Section 3: Achievements -->
+<!-- Section 4: Achievements -->
 <?php
 wp_enqueue_style('tecotec-achievements', get_template_directory_uri() . '/assets/css/achievements.css', array(), '1.0.0');
+wp_enqueue_script('tecotec-achievements', get_template_directory_uri() . '/assets/js/achievements.js', array('gsap', 'gsap-scroll-trigger'), '1.0.0', true);
 
 $achievements_data = [
     [

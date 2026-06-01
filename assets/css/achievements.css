@@ -1,12 +1,24 @@
-/* Achievements Section */
+/* =======================================================================
+   Achievements — Cinematic Wipe Reveal
+   ———————————————————————————————————————
+   margin-top: -100vh  pulls the section up so it physically starts at
+   the last 100vh of #history (500vh). Combined with GSAP’s translateY
+   scrub (100vh → 0), the section “rises” over the timeline without any
+   extra scroll space or body-background leak.
+   z-index: 20 keeps it above .timeline-stage (z-index: 10).
+   ======================================================================= */
 .hp-achievements {
     background: radial-gradient(circle at 70% 20%, #061c3a 0%, #00172f 40%, #000d20 100%);
     color: #F4F7FA;
     padding: 100px 0;
     position: relative;
     overflow: hidden;
-    z-index: 10;
-    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    will-change: transform;
+    /* Card-lift shadow on the top edge */
+    box-shadow: 0 -32px 80px rgba(0, 0, 0, 0.8), 0 -2px 0 rgba(255, 153, 0, 0.12);
+    /* Pull section up so it overlaps last 100vh of #history */
+    margin-top: -100vh;
 }
 
 /* Container & Top Area */

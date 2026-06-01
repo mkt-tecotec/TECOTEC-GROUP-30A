@@ -12,9 +12,9 @@
   if (!circle) return;
 
   const STEP = 15;                       // deg per year
-  const ROT_START_OFFSET = 200;          // px buffer at top
-  const BASE_ROT_END_OFFSET = 600;       // px dwell zone at last year
-  const getRotEndOffset = () => window.innerHeight + BASE_ROT_END_OFFSET;
+  const ROT_START_OFFSET = window.innerHeight * 0.2; // 20vh buffer at top
+  const BASE_ROT_END_OFFSET = 0;
+  const getRotEndOffset = () => window.innerHeight * 0.15; // 15vh buffer at end (was 120vh — caused skip-2-years bug)
   const EASE = 0.2;                      // per-frame easing
   const SNAP_DELAY = 800;                // ms idle before snap
 
@@ -101,40 +101,63 @@
   requestAnimationFrame(smoothRender);
 
   // --- Setup GSAP ScrollTriggers for Zoom In/Out effects ---
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    const stageInner = section.querySelector('.timeline-stage-inner');
-    if (stageInner) {
-      // Zoom In on Enter
-      gsap.fromTo(stageInner,
-        { scale: 0.5, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1,
-          ease: "back.out(1.5)",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
+  //
+  // ROOT FIX for the "timeline shrinks mid-scroll" race condition:
+  // timeline.js runs *before* overview.js finishes registering its GSAP pin.
+  // When overview.js pins #hp-overview it inserts a ~2757px pin spacer that
+  // shifts every element below it down in scroll-space. If we register
+  // ScrollTriggers here (synchronously, during DOMContentLoaded), the
+  // coordinates for #history triggers are calculated WITHOUT that spacer,
+  // so zoom-out fires ~781px into the section instead of near the very end.
+  //
+  // Solution: defer GSAP setup to window 'load', which fires after ALL
+  // DOMContentLoaded callbacks — including the one in overview.js that
+  // creates the pin. ScrollTrigger.refresh() then recalculates with the
+  // pin spacer correctly included.
+  window.addEventListener('load', function initTimelineGSAP() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-      // Zoom Out on Exit
-      gsap.to(stageInner,
-        {
-          scale: 0.7,
-          opacity: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "bottom 100%", // When bottom of section hits bottom of viewport
-            end: "bottom top",    // When bottom of section leaves top of viewport
-            scrub: true
-          }
+    const stageInner = section.querySelector('.timeline-stage-inner');
+    if (!stageInner) return;
+
+    // Zoom In on Enter — play once when section enters viewport from below.
+    // immediateRender: false so opacity:0 is NOT pre-applied before trigger fires.
+    gsap.fromTo(stageInner,
+      { scale: 0.85, opacity: 0, y: 50 },
+      {
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power2.out',
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          toggleActions: 'play none none none',
         }
-      );
-    }
-  }
+      }
+    );
+
+    // Zoom Out on Exit — only starts when section bottom is nearly at
+    // viewport top (section almost fully scrolled past), not mid-content.
+    gsap.to(stageInner,
+      {
+        scale: 0.85,
+        opacity: 0,
+        ease: 'power1.in',
+        scrollTrigger: {
+          trigger: section,
+          start: 'bottom 15%',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      }
+    );
+
+    // Force recalculate so any late-registered pins (overview spacer)
+    // are included in the trigger coordinate math.
+    ScrollTrigger.refresh();
+  });
 
 })();
