@@ -6,7 +6,45 @@
 
     $(document).ready(function() {
         initHeroDotGrid();
+        initCustomCursor();
     });
+
+    // Custom orange dot cursor
+    function initCustomCursor() {
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let isMoving = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            if (!isMoving) {
+                isMoving = true;
+                requestAnimationFrame(() => {
+                    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+                    isMoving = false;
+                });
+            }
+        });
+
+        // Hover effect using event delegation
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, .year-wrap, input, textarea, select')) {
+                cursor.classList.add('hover');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, .year-wrap, input, textarea, select')) {
+                cursor.classList.remove('hover');
+            }
+        });
+    }
 
     // Hero section animated dot grid (canvas)
     function initHeroDotGrid() {

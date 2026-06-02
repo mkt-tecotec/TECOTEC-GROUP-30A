@@ -12,23 +12,39 @@
   if (!circle) return;
 
   const STEP = 15;                       // deg per year
-  const ROT_START_OFFSET = 200;          // px buffer at top
-  const BASE_ROT_END_OFFSET = 600;       // px dwell zone at last year
-  const getRotEndOffset = () => window.innerHeight + BASE_ROT_END_OFFSET;
+  const ROT_START_OFFSET = window.innerHeight * 0.2; // 20vh buffer at top
+  const BASE_ROT_END_OFFSET = 0;
+  const getRotEndOffset = () => window.innerHeight * 0.15; // 15vh buffer at end (was 120vh — caused skip-2-years bug)
   const EASE = 0.2;                      // per-frame easing
   const SNAP_DELAY = 800;                // ms idle before snap
 
   let lastRotation = 0;       // target rotation from scroll
   let smoothedRotation = 0;   // currently rendered rotation
-  let isSnapping = false;
-  let snapTimer = null;
   let lastAppliedIndex = -1;
-  let preventScrollSync = false;
 
   const years = Array.from(circle.querySelectorAll('.year-wrap'));
   const images = Array.from(section.querySelectorAll('.year-image'));
 
   const TOTAL_ROTATION = -STEP * (years.length - 1);
+
+  // Click vào năm/dấu chấm để cuộn tới năm đó
+  years.forEach((year, index) => {
+    year.addEventListener('click', () => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const stickyTravel = rect.height - window.innerHeight;
+      const scrollRange = stickyTravel - ROT_START_OFFSET - getRotEndOffset();
+
+      const progress = years.length > 1 ? index / (years.length - 1) : 0;
+      const targetScrollY = sectionTop + ROT_START_OFFSET + progress * scrollRange;
+
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(targetScrollY);
+      } else {
+        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      }
+    });
+  });
 
   function applyYearClasses(rotation) {
     const exactIndex = Math.abs(rotation / STEP);
@@ -62,9 +78,8 @@
     const progress = scrollRange > 0 ? scrollOffset / scrollRange : 0;
     const currentRotation = TOTAL_ROTATION * progress;
 
-    if (!isSnapping) {
-      lastRotation = currentRotation;
-    }
+    // Step to the nearest year exactly
+    lastRotation = Math.round(currentRotation / -STEP) * -STEP;
   }
 
   function smoothRender() {
@@ -74,61 +89,8 @@
     requestAnimationFrame(smoothRender);
   }
 
-  function snapToNearestYear() {
-    const rect = section.getBoundingClientRect();
-    const stickyTravel = rect.height - window.innerHeight;
-    const scrollRange = stickyTravel - ROT_START_OFFSET - getRotEndOffset();
-    const currentOffset = -rect.top - ROT_START_OFFSET;
-
-    // Chỉ snap khi đang ở trong vùng xoay (rotation zone)
-    if (currentOffset < 0 || currentOffset > scrollRange) return;
-
-    isSnapping = true;
-    const startRotation = smoothedRotation;
-    let targetRotation = Math.round(startRotation / -STEP) * -STEP;
-    // Clamp to valid range
-    targetRotation = Math.max(TOTAL_ROTATION, Math.min(0, targetRotation));
-
-    const duration = 800;
-    const t0 = performance.now();
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-    function step(now) {
-      const t = Math.min((now - t0) / duration, 1);
-      const eased = easeOutCubic(t);
-      lastRotation = startRotation + (targetRotation - startRotation) * eased;
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        lastRotation = targetRotation;
-        smoothedRotation = targetRotation;
-        isSnapping = false;
-
-        // Sync window.scrollY tới vị trí khớp với targetRotation
-        // để wheel tick kế tiếp không kéo rotation lệch khỏi năm
-        const rect2 = section.getBoundingClientRect();
-        const stickyTravel2 = rect2.height - window.innerHeight;
-        const scrollRange2 = stickyTravel2 - ROT_START_OFFSET - getRotEndOffset();
-        const progress = TOTAL_ROTATION !== 0 ? targetRotation / TOTAL_ROTATION : 0;
-        const scrollOffset = progress * scrollRange2;
-        const scrollY = window.scrollY + rect2.top + ROT_START_OFFSET + scrollOffset;
-        preventScrollSync = true;
-        if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-          window.lenis.scrollTo(scrollY, { immediate: true });
-        } else {
-          window.scrollTo({ top: scrollY, behavior: 'auto' });
-        }
-        requestAnimationFrame(() => { preventScrollSync = false; });
-      }
-    }
-    requestAnimationFrame(step);
-  }
-
   function onScroll() {
-    if (preventScrollSync) return;
     updateTimelineRotation();
-    if (snapTimer) clearTimeout(snapTimer);
-    snapTimer = setTimeout(snapToNearestYear, SNAP_DELAY);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -139,41 +101,63 @@
   requestAnimationFrame(smoothRender);
 
   // --- Setup GSAP ScrollTriggers for Zoom In/Out effects ---
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    const stageInner = section.querySelector('.timeline-stage-inner');
-    if (stageInner) {
-      // Zoom In on Enter
-      gsap.fromTo(stageInner,
-        { scale: 0.5, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1,
-          ease: "back.out(1.5)",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 90%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
+  //
+  // ROOT FIX for the "timeline shrinks mid-scroll" race condition:
+  // timeline.js runs *before* overview.js finishes registering its GSAP pin.
+  // When overview.js pins #hp-overview it inserts a ~2757px pin spacer that
+  // shifts every element below it down in scroll-space. If we register
+  // ScrollTriggers here (synchronously, during DOMContentLoaded), the
+  // coordinates for #history triggers are calculated WITHOUT that spacer,
+  // so zoom-out fires ~781px into the section instead of near the very end.
+  //
+  // Solution: defer GSAP setup to window 'load', which fires after ALL
+  // DOMContentLoaded callbacks — including the one in overview.js that
+  // creates the pin. ScrollTrigger.refresh() then recalculates with the
+  // pin spacer correctly included.
+  window.addEventListener('load', function initTimelineGSAP() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-      // Zoom Out on Exit
-      gsap.fromTo(stageInner,
-        { scale: 1, opacity: 1 },
-        {
-          scale: 0.7,
-          opacity: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "bottom 100%", // When bottom of section hits bottom of viewport
-            end: "bottom top",    // When bottom of section leaves top of viewport
-            scrub: true
-          }
+    const stageInner = section.querySelector('.timeline-stage-inner');
+    if (!stageInner) return;
+
+    // Zoom In on Enter — play once when section enters viewport from below.
+    // immediateRender: false so opacity:0 is NOT pre-applied before trigger fires.
+    gsap.fromTo(stageInner,
+      { scale: 0.85, opacity: 0, y: 50 },
+      {
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power2.out',
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          toggleActions: 'play none none none',
         }
-      );
-    }
-  }
+      }
+    );
+
+    // Zoom Out on Exit — only starts when section bottom is nearly at
+    // viewport top (section almost fully scrolled past), not mid-content.
+    gsap.to(stageInner,
+      {
+        scale: 0.85,
+        opacity: 0,
+        ease: 'power1.in',
+        scrollTrigger: {
+          trigger: section,
+          start: 'bottom 15%',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      }
+    );
+
+    // Force recalculate so any late-registered pins (overview spacer)
+    // are included in the trigger coordinate math.
+    ScrollTrigger.refresh();
+  });
 
 })();

@@ -2,6 +2,8 @@
 /**
  * Timeline Component
  */
+tecotec_enqueue_style('timeline');
+tecotec_enqueue_script('timeline', ['jquery', 'gsap', 'gsap-scroll-trigger'], true, 'timeline-js');
 ?>
 <section class="timeline-section" id="history" data-step="15">
     <div class="timeline-stage">

@@ -1,12 +1,13 @@
 <?php get_header(); ?>
 
 <?php get_template_part('components/homepage/hero'); ?>
-
+<?php get_template_part('components/homepage/overview'); ?>
 <?php get_template_part('components/homepage/timeline'); ?>
 
-<!-- Section 3: Achievements -->
+<!-- Section 4: Achievements -->
 <?php
 wp_enqueue_style('tecotec-achievements', get_template_directory_uri() . '/assets/css/achievements.css', array(), '1.0.0');
+wp_enqueue_script('tecotec-achievements', get_template_directory_uri() . '/assets/js/achievements.js', array('gsap', 'gsap-scroll-trigger'), '1.0.0', true);
 
 $achievements_data = [
     [
@@ -47,7 +48,7 @@ $achievements_data = [
 ];
 ?>
 
-<section class="hp-achievements">
+<section class="hp-achievements" id="hp-achievements">
     <div class="container hp-achievements-container">
         <!-- Top Section -->
         <div class="hp-achievements-top">
@@ -248,68 +249,7 @@ $achievements_data = [
             </div>
         </div>
 
-        <!-- Core Values Section -->
-        <div class="hp-core-values-section">
-            <h3 class="hp-core-values-title">GIÁ TRỊ CỐT LÕI</h3>
-            <div class="hp-core-values-grid">
-                <div class="hp-core-value-item">
-                    <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <circle cx="12" cy="12" r="6"></circle>
-                            <path d="M12 2v4"></path>
-                            <path d="M12 18v4"></path>
-                            <path d="M2 12h4"></path>
-                            <path d="M18 12h4"></path>
-                            <path d="M12 8v4h4"></path>
-                        </svg>
-                    </div>
-                    <div class="hp-core-value-content">
-                        <h4>CHÍNH XÁC</h4>
-                        <p>Theo đuổi sự chính xác trong từng chi tiết, từng giải pháp và từng cam kết.</p>
-                    </div>
-                </div>
 
-                <div class="hp-core-value-item">
-                    <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m11 17 2 2a1 1 0 1 0 3-3" />
-                            <path
-                                d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-7.3 7.3a1 1 0 0 1-1.41-1.41l7.3-7.3a7 7 0 0 1 9.9 0l3.89 3.89a3 3 0 0 1 0 4.24H22a1 1 0 0 1-1.41 1.41l-2.83-2.83" />
-                            <path
-                                d="m11 17-5.5-5.5a1 1 0 1 0-3 3l2.83 2.83a1 1 0 0 1-1.41 1.41l-2.83-2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3L8 22" />
-                        </svg>
-                    </div>
-                    <div class="hp-core-value-content">
-                        <h4>TRÁCH NHIỆM</h4>
-                        <p>Làm chủ công việc, giữ vững cam kết, đặt lợi ích khách hàng và cộng đồng lên hàng đầu.</p>
-                    </div>
-                </div>
-
-                <div class="hp-core-value-item">
-                    <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5" />
-                            <path d="M9 18h6" />
-                            <path d="M10 22h4" />
-                            <path d="m12 2 1 2" />
-                            <path d="m20 10 2 1" />
-                            <path d="m2 10 2-1" />
-                            <path d="m20 4-2 2" />
-                            <path d="m4 4 2 2" />
-                        </svg>
-                    </div>
-                    <div class="hp-core-value-content">
-                        <h4>KHÁT VỌNG</h4>
-                        <p>Không ngừng học hỏi, đổi mới và bứt phá để tạo ra giá trị vượt trội.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -380,5 +320,7 @@ $achievements_data = [
         }
     });
 </script>
+
+<?php get_template_part('components/homepage/anchor-sidebar'); ?>
 
 <?php get_footer(); ?>

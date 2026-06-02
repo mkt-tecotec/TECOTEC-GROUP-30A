@@ -1,0 +1,134 @@
+/* Anchor Sidebar Styles */
+.hp-anchor-sidebar {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.hp-anchor-ruler {
+    position: relative;
+    display: flex;
+}
+
+.hp-anchor-ruler::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.hp-anchor-list {
+    list-style: none;
+    margin: 0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 90px; /* Increased spacing, perfectly aligns with 30px ticks */
+    position: relative;
+    z-index: 2;
+}
+
+.hp-anchor-item {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 40px; /* Space for the mark and dot */
+    height: 12px;
+}
+
+.hp-anchor-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.hp-anchor-item.active .hp-anchor-label {
+    color: #ff9900;
+    text-shadow: 0 0 10px rgba(255, 153, 0, 0.4);
+}
+
+.hp-anchor-item:hover .hp-anchor-label:not(.active .hp-anchor-label) {
+    color: #ffffff;
+}
+
+.hp-anchor-mark {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1px;
+}
+
+.hp-anchor-mark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 9px;
+    height: 9px;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    background-color: #0b1a2d; /* Match the dark theme background */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.hp-anchor-item:hover .hp-anchor-mark {
+    width: 26px;
+    background-color: #ffffff;
+}
+
+.hp-anchor-item:hover .hp-anchor-mark::before {
+    border-color: #ffffff;
+}
+
+.hp-anchor-item.active .hp-anchor-mark {
+    width: 32px;
+    background-color: #ff9900;
+    box-shadow: 0 0 8px rgba(255, 153, 0, 0.5);
+}
+
+.hp-anchor-item.active .hp-anchor-mark::before {
+    border-color: #ff9900;
+    background-color: #ff9900;
+    box-shadow: 0 0 8px rgba(255, 153, 0, 0.5);
+}
+
+.hp-anchor-ticks {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 14px;
+    background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+    background-size: 8px 30px, 4px 6px;
+    background-position: right top, right top;
+    background-repeat: repeat-y;
+    z-index: 1;
+}
+
+@media (max-width: 1024px) {
+    .hp-anchor-sidebar {
+        display: none;
+    }
+}

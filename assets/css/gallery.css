@@ -103,27 +103,59 @@
     display: flex;
     justify-content: space-between;
     list-style: none;
-    padding: 0;
+    padding: 0 40px;
+    /* added padding to extend the ruler */
     margin: 0;
     position: relative;
     min-width: 100%;
 }
 
+/* Unified ruler track covering the entire tabs width including padding */
 .hp-gallery-tabs::before {
     content: '';
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     left: 0;
-    right: 0;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.15);
-    z-index: 1;
+    width: 100%;
+    height: 12px;
+    background-image:
+        /* Baseline */
+        linear-gradient(to right, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
+        /* Millimeter ticks every 5px */
+        repeating-linear-gradient(to right, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 5px),
+        /* Medium ticks every 25px */
+        repeating-linear-gradient(to right, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 25px);
+    background-size: 100% 1px, 100% 4px, 100% 8px;
+    background-position: left bottom, left bottom, left bottom;
+    background-repeat: no-repeat, repeat-x, repeat-x;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .hp-gallery-tab-item {
     position: relative;
-    flex: 1;
     text-align: center;
+    padding-bottom: 24px;
+}
+
+/* Draw the major tick exactly under the dot */
+.hp-gallery-tab-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 30px;
+    /* Taller tick that reaches behind the dot */
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 1;
+    pointer-events: none;
+    transition: background-color 0.3s ease;
+}
+
+.hp-gallery-tab-item:hover::after {
+    background-color: #E2E8F0;
 }
 
 .hp-gallery-tab-btn {
@@ -171,11 +203,18 @@
     background-color: #F97316;
     border-color: #F97316;
     transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+/* Make active major tick also highlight */
+.hp-gallery-tab-item:has(.is-active)::after {
+    background-color: #F97316;
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
 }
 
 .hp-gallery-sliding-line {
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     left: 0;
     width: 120px;
     height: 2px;
