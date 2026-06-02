@@ -82,10 +82,39 @@
     lastRotation = Math.round(currentRotation / -STEP) * -STEP;
   }
 
+  const tunnelCircle1 = section.querySelector('.tc-1');
+  const tunnelCircle2 = section.querySelector('.tc-2');
+
   function smoothRender() {
     smoothedRotation += (lastRotation - smoothedRotation) * EASE;
     circle.style.transform = `rotate(${smoothedRotation}deg)`;
     applyYearClasses(smoothedRotation);
+
+    // Dotted circle tunnel effect
+    if (tunnelCircle1 && tunnelCircle2) {
+      // --- BẠN CÓ THỂ CHỈNH TỐC ĐỘ PHÓNG TO Ở ĐÂY ---
+      // 1 = Phóng to hết cỡ trong lúc cuộn qua 1 năm.
+      // 2 = Phóng to chậm hơn một nửa (mất 2 năm để phóng hết vòng).
+      // 0.5 = Phóng to nhanh gấp đôi (1 năm phóng 2 lần).
+      const ZOOM_CYCLE = 3;
+
+      const exactIndex = Math.abs(smoothedRotation / STEP);
+      const fraction = (exactIndex % ZOOM_CYCLE) / ZOOM_CYCLE;
+      // ----------------------------------------------
+
+      const scale1 = 1 + fraction * 3; // Expands from 1x to 4x (tràn qua màn hình)
+      const opacity1 = 0.8 * (1 - Math.pow(fraction, 2)); // Fades out a bit later so we can see it get big
+
+      const scale2 = 0.25 + 0.75 * fraction; // Appears from 0.25x to 1x
+      const opacity2 = 0.8 * Math.pow(fraction, 0.5); // Fades in quickly
+
+      tunnelCircle1.style.transform = `scale(${scale1})`;
+      tunnelCircle1.style.opacity = opacity1;
+
+      tunnelCircle2.style.transform = `scale(${scale2})`;
+      tunnelCircle2.style.opacity = opacity2;
+    }
+
     requestAnimationFrame(smoothRender);
   }
 

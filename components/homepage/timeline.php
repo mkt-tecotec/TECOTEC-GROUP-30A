@@ -10,15 +10,15 @@ tecotec_enqueue_script('timeline', ['jquery', 'gsap', 'gsap-scroll-trigger'], tr
         <div class="timeline-stage-inner" style="width:100%; height:100%;">
             <div class="timeline-wrap-outer"></div>
 
-            <!-- Central Dotted Circle SVG -->
+            <!-- Central Dotted Circle Tunnel -->
             <div class="timeline-center-dot">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Outer dotted circle -->
-                    <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" stroke-dasharray="4 6" />
-                    <!-- Inner decorative circle -->
-                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(255, 153, 0, 0.2)" stroke-width="1" stroke-dasharray="2 4" />
-                    <!-- Center dot -->
-                    <circle cx="100" cy="100" r="4" fill="#FF9900" opacity="0.8"/>
+                <svg class="tunnel-circle tc-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="outer-circle" cx="100" cy="100" r="95" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="0 8" />
+                    <circle class="inner-circle" cx="100" cy="100" r="47" fill="none" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" stroke-linecap="round" stroke-dasharray="0 6" />
+                </svg>
+                <svg class="tunnel-circle tc-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="outer-circle" cx="100" cy="100" r="95" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="0 8" />
+                    <circle class="inner-circle" cx="100" cy="100" r="47" fill="none" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" stroke-linecap="round" stroke-dasharray="0 6" />
                 </svg>
             </div>
 
