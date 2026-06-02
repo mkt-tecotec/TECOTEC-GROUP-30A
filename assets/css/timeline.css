@@ -69,6 +69,30 @@
             rgba(23, 27, 65, 0) 80%);
 }
 
+.timeline-center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vh;
+    height: 80vh;
+    max-width: 80vw;
+    z-index: 2; /* behind the text */
+    pointer-events: none;
+    animation: rotateTimelineDot 100s linear infinite;
+    opacity: 0.6;
+}
+
+.timeline-center-dot svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes rotateTimelineDot {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 .timeline-wrap {
     position: absolute;
     inset: 0;
