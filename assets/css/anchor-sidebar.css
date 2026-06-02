@@ -1,0 +1,119 @@
+/* Anchor Sidebar Styles */
+.hp-anchor-sidebar {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.hp-anchor-ruler {
+    position: relative;
+    display: flex;
+}
+
+.hp-anchor-ruler::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.hp-anchor-list {
+    list-style: none;
+    margin: 0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 45px; /* Spacing between major marks */
+    position: relative;
+    z-index: 2;
+}
+
+.hp-anchor-item {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 25px; /* Space for the mark */
+    height: 12px;
+}
+
+.hp-anchor-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.hp-anchor-sidebar:hover .hp-anchor-label,
+.hp-anchor-item.active .hp-anchor-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hp-anchor-item.active .hp-anchor-label {
+    color: #ff9900;
+    text-shadow: 0 0 10px rgba(255, 153, 0, 0.4);
+}
+
+.hp-anchor-item:hover .hp-anchor-label:not(.active .hp-anchor-label) {
+    color: #ffffff;
+}
+
+.hp-anchor-mark {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1px;
+}
+
+.hp-anchor-item:hover .hp-anchor-mark {
+    width: 20px;
+    background-color: #ffffff;
+}
+
+.hp-anchor-item.active .hp-anchor-mark {
+    width: 26px;
+    background-color: #ff9900;
+    box-shadow: 0 0 8px rgba(255, 153, 0, 0.5);
+}
+
+.hp-anchor-ticks {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 8px;
+    /* Ruler ticks effect */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3) 0px,
+        rgba(255, 255, 255, 0.3) 1px,
+        transparent 1px,
+        transparent 9px
+    );
+    z-index: 1;
+}
+
+@media (max-width: 1024px) {
+    .hp-anchor-sidebar {
+        display: none;
+    }
+}

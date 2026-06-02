@@ -48,7 +48,7 @@ $achievements_data = [
 ];
 ?>
 
-<section class="hp-achievements">
+<section class="hp-achievements" id="hp-achievements">
     <div class="container hp-achievements-container">
         <!-- Top Section -->
         <div class="hp-achievements-top">
@@ -320,5 +320,7 @@ $achievements_data = [
         }
     });
 </script>
+
+<?php get_template_part('components/homepage/anchor-sidebar'); ?>
 
 <?php get_footer(); ?>

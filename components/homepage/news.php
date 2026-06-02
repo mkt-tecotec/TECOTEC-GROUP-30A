@@ -63,9 +63,7 @@ function tecotec_news_placeholder( $w, $h, $label = 'TECOTEC+News' ) {
         <!-- ── Header ──────────────────────────────────── -->
         <div class="hp-news-header">
             <div class="hp-news-header-left">
-                <div class="hp-news-label">
-                    TIN TỨC &amp; SỰ KIỆN
-                </div>
+
                 <h2 class="hp-news-title">CẬP NHẬT HÀNH TRÌNH 30 NĂM</h2>
                 <p class="hp-news-desc">
                     Những hoạt động, sự kiện và cột mốc đáng nhớ trên hành trình

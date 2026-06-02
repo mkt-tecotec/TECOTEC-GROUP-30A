@@ -6,7 +6,7 @@ tecotec_enqueue_style('hero', ['tecotec-main-css']);
 
 ?>
 <!-- Section 1: Hero Banner -->
-<section class="hp-hero">
+<section class="hp-hero" id="hp-hero">
     <div class="container hp-hero-container">
         <div class="hp-hero-visual">
             <video id="hero-video" autoplay loop muted playsinline>

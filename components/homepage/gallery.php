@@ -115,7 +115,7 @@ foreach ($base_gallery_data as $item) {
 }
 ?>
 
-<section class="hp-gallery">
+<section class="hp-gallery" id="hp-gallery">
     <div class="container">
         <!-- Section Header -->
         <div class="hp-gallery-header">
