@@ -10,16 +10,32 @@ tecotec_enqueue_script('timeline', ['jquery', 'gsap', 'gsap-scroll-trigger'], tr
         <div class="timeline-stage-inner" style="width:100%; height:100%;">
             <div class="timeline-wrap-outer"></div>
 
-            <!-- Central Dotted Circle Tunnel -->
+            <!-- Central Dotted Circle Tunnel (using SVG assets) -->
             <div class="timeline-center-dot">
-                <svg class="tunnel-circle tc-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="outer-circle" cx="100" cy="100" r="95" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="0 8" />
-                    <circle class="inner-circle" cx="100" cy="100" r="47" fill="none" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" stroke-linecap="round" stroke-dasharray="0 6" />
-                </svg>
-                <svg class="tunnel-circle tc-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="outer-circle" cx="100" cy="100" r="95" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="0 8" />
-                    <circle class="inner-circle" cx="100" cy="100" r="47" fill="none" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" stroke-linecap="round" stroke-dasharray="0 6" />
-                </svg>
+                <?php
+                // Generate random floating particles for the tunnel
+                $particles_html = '';
+                $colors = ['#FF9900', '#ffffff', '#146EB4'];
+                for ($i = 0; $i < 40; $i++) {
+                    $top = rand(0, 100);
+                    $left = rand(0, 100);
+                    $size = rand(2, 5);
+                    $opacity = rand(40, 95) / 100; // Tăng độ sáng (opacity cao hơn)
+                    $color = $colors[array_rand($colors)];
+                    $delay = (rand(0, 50) / 10) . 's';
+                    $particles_html .= "<div class='floating-dot' style='top: {$top}%; left: {$left}%; width: {$size}px; height: {$size}px; opacity: {$opacity}; background-color: {$color}; box-shadow: 0 0 12px {$color}; animation-delay: {$delay};'></div>";
+                }
+                ?>
+                <div class="tunnel-circle tc-1">
+                    <div class="particles-layer"><?php echo $particles_html; ?></div>
+                    <img class="outer-circle" src="<?php echo get_template_directory_uri(); ?>/assets/icons/circle-dots-2.svg" alt="">
+                    <img class="inner-circle" src="<?php echo get_template_directory_uri(); ?>/assets/icons/circle-dots-2.svg" alt="">
+                </div>
+                <div class="tunnel-circle tc-2">
+                    <div class="particles-layer"><?php echo $particles_html; ?></div>
+                    <img class="outer-circle" src="<?php echo get_template_directory_uri(); ?>/assets/icons/circle-dots-2.svg" alt="">
+                    <img class="inner-circle" src="<?php echo get_template_directory_uri(); ?>/assets/icons/circle-dots-2.svg" alt="">
+                </div>
             </div>
 
             <div class="timeline-intro">
