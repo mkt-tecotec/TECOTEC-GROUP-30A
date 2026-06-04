@@ -1,95 +1,104 @@
-/* Hero Section */
+/* ==============================
+   Hero Section — SVG + Text Layout
+   ============================== */
+
 .hp-hero {
     position: relative;
-    background: #d9d9d9;
-    min-height: calc(100vh - 84px);
-    /* Account for header height if needed */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, #020c1b 0%, #051a3a 50%, #0b2c5f 100%);
+    /* gradient from provided variables */
     overflow: hidden;
-    padding-top: 60px;
-    padding-bottom: 60px;
 }
 
-
-/* Container */
-.hp-hero-container {
+/* Wrapper căn giữa toàn bộ nội dung */
+.hp-hero-inner {
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    gap: 0px;
+    padding: 120px 20px 60px;
+    /* padding-top để tránh header absolute */
     width: 100%;
-    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Visual (Top) */
+/* SVG Logo */
 .hp-hero-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    max-width: 650px;
+    max-width: 560px;
+    position: relative;
+    overflow: visible;
 }
 
-.hp-hero-visual video {
+.hp-hero-logo {
     width: 100%;
     height: auto;
-    object-fit: contain;
-    mix-blend-mode: multiply;
+    display: block;
+    opacity: 0;
 }
 
-/* Content (Bottom) */
+/* Text content */
 .hp-hero-content {
-    max-width: 1200px;
-    text-align: center;
+    width: 100%;
+    margin-top: -16px;
 }
 
 .hp-hero-title {
-    color: #00172f;
-    font-size: 2.8rem;
+    color: #ffffff;
+    font-size: 2.6rem;
     line-height: 1.35;
     font-weight: 700;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     letter-spacing: -0.5px;
 }
 
 .hp-hero-highlight {
-    color: #ff9900;
+    color: #fe7c03;
+    /* updated to new secondary-color */
 }
 
 .hp-hero-desc {
-    color: #4a5568;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.8;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 680px;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .hp-hero-br {
         display: none;
     }
-}
 
-/* Responsive */
-@media (max-width: 1000px) {
-    .hp-hero-container {
-        gap: 30px;
-        padding-top: 20px;
+    .hp-hero-title {
+        font-size: 1.8rem;
     }
 
     .hp-hero-visual {
-        max-width: 90%;
+        max-width: 85vw;
     }
 
-    .hp-hero-title {
-        font-size: 2rem;
+    .hp-hero-inner {
+        gap: 24px;
+        padding: 110px 16px 48px;
     }
-    
+}
+
+@media (max-width: 480px) {
+    .hp-hero-title {
+        font-size: 1.5rem;
+    }
+
     .hp-hero-desc {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 }
