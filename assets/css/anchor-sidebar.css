@@ -12,30 +12,22 @@
     display: flex;
 }
 
-.hp-anchor-ruler::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-}
+/* Removed hp-anchor-ruler::after because the SVG has its own vertical line */
 
 .hp-anchor-list {
     list-style: none;
     margin: 0;
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 90px; /* Increased spacing, perfectly aligns with 30px ticks */
+    padding: 0;
+    display: block;
     position: relative;
     z-index: 2;
+    height: 536.3px; /* Exactly 509.12 (last tick) + 27.16 (top extension) = 536.28px */
 }
 
 .hp-anchor-item {
-    position: relative;
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%); /* Centers the item perfectly on its exact top coordinate */
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -115,15 +107,13 @@
 .hp-anchor-ticks {
     position: absolute;
     right: 0;
-    top: 20px;
-    bottom: 20px;
-    width: 14px;
-    background-image: 
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
-    background-size: 8px 30px, 4px 6px;
-    background-position: right top, right top;
-    background-repeat: repeat-y;
+    top: 0;
+    bottom: 0;
+    width: 26px;
+    background-image: url('../image/doc_milestone.svg');
+    background-size: 25.33px 1708.02px; /* 1 unit = 1 pixel scale */
+    background-position: top right;
+    background-repeat: no-repeat;
     z-index: 1;
 }
 

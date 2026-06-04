@@ -140,18 +140,34 @@ foreach ($base_gallery_data as $item) {
                 </svg>
             </button>
             <div class="hp-gallery-nav">
-                <ul class="hp-gallery-tabs">
-                    <li class="hp-gallery-sliding-line" aria-hidden="true"></li>
-                    <?php foreach ($gallery_data as $index => $item): ?>
-                        <li class="hp-gallery-tab-item">
-                            <button class="hp-gallery-tab-btn <?php echo $index === 3 ? 'is-active' : ''; ?>"
-                                data-index="<?php echo $index; ?>">
-                                <span class="tab-year"><?php echo esc_html($item['label']); ?></span>
-                                <span class="tab-dot"></span>
-                            </button>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
+                <div class="hp-gallery-tabs-container" style="position: relative; min-width: 800px; width: 100%;">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/ngang_milestone.svg" class="hp-gallery-ruler-svg" alt="Ruler" style="width: 100%; height: auto; display: block;">
+                    
+                    <ul class="hp-gallery-tabs">
+                        <li class="hp-gallery-sliding-line" aria-hidden="true"></li>
+                        <?php 
+                        $percentages = [
+                            '8.369%',
+                            '22.245%',
+                            '36.121%',
+                            '50.000%',
+                            '63.879%',
+                            '77.755%',
+                            '91.631%'
+                        ];
+                        foreach ($gallery_data as $index => $item): 
+                            $top_pct = 0; // Align to the top of the SVG milestones
+                        ?>
+                            <li class="hp-gallery-tab-item" style="left: <?php echo $percentages[$index]; ?>; top: <?php echo $top_pct; ?>%;">
+                                <button class="hp-gallery-tab-btn <?php echo $index === 3 ? 'is-active' : ''; ?>"
+                                    data-index="<?php echo $index; ?>">
+                                    <span class="tab-year"><?php echo esc_html($item['label']); ?></span>
+                                    <span class="tab-dot"></span>
+                                </button>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
             <button class="hp-gallery-nav-arrow next" aria-label="Next">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

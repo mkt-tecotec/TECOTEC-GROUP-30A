@@ -149,21 +149,20 @@
     const stageInner = section.querySelector('.timeline-stage-inner');
     if (!stageInner) return;
 
-    // Zoom In on Enter — play once when section enters viewport from below.
-    // immediateRender: false so opacity:0 is NOT pre-applied before trigger fires.
+    // Zoom In on Enter — now scrubbed to match user scroll speed as it stacks over overview.
+    // The scale and opacity synchronize with the physical slide-up of the section.
     gsap.fromTo(stageInner,
-      { scale: 0.85, opacity: 0, y: 50 },
+      { scale: 0.95, opacity: 0 },
       {
         scale: 1,
         opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power2.out',
-        immediateRender: false,
+        ease: 'none',
+        immediateRender: true,
         scrollTrigger: {
           trigger: section,
-          start: 'top bottom',
-          toggleActions: 'play none none none',
+          start: 'top bottom', // Begins animating when the top of timeline touches bottom of viewport
+          end: 'top top',      // Reaches full state when it completely covers the overview
+          scrub: 0.5,
         }
       }
     );

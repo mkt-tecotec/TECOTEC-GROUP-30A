@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: wrapper,
             start: "top top",
-            end: "+=300%", // Scroll distance corresponds to 3 sections
+            end: "+=300%", // Reduced from +=400% to scroll to the timeline faster
             pin: true,
             scrub: 1
         }
@@ -131,14 +131,19 @@ document.addEventListener('DOMContentLoaded', () => {
         tl.to({}, { duration: 0.8 });
 
         // Fade out with a cinematic exit
-        tl.to(text, { 
-            autoAlpha: 0, 
-            y: -60, 
-            scale: 1.05, 
-            filter: "blur(10px)", 
-            duration: 1.2, 
-            ease: "power2.in" 
+        tl.to(text, {
+            autoAlpha: 0,
+            y: -60,
+            scale: 1.05,
+            filter: "blur(10px)",
+            duration: 1.2,
+            ease: "power2.in"
         });
         tl.to(section, { autoAlpha: 0, duration: 0.1 });
     });
+
+    // Add a final empty transition phase to keep the overview wrapper pinned
+    // while the timeline section slides up and covers it.
+    // The duration is set to match 1/3 of the total text animations duration (approx. 4.8 units).
+    tl.to({}, { duration: 4.8 });
 });
