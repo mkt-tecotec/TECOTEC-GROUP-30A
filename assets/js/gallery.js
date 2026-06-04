@@ -97,10 +97,12 @@
             // Scroll nav if needed
             const $nav = $('.hp-gallery-nav');
             const navWidth = $nav.width();
-            const btnLeft = $this.position().left;
-            const btnWidth = $this.outerWidth();
-            const currentScroll = $nav.scrollLeft();
-            const targetScroll = currentScroll + btnLeft - (navWidth / 2) + (btnWidth / 2);
+            
+            // Calculate relative to the scrolling container
+            const $tabItem = $this.closest('.hp-gallery-tab-item');
+            const itemLeft = $tabItem.position().left; 
+            
+            const targetScroll = itemLeft - (navWidth / 2);
             $nav.animate({ scrollLeft: targetScroll }, 300);
         }
 

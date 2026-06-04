@@ -1,12 +1,13 @@
 <?php get_header(); ?>
 
 <?php get_template_part('components/homepage/hero'); ?>
-
+<?php get_template_part('components/homepage/overview'); ?>
 <?php get_template_part('components/homepage/timeline'); ?>
 
-<!-- Section 3: Achievements -->
+<!-- Section 4: Achievements -->
 <?php
 wp_enqueue_style('tecotec-achievements', get_template_directory_uri() . '/assets/css/achievements.css', array(), '1.0.0');
+wp_enqueue_script('tecotec-achievements', get_template_directory_uri() . '/assets/js/achievements.js', array('gsap', 'gsap-scroll-trigger'), '1.0.0', true);
 
 $achievements_data = [
     [
@@ -47,7 +48,7 @@ $achievements_data = [
 ];
 ?>
 
-<section class="hp-achievements">
+<section class="hp-achievements" id="hp-achievements">
     <div class="container hp-achievements-container">
         <!-- Top Section -->
         <div class="hp-achievements-top">
@@ -248,74 +249,203 @@ $achievements_data = [
             </div>
         </div>
 
-        <!-- Core Values Section -->
-        <div class="hp-core-values-section">
-            <h3 class="hp-core-values-title">GIÁ TRỊ CỐT LÕI</h3>
-            <div class="hp-core-values-grid">
-                <div class="hp-core-value-item">
-                    <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <circle cx="12" cy="12" r="6"></circle>
-                            <path d="M12 2v4"></path>
-                            <path d="M12 18v4"></path>
-                            <path d="M2 12h4"></path>
-                            <path d="M18 12h4"></path>
-                            <path d="M12 8v4h4"></path>
-                        </svg>
-                    </div>
-                    <div class="hp-core-value-content">
-                        <h4>CHÍNH XÁC</h4>
-                        <p>Theo đuổi sự chính xác trong từng chi tiết, từng giải pháp và từng cam kết.</p>
-                    </div>
-                </div>
 
-                <div class="hp-core-value-item">
-                    <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m11 17 2 2a1 1 0 1 0 3-3" />
-                            <path
-                                d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-7.3 7.3a1 1 0 0 1-1.41-1.41l7.3-7.3a7 7 0 0 1 9.9 0l3.89 3.89a3 3 0 0 1 0 4.24H22a1 1 0 0 1-1.41 1.41l-2.83-2.83" />
-                            <path
-                                d="m11 17-5.5-5.5a1 1 0 1 0-3 3l2.83 2.83a1 1 0 0 1-1.41 1.41l-2.83-2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3L8 22" />
-                        </svg>
-                    </div>
-                    <div class="hp-core-value-content">
-                        <h4>TRÁCH NHIỆM</h4>
-                        <p>Làm chủ công việc, giữ vững cam kết, đặt lợi ích khách hàng và cộng đồng lên hàng đầu.</p>
-                    </div>
-                </div>
-
-                <div class="hp-core-value-item">
-                    <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5" />
-                            <path d="M9 18h6" />
-                            <path d="M10 22h4" />
-                            <path d="m12 2 1 2" />
-                            <path d="m20 10 2 1" />
-                            <path d="m2 10 2-1" />
-                            <path d="m20 4-2 2" />
-                            <path d="m4 4 2 2" />
-                        </svg>
-                    </div>
-                    <div class="hp-core-value-content">
-                        <h4>KHÁT VỌNG</h4>
-                        <p>Không ngừng học hỏi, đổi mới và bứt phá để tạo ra giá trị vượt trội.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
 <?php get_template_part('components/homepage/gallery'); ?>
 
 <?php get_template_part('components/homepage/news'); ?>
+
+<?php
+// Enqueue anniversary homepage sections CSS
+tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
+?>
+
+<!-- ════════════════════════════════════════════════════════════
+     Section: Tải hình nền nhận diện 30 năm
+     ════════════════════════════════════════════════════════════ -->
+<section class="hp-anniv hp-wallpaper" id="hp-wallpaper" aria-labelledby="hp-wallpaper-title">
+    <div class="hp-anniv__shell">
+        <div class="hp-wallpaper__grid">
+
+            <!-- Left: Text -->
+            <div class="hp-wallpaper__text">
+                <p class="hp-wallpaper__eyebrow">TECOTEC GROUP 1996 – 2026</p>
+                <h2 id="hp-wallpaper-title" class="hp-wallpaper__title">
+                    Hình nền <span>kỷ niệm</span><br>30 năm thành lập
+                </h2>
+                <p class="hp-wallpaper__desc">
+                    Tải bộ hình nền nhận diện thương hiệu dành riêng cho dịp 30 năm TECOTEC Group. 
+                    Phù hợp màn hình máy tính, điện thoại và máy tính bảng — chất lượng cao, miễn phí.
+                </p>
+
+                <div class="hp-wallpaper__sizes">
+                    <span class="hp-wallpaper__size-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        Desktop 1920×1080
+                    </span>
+                    <span class="hp-wallpaper__size-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+                        iPhone 1170×2532
+                    </span>
+                    <span class="hp-wallpaper__size-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+                        Android 1080×2400
+                    </span>
+                </div>
+
+                <a href="<?php echo home_url('/hinh-nen-30-nam/'); ?>" class="hp-wallpaper__btn" id="hp-wallpaper-cta">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Tải hình nền ngay
+                </a>
+            </div>
+
+            <!-- Right: Visual mockup -->
+            <div class="hp-wallpaper__visual">
+                <div class="hp-wallpaper__devices">
+                    <!-- Floating badge -->
+                    <div class="hp-wallpaper__badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        Chất lượng 4K · Miễn phí
+                    </div>
+
+                    <!-- Desktop frame -->
+                    <div class="hp-wallpaper__desktop-frame">
+                        <img 
+                            class="hp-wallpaper__desktop-img" 
+                            src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/1920x1080.png" 
+                            alt="Hình nền máy tính 30 năm TECOTEC Group"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <!-- Phone frame -->
+                    <div class="hp-wallpaper__phone-frame">
+                        <img 
+                            class="hp-wallpaper__phone-img" 
+                            src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/600x600.png" 
+                            alt="Hình nền điện thoại 30 năm TECOTEC Group"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     Section: Tạo khung ảnh Avatar kỷ niệm 30 năm
+     ════════════════════════════════════════════════════════════ -->
+<section class="hp-anniv hp-avatar" id="hp-avatar" aria-labelledby="hp-avatar-title">
+    <div class="hp-anniv__shell">
+        <div class="hp-avatar__grid">
+
+            <!-- Left: Visual mockup carousel -->
+            <div class="hp-avatar__visual">
+                <div class="hp-avatar__carousel" aria-hidden="true">
+
+                    <!-- Top card -->
+                    <div class="hp-avatar__card hp-avatar__card--top">
+                        <div class="hp-avatar__card-inner">
+                            <div class="hp-avatar__card-photo">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/tat-nien-2026.webp" alt="" aria-hidden="true">
+                            </div>
+                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+
+                    <!-- Left card -->
+                    <div class="hp-avatar__card hp-avatar__card--left">
+                        <div class="hp-avatar__card-inner">
+                            <div class="hp-avatar__card-photo">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/600x600.png" alt="" aria-hidden="true">
+                            </div>
+                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+
+                    <!-- Center card — main -->
+                    <div class="hp-avatar__card hp-avatar__card--center">
+                        <div class="hp-avatar__card-inner">
+                            <div class="hp-avatar__card-photo">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/con-nguoi.webp" alt="" aria-hidden="true">
+                            </div>
+                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+
+                    <!-- Right card -->
+                    <div class="hp-avatar__card hp-avatar__card--right">
+                        <div class="hp-avatar__card-inner">
+                            <div class="hp-avatar__card-photo">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-da-bong.webp" alt="" aria-hidden="true">
+                            </div>
+                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+
+                    <!-- Bottom card -->
+                    <div class="hp-avatar__card hp-avatar__card--bottom">
+                        <div class="hp-avatar__card-inner">
+                            <div class="hp-avatar__card-photo">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-goi-banh-chung.webp" alt="" aria-hidden="true">
+                            </div>
+                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Text -->
+            <div class="hp-avatar__content">
+                <p class="hp-avatar__eyebrow">TẠO AVATAR KỶ NIỆM</p>
+                <h2 id="hp-avatar-title" class="hp-avatar__title">
+                    Khung ảnh đại diện<br><span>30 năm TECOTEC</span>
+                </h2>
+                <p class="hp-avatar__desc">
+                    Cùng nhau lan tỏa tinh thần kỷ niệm — tải ảnh cá nhân, chọn khung nhận diện 
+                    30 năm và xuất avatar 1080×1080 để đăng lên Facebook, Zalo hoặc hồ sơ nội bộ.
+                </p>
+
+                <div class="hp-avatar__steps">
+                    <div class="hp-avatar__step">
+                        <span class="hp-avatar__step-num">01</span>
+                        <span class="hp-avatar__step-text">Tải ảnh cá nhân (JPG hoặc PNG)</span>
+                    </div>
+                    <div class="hp-avatar__step">
+                        <span class="hp-avatar__step-num">02</span>
+                        <span class="hp-avatar__step-text">Chọn kiểu khung kỷ niệm 30 năm</span>
+                    </div>
+                    <div class="hp-avatar__step">
+                        <span class="hp-avatar__step-num">03</span>
+                        <span class="hp-avatar__step-text">Xuất & chia sẻ ngay lập tức</span>
+                    </div>
+                </div>
+
+                <a href="<?php echo home_url('/tao-khung-30-nam/'); ?>" class="hp-avatar__btn" id="hp-avatar-cta">
+                    Tạo avatar ngay
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Hashtag row -->
+        <div class="hp-anniv-hashtag">
+            <span class="hp-anniv-hashtag__text">Hãy đăng ảnh avatar cùng hashtag:</span>
+            <div class="hp-anniv-hashtag__tags">
+                <a href="#" class="hp-anniv-hashtag__tag">#TECOTEC30Nam</a>
+                <a href="#" class="hp-anniv-hashtag__tag">#TECOTEC1996_2026</a>
+                <a href="#" class="hp-anniv-hashtag__tag">#KienTaoGiaTri</a>
+                <a href="#" class="hp-anniv-hashtag__tag">#TECOTECGroup</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <!-- Floating Anniversary Logo -->
@@ -380,5 +510,7 @@ $achievements_data = [
         }
     });
 </script>
+
+<?php get_template_part('components/homepage/anchor-sidebar'); ?>
 
 <?php get_footer(); ?>

@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="site-branding-logos">
                     <a href="https://tecotec.com.vn/" class="logo-main">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-TECOTEC-Group-white.svg"
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-TECOTEC-Group.svg"
                             alt="TECOTEC Group">
                     </a>
                     <div class="logo-divider"></div>

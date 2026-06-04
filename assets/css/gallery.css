@@ -92,7 +92,7 @@
     overflow-x: auto;
     scrollbar-width: none;
     position: relative;
-    padding: 10px 0;
+    padding: 60px 0 20px 0; /* Extra top padding so the text doesn't clip */
 }
 
 .hp-gallery-nav::-webkit-scrollbar {
@@ -100,30 +100,38 @@
 }
 
 .hp-gallery-tabs {
-    display: flex;
-    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     list-style: none;
     padding: 0;
     margin: 0;
-    position: relative;
     min-width: 100%;
 }
 
-.hp-gallery-tabs::before {
-    content: '';
+.hp-gallery-tab-item {
     position: absolute;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.15);
-    z-index: 1;
+    top: 0 !important; /* Override inline top */
+    height: 100%; /* Spans from top of SVG to baseline */
+    text-align: center;
+    transform: translateX(-50%); /* Center horizontally on the percentage */
+    z-index: 2;
 }
 
-.hp-gallery-tab-item {
-    position: relative;
-    flex: 1;
-    text-align: center;
+/* Draw the major tick (cột mốc) from the dot down to the baseline */
+.hp-gallery-tab-item::before {
+    content: '';
+    position: absolute;
+    top: -4px; /* Starts exactly from the bottom of the dot */
+    bottom: 0; /* Reaches exactly down to the baseline, no matter the SVG height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: #fff;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .hp-gallery-tab-btn {
@@ -137,7 +145,12 @@
     gap: 16px;
     outline: none;
     z-index: 2;
-    position: relative;
+    position: absolute;
+    bottom: 100%; /* Puts the button exactly above the SVG */
+    margin-bottom: 4px; /* Gap above the SVG */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .tab-year {
@@ -173,14 +186,15 @@
     transform: scale(1.2);
 }
 
+/* Active styling adjustments not needed since tick is removed */
+
 .hp-gallery-sliding-line {
     position: absolute;
-    bottom: 5px;
-    left: 0;
+    top: 100%; /* Lock to the baseline */
     width: 120px;
     height: 2px;
     background: linear-gradient(90deg, rgba(249, 115, 22, 0), rgba(249, 115, 22, 1) 50%, rgba(249, 115, 22, 0));
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 1;
     border-radius: 2px;
     transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
