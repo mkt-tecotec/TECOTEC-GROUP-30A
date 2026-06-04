@@ -1,0 +1,703 @@
+/* =============================================================
+   Homepage Anniversary Sections — 30 năm TECOTEC GROUP
+   Wallpaper download + Avatar frame promo
+   ============================================================= */
+
+/* ── Section shared base ─────────────────────────────────────── */
+.hp-anniv {
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.hp-anniv__shell {
+    width: min(var(--container-width, 1200px), calc(100% - 3rem));
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* ── Wallpaper Section ───────────────────────────────────────── */
+.hp-wallpaper {
+    background: var(--dark-navy, #051a3a);
+    padding: 100px 0;
+}
+
+/* Animated star-particle background */
+.hp-wallpaper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(11, 44, 95, 0.8) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 30%, rgba(254, 124, 3, 0.12) 0%, transparent 60%);
+    z-index: 0;
+}
+
+.hp-wallpaper__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+/* Left: text content */
+.hp-wallpaper__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary-color, #fe7c03);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.hp-wallpaper__eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--secondary-color, #fe7c03);
+    flex-shrink: 0;
+}
+
+.hp-wallpaper__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.hp-wallpaper__title span {
+    color: var(--secondary-color, #fe7c03);
+}
+
+.hp-wallpaper__desc {
+    margin: 0 0 2rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 50ch;
+}
+
+/* Device download pills */
+.hp-wallpaper__sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.25rem;
+}
+
+.hp-wallpaper__size-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.hp-wallpaper__size-pill svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+/* CTA button */
+.hp-wallpaper__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.95rem 2rem;
+    border-radius: 60px;
+    background: var(--secondary-color, #fe7c03);
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.28s ease,
+                background 0.2s ease;
+    box-shadow: 0 8px 30px rgba(254, 124, 3, 0.35);
+}
+
+.hp-wallpaper__btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(254, 124, 3, 0.5);
+    color: #ffffff !important;
+}
+
+.hp-wallpaper__btn svg {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.hp-wallpaper__btn:hover svg {
+    transform: translateY(2px);
+}
+
+/* Right: visual mockup */
+.hp-wallpaper__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-wallpaper__devices {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+/* Desktop frame mockup */
+.hp-wallpaper__desktop-frame {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 10px 10px 24px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+.hp-wallpaper__desktop-frame::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin: 8px auto 0;
+}
+
+.hp-wallpaper__desktop-frame::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    margin: 0 0 6px 8px;
+    box-shadow: 14px 0 0 rgba(255,255,255,0.2), 28px 0 0 rgba(255,255,255,0.2);
+}
+
+.hp-wallpaper__desktop-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+}
+
+/* Phone frame overlay */
+.hp-wallpaper__phone-frame {
+    position: absolute;
+    bottom: -20px;
+    right: -30px;
+    width: 100px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    padding: 6px 6px 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hp-wallpaper__phone-frame::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin: 0 auto 4px;
+}
+
+.hp-wallpaper__phone-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 9 / 19;
+}
+
+/* Floating badge */
+.hp-wallpaper__badge {
+    position: absolute;
+    top: -18px;
+    left: -20px;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 1rem;
+    background: linear-gradient(135deg, var(--primary-color, #0b2c5f), #164080);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    animation: hp-float 3s ease-in-out infinite;
+}
+
+@keyframes hp-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Floating animations for surrounding cards */
+@keyframes hp-float-left {
+    0%, 100% { transform: translateX(-190px) scale(0.88) rotate(-8deg); }
+    50%       { transform: translateX(-190px) scale(0.88) rotate(-8deg) translateY(-10px); }
+}
+
+@keyframes hp-float-right {
+    0%, 100% { transform: translateX(190px) scale(0.88) rotate(8deg); }
+    50%       { transform: translateX(190px) scale(0.88) rotate(8deg) translateY(10px); }
+}
+
+@keyframes hp-float-top {
+    0%, 100% { transform: translateY(-185px) scale(0.84) rotate(5deg); }
+    50%       { transform: translateY(-185px) scale(0.84) rotate(5deg) translateX(10px); }
+}
+
+@keyframes hp-float-bottom {
+    0%, 100% { transform: translateY(185px) scale(0.84) rotate(-5deg); }
+    50%       { transform: translateY(185px) scale(0.84) rotate(-5deg) translateX(-10px); }
+}
+
+/* ── Avatar Section ──────────────────────────────────────────── */
+.hp-avatar {
+    background: var(--dark-blue, #020c1b);
+    padding: 100px 0;
+}
+
+.hp-avatar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 50% 70% at 75% 50%, rgba(11, 44, 95, 0.7) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 40% at 15% 60%, rgba(254, 124, 3, 0.08) 0%, transparent 60%);
+    z-index: 0;
+}
+
+/* Top decorative separator line */
+.hp-avatar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(254,124,3,0.6), transparent);
+}
+
+.hp-avatar__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+/* Right: text */
+.hp-avatar__content {
+    order: 2;
+}
+
+.hp-avatar__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary-color, #fe7c03);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.hp-avatar__eyebrow::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--secondary-color, #fe7c03);
+    flex-shrink: 0;
+}
+
+.hp-avatar__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.hp-avatar__title span {
+    color: var(--secondary-color, #fe7c03);
+}
+
+.hp-avatar__desc {
+    margin: 0 0 2rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 50ch;
+}
+
+/* Step pills */
+.hp-avatar__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 2.25rem;
+}
+
+.hp-avatar__step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hp-avatar__step-num {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(254, 124, 3, 0.15);
+    border: 1px solid rgba(254, 124, 3, 0.35);
+    color: var(--secondary-color, #fe7c03);
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-avatar__step-text {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* CTA Button */
+.hp-avatar__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.95rem 2rem;
+    border-radius: 60px;
+    background: transparent;
+    border: 2px solid var(--secondary-color, #fe7c03);
+    color: var(--secondary-color, #fe7c03) !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.22s ease,
+                color 0.22s ease,
+                box-shadow 0.28s ease;
+}
+
+.hp-avatar__btn:hover {
+    background: var(--secondary-color, #fe7c03);
+    color: #ffffff !important;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(254, 124, 3, 0.4);
+}
+
+.hp-avatar__btn svg {
+    transition: transform 0.25s ease;
+}
+
+.hp-avatar__btn:hover svg {
+    transform: translateX(4px);
+}
+
+/* Left: Visual — avatar carousel mockup */
+.hp-avatar__visual {
+    order: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-avatar__carousel {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    height: 440px;
+}
+
+/* Individual avatar mockup cards */
+.hp-avatar__card {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.12);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+/* Center card — main hero */
+.hp-avatar__card--center {
+    position: relative;
+    z-index: 4;
+    width: 260px;
+    height: 260px;
+    border-color: var(--secondary-color, #fe7c03);
+    box-shadow: 0 0 0 1px rgba(254,124,3,0.3), 0 30px 60px rgba(0,0,0,0.6);
+    animation: hp-float 4s ease-in-out infinite;
+}
+
+.hp-avatar__card--left {
+    z-index: 3;
+    opacity: 0.75;
+    filter: blur(0.5px);
+    animation: hp-float-left 5s ease-in-out infinite;
+    animation-delay: 0.5s;
+}
+
+.hp-avatar__card--right {
+    z-index: 3;
+    opacity: 0.75;
+    filter: blur(0.5px);
+    animation: hp-float-right 6s ease-in-out infinite;
+    animation-delay: 1.2s;
+}
+
+.hp-avatar__card--top {
+    z-index: 3;
+    opacity: 0.7;
+    filter: blur(0.5px);
+    animation: hp-float-top 7s ease-in-out infinite;
+    animation-delay: 0s;
+}
+
+.hp-avatar__card--bottom {
+    z-index: 3;
+    opacity: 0.7;
+    filter: blur(0.5px);
+    animation: hp-float-bottom 5.5s ease-in-out infinite;
+    animation-delay: 1.8s;
+}
+
+
+.hp-avatar__card-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color, #0b2c5f) 0%, var(--dark-navy, #051a3a) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Simulated frame ring inside card */
+.hp-avatar__card-inner::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 4px solid rgba(254, 124, 3, 0.5);
+    box-shadow: inset 0 0 20px rgba(254, 124, 3, 0.1);
+}
+
+/* Person silhouette */
+.hp-avatar__card-inner::after {
+    content: '';
+    position: absolute;
+    bottom: 16%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 54%;
+    height: 54%;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+.hp-avatar__card-logo {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 40px;
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.hp-avatar__card-frame {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-avatar__card-frame svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+}
+
+/* Photo placeholder */
+.hp-avatar__card-photo {
+    position: absolute;
+    inset: 14px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-avatar__card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* ── Hashtag notice bar ───────────────────────────────────────── */
+.hp-anniv-hashtag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.85rem 1.5rem;
+    background: rgba(254, 124, 3, 0.08);
+    border: 1px solid rgba(254, 124, 3, 0.2);
+    border-radius: 8px;
+    margin-top: 2.5rem;
+}
+
+.hp-anniv-hashtag__text {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+}
+
+.hp-anniv-hashtag__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.hp-anniv-hashtag__tag {
+    color: var(--secondary-color, #fe7c03);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.hp-anniv-hashtag__tag:hover {
+    opacity: 0.75;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .hp-wallpaper__grid,
+    .hp-avatar__grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .hp-avatar__content {
+        order: 1;
+    }
+
+    .hp-avatar__visual {
+        order: 2;
+    }
+
+    .hp-wallpaper,
+    .hp-avatar {
+        padding: 70px 0;
+    }
+
+    .hp-wallpaper__phone-frame {
+        right: -10px;
+        width: 80px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hp-wallpaper,
+    .hp-avatar {
+        padding: 60px 0;
+    }
+
+    .hp-wallpaper__title,
+    .hp-avatar__title {
+        font-size: 1.85rem;
+    }
+
+    .hp-wallpaper__desc,
+    .hp-avatar__desc {
+        font-size: 0.98rem;
+    }
+
+    .hp-avatar__carousel {
+        height: 320px;
+    }
+
+    .hp-avatar__card--center {
+        width: 190px;
+        height: 190px;
+    }
+
+    .hp-avatar__card--left {
+        transform: translateX(-130px) scale(0.82) rotate(-8deg);
+    }
+
+    .hp-avatar__card--right {
+        transform: translateX(130px) scale(0.82) rotate(8deg);
+    }
+
+    .hp-avatar__card--top {
+        transform: translateY(-135px) scale(0.78) rotate(5deg);
+    }
+
+    .hp-avatar__card--bottom {
+        transform: translateY(135px) scale(0.78) rotate(-5deg);
+    }
+
+    .hp-wallpaper__devices {
+        max-width: 320px;
+    }
+
+    .hp-anniv-hashtag {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+}

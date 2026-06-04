@@ -5,6 +5,8 @@
 #history {
     height: 500vh;
     position: relative;
+    z-index: 20;
+    margin-top: -100vh;
     background: radial-gradient(circle at 50% 50%, #061c3a 0%, #00172f 40%, #000d20 100%);
     color: #fff;
 }
@@ -16,6 +18,13 @@
     overflow: hidden;
     z-index: 10;
 }
+
+.timeline-stage-inner {
+    opacity: 0;
+    transform: scale(0.95);
+    will-change: transform, opacity;
+}
+
 
 /* ----- Base (mobile) ----- */
 .timeline-intro {
@@ -69,6 +78,98 @@
             rgba(23, 27, 65, 0) 80%);
 }
 
+.timeline-center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vh;
+    height: 50vh;
+    max-width: 50vw;
+    z-index: 2;
+    /* behind the text */
+    pointer-events: none;
+    animation: rotateDot 80s linear infinite;
+}
+
+@keyframes rotateDot {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.tunnel-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    will-change: transform, opacity;
+}
+
+.outer-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    /* Reduced from 0.5 to make it fade more into the background */
+}
+
+.inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.15;
+    /* Reduced from 0.3 */
+    animation: rotateDotCounter 40s linear infinite;
+}
+
+@keyframes rotateDotCounter {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+.particles-layer {
+    position: absolute;
+    inset: -100%;
+    /* Spread particles in a 3x3 grid around the center */
+    width: 300%;
+    height: 300%;
+    pointer-events: none;
+}
+
+.floating-dot {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatParticle 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        transform: translateY(-15px) scale(1.3);
+    }
+}
+
 .timeline-wrap {
     position: absolute;
     inset: 0;
@@ -118,13 +219,13 @@
 .timelinecircle::before {
     background-image: url('../icons/circle-dots.svg');
     transform: translate(0, -50%) scale(0.53);
-    opacity: 0.5;
+    opacity: 0.68;
 }
 
 .timelinecircle::after {
     background-image: url('../icons/circle-dots-2.svg');
     transform: translate(0, -50%) scale(0.545);
-    opacity: 0.75;
+    opacity: 0.85;
 }
 
 .timelinecircle-bigdots {

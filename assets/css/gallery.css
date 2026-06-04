@@ -92,7 +92,7 @@
     overflow-x: auto;
     scrollbar-width: none;
     position: relative;
-    padding: 10px 0;
+    padding: 60px 0 20px 0; /* Extra top padding so the text doesn't clip */
 }
 
 .hp-gallery-nav::-webkit-scrollbar {
@@ -100,62 +100,38 @@
 }
 
 .hp-gallery-tabs {
-    display: flex;
-    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     list-style: none;
-    padding: 0 40px;
-    /* added padding to extend the ruler */
+    padding: 0;
     margin: 0;
-    position: relative;
     min-width: 100%;
 }
 
-/* Unified ruler track covering the entire tabs width including padding */
-.hp-gallery-tabs::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 12px;
-    background-image:
-        /* Baseline */
-        linear-gradient(to right, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
-        /* Millimeter ticks every 5px */
-        repeating-linear-gradient(to right, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 5px),
-        /* Medium ticks every 25px */
-        repeating-linear-gradient(to right, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 25px);
-    background-size: 100% 1px, 100% 4px, 100% 8px;
-    background-position: left bottom, left bottom, left bottom;
-    background-repeat: no-repeat, repeat-x, repeat-x;
-    z-index: 0;
-    pointer-events: none;
-}
-
 .hp-gallery-tab-item {
-    position: relative;
+    position: absolute;
+    top: 0 !important; /* Override inline top */
+    height: 100%; /* Spans from top of SVG to baseline */
     text-align: center;
-    padding-bottom: 24px;
+    transform: translateX(-50%); /* Center horizontally on the percentage */
+    z-index: 2;
 }
 
-/* Draw the major tick exactly under the dot */
-.hp-gallery-tab-item::after {
+/* Draw the major tick (cột mốc) from the dot down to the baseline */
+.hp-gallery-tab-item::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: -4px; /* Starts exactly from the bottom of the dot */
+    bottom: 0; /* Reaches exactly down to the baseline, no matter the SVG height */
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
-    height: 30px;
-    /* Taller tick that reaches behind the dot */
-    background-color: rgba(255, 255, 255, 0.3);
-    z-index: 1;
+    background-color: #fff;
+    z-index: -1;
     pointer-events: none;
-    transition: background-color 0.3s ease;
-}
-
-.hp-gallery-tab-item:hover::after {
-    background-color: #E2E8F0;
 }
 
 .hp-gallery-tab-btn {
@@ -169,7 +145,12 @@
     gap: 16px;
     outline: none;
     z-index: 2;
-    position: relative;
+    position: absolute;
+    bottom: 100%; /* Puts the button exactly above the SVG */
+    margin-bottom: 4px; /* Gap above the SVG */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .tab-year {
@@ -203,23 +184,17 @@
     background-color: #F97316;
     border-color: #F97316;
     transform: scale(1.2);
-    box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
 }
 
-/* Make active major tick also highlight */
-.hp-gallery-tab-item:has(.is-active)::after {
-    background-color: #F97316;
-    box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
-}
+/* Active styling adjustments not needed since tick is removed */
 
 .hp-gallery-sliding-line {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 100%; /* Lock to the baseline */
     width: 120px;
     height: 2px;
     background: linear-gradient(90deg, rgba(249, 115, 22, 0), rgba(249, 115, 22, 1) 50%, rgba(249, 115, 22, 0));
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 1;
     border-radius: 2px;
     transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
