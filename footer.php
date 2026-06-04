@@ -1,69 +1,77 @@
 <?php if ( ! is_page( array( 'tao-avatar-30', 'hinh-nen-30' ) ) ) : ?>
-<?php 
-    // Enqueue the footer CSS
+<?php
     if (function_exists('tecotec_enqueue_style')) {
         tecotec_enqueue_style('footer');
     }
+    $icon_url = get_template_directory_uri() . '/assets/icons';
 ?>
 <footer class="site-footer">
     <div class="footer-container">
-        <div class="footer-col footer-col-logo">
+        <!-- Col 1: Logo + giới thiệu -->
+        <div class="footer-col footer-col-brand">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="footer-logo">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-TECOTEC-Group-white.svg" alt="TECOTEC GROUP">
             </a>
+            <p class="footer-intro">
+                Công ty Cổ phần TECOTEC Group hoạt động trong lĩnh vực công nghệ và giải pháp kỹ thuật tại Việt Nam. Trải qua 30 năm phát triển, chúng tôi cung cấp sản phẩm và dịch vụ kỹ thuật cho khách hàng trong và ngoài nước.
+            </p>
             <div class="footer-copyright">
                 &copy; <?php echo date('Y'); ?> TECOTEC Group. All rights reserved.
             </div>
         </div>
 
-        <div class="footer-col">
-            <h4 class="footer-title">VỀ CHÚNG TÔI</h4>
+        <!-- Col 2: Liên kết nhanh -->
+        <div class="footer-col footer-col-links">
+            <h4 class="footer-title">LIÊN KẾT NHANH</h4>
             <ul class="footer-links">
                 <li><a href="#">Giới thiệu</a></li>
                 <li><a href="#">Lĩnh vực hoạt động</a></li>
                 <li><a href="#">Hệ thống năng lực</a></li>
+                <li><a href="#">Dấu mốc phát triển</a></li>
+                <li><a href="#">Thành tựu</a></li>
                 <li><a href="#">Tin tức</a></li>
             </ul>
         </div>
 
-        <div class="footer-col">
-            <h4 class="footer-title">HÀNH TRÌNH 30 NĂM</h4>
-            <ul class="footer-links">
-                <li><a href="#">Dấu mốc phát triển</a></li>
-                <li><a href="#">Thành tựu</a></li>
-                <li><a href="#">Con người TECOTEC</a></li>
-                <li><a href="#">Giá trị cốt lõi</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-col">
+        <!-- Col 3: Thông tin liên hệ -->
+        <div class="footer-col footer-col-contact">
             <h4 class="footer-title">THÔNG TIN LIÊN HỆ</h4>
             <div class="footer-contact">
-                <p>Tòa nhà TECOTEC</p>
-                <p>Lô A2-CN, Cụm CN Từ Liêm,</p>
-                <p>P. Phương Canh, Q. Nam Từ Liêm,</p>
-                <p>Hà Nội, Việt Nam</p>
-                <p>(+84) 24 3756 1027</p>
-                <p>info@tecotec.vn</p>
+                <p>Tầng 2, Tòa nhà CT3A, KĐT Mễ Trì Thượng,</p>
+                <p>Phường Từ Liêm, TP. Hà Nội</p>
+                <p class="footer-contact-tel">Điện thoại: <a href="tel:+842435763500">+84-24-35763500</a></p>
+                <p class="footer-contact-fax">Fax: +84-24-35763498</p>
+                <p class="footer-contact-email">Email: <a href="mailto:hanoi@tecotec.com.vn">hanoi@tecotec.com.vn</a></p>
             </div>
         </div>
 
-        <div class="footer-col">
+        <!-- Col 4: Social + Credit -->
+        <div class="footer-col footer-col-social">
             <h4 class="footer-title">THEO DÕI CHÚNG TÔI</h4>
             <div class="footer-socials">
-                <a href="#" target="_blank" aria-label="Zalo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/icon-zalo.svg" alt="Zalo">
+                <a href="https://www.facebook.com/TecotecGroupJsc" target="_blank" rel="noopener" aria-label="Facebook">
+                    <img src="<?php echo $icon_url; ?>/icon-facebook.svg" alt="Facebook">
                 </a>
-                <a href="#" target="_blank" aria-label="Mail">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/mail-icon.svg" alt="Mail">
+                <a href="https://www.instagram.com/tecostore.vn/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <img src="<?php echo $icon_url; ?>/icon-instagram.svg" alt="Instagram">
                 </a>
-                <a href="#" target="_blank" aria-label="Messenger">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/messenger-icon.svg" alt="Messenger">
+                <a href="https://www.youtube.com/tecostorevn" target="_blank" rel="noopener" aria-label="YouTube">
+                    <img src="<?php echo $icon_url; ?>/icon-youtube.svg" alt="YouTube">
                 </a>
-                <a href="#" target="_blank" aria-label="Phone">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/phone-icon.svg" alt="Phone">
+                <a href="https://www.linkedin.com/company/tecotec-group/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <img src="<?php echo $icon_url; ?>/icon-linkedin.svg" alt="LinkedIn">
+                </a>
+                <a href="https://zalo.me/4313596141196632335" target="_blank" rel="noopener" aria-label="Zalo">
+                    <img src="<?php echo $icon_url; ?>/icon-zalo.svg" alt="Zalo">
+                </a>
+                <a href="mailto:hanoi@tecotec.com.vn" aria-label="Email">
+                    <img src="<?php echo $icon_url; ?>/mail-icon.svg" alt="Email">
+                </a>
+                <a href="tel:+842435763500" aria-label="Điện thoại">
+                    <img src="<?php echo $icon_url; ?>/phone-icon.svg" alt="Điện thoại">
                 </a>
             </div>
+            <p class="footer-marcom-credit">Crafted with <span class="footer-heart">&hearts;</span> by MarCom - TECOTEC&nbsp;Group</p>
         </div>
     </div>
 </footer>
