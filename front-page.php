@@ -63,7 +63,7 @@ $achievements_data = [
             </div>
 
             <div class="hp-achievements-visual">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg"
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-cam.webp"
                     alt="30 Years Anniversary Logo" class="hp-achievements-logo">
             </div>
         </div>
@@ -266,7 +266,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
      Section: Tải hình nền nhận diện 30 năm
      ════════════════════════════════════════════════════════════ -->
 <section class="hp-anniv hp-wallpaper" id="hp-wallpaper" aria-labelledby="hp-wallpaper-title">
-    <div class="hp-anniv__shell">
+    <div class="container hp-anniv__shell">
         <div class="hp-wallpaper__grid">
 
             <!-- Left: Text -->
@@ -276,27 +276,44 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     Hình nền <span>kỷ niệm</span><br>30 năm thành lập
                 </h2>
                 <p class="hp-wallpaper__desc">
-                    Tải bộ hình nền nhận diện thương hiệu dành riêng cho dịp 30 năm TECOTEC Group. 
+                    Tải bộ hình nền nhận diện thương hiệu dành riêng cho dịp 30 năm TECOTEC Group.
                     Phù hợp màn hình máy tính, điện thoại và máy tính bảng — chất lượng cao, miễn phí.
                 </p>
 
                 <div class="hp-wallpaper__sizes">
                     <span class="hp-wallpaper__size-pill">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <path d="M8 21h8M12 17v4" />
+                        </svg>
                         Desktop 1920×1080
                     </span>
                     <span class="hp-wallpaper__size-pill">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" />
+                            <circle cx="12" cy="17" r="1" />
+                        </svg>
                         iPhone 1170×2532
                     </span>
                     <span class="hp-wallpaper__size-pill">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" />
+                            <circle cx="12" cy="17" r="1" />
+                        </svg>
                         Android 1080×2400
                     </span>
                 </div>
 
                 <a href="<?php echo home_url('/hinh-nen-30-nam/'); ?>" class="hp-wallpaper__btn" id="hp-wallpaper-cta">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
                     Tải hình nền ngay
                 </a>
             </div>
@@ -306,28 +323,26 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                 <div class="hp-wallpaper__devices">
                     <!-- Floating badge -->
                     <div class="hp-wallpaper__badge">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
                         Chất lượng 4K · Miễn phí
                     </div>
 
                     <!-- Desktop frame -->
                     <div class="hp-wallpaper__desktop-frame">
-                        <img 
-                            class="hp-wallpaper__desktop-img" 
-                            src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/1920x1080.png" 
-                            alt="Hình nền máy tính 30 năm TECOTEC Group"
-                            loading="lazy"
-                        >
+                        <img class="hp-wallpaper__desktop-img"
+                            src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/1920x1080.png"
+                            alt="Hình nền máy tính 30 năm TECOTEC Group" loading="lazy">
                     </div>
 
                     <!-- Phone frame -->
                     <div class="hp-wallpaper__phone-frame">
-                        <img 
-                            class="hp-wallpaper__phone-img" 
-                            src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/600x600.png" 
-                            alt="Hình nền điện thoại 30 năm TECOTEC Group"
-                            loading="lazy"
-                        >
+                        <img class="hp-wallpaper__phone-img"
+                            src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/600x600.png"
+                            alt="Hình nền điện thoại 30 năm TECOTEC Group" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -341,7 +356,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
      Section: Tạo khung ảnh Avatar kỷ niệm 30 năm
      ════════════════════════════════════════════════════════════ -->
 <section class="hp-anniv hp-avatar" id="hp-avatar" aria-labelledby="hp-avatar-title">
-    <div class="hp-anniv__shell">
+    <div class="container hp-anniv__shell">
         <div class="hp-avatar__grid">
 
             <!-- Left: Visual mockup carousel -->
@@ -352,9 +367,12 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     <div class="hp-avatar__card hp-avatar__card--top">
                         <div class="hp-avatar__card-inner">
                             <div class="hp-avatar__card-photo">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/tat-nien-2026.webp" alt="" aria-hidden="true">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/tat-nien-2026.webp"
+                                    alt="" aria-hidden="true">
                             </div>
-                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                            <img class="hp-avatar__card-logo"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt=""
+                                aria-hidden="true">
                         </div>
                     </div>
 
@@ -362,9 +380,12 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     <div class="hp-avatar__card hp-avatar__card--left">
                         <div class="hp-avatar__card-inner">
                             <div class="hp-avatar__card-photo">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/600x600.png" alt="" aria-hidden="true">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-goi-banh-chung.webp"
+                                    alt="" aria-hidden="true">
                             </div>
-                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                            <img class="hp-avatar__card-logo"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt=""
+                                aria-hidden="true">
                         </div>
                     </div>
 
@@ -372,9 +393,12 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     <div class="hp-avatar__card hp-avatar__card--center">
                         <div class="hp-avatar__card-inner">
                             <div class="hp-avatar__card-photo">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/con-nguoi.webp" alt="" aria-hidden="true">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/con-nguoi.webp"
+                                    alt="" aria-hidden="true">
                             </div>
-                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                            <img class="hp-avatar__card-logo"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt=""
+                                aria-hidden="true">
                         </div>
                     </div>
 
@@ -382,9 +406,12 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     <div class="hp-avatar__card hp-avatar__card--right">
                         <div class="hp-avatar__card-inner">
                             <div class="hp-avatar__card-photo">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-da-bong.webp" alt="" aria-hidden="true">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-da-bong.webp"
+                                    alt="" aria-hidden="true">
                             </div>
-                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                            <img class="hp-avatar__card-logo"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt=""
+                                aria-hidden="true">
                         </div>
                     </div>
 
@@ -392,9 +419,12 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     <div class="hp-avatar__card hp-avatar__card--bottom">
                         <div class="hp-avatar__card-inner">
                             <div class="hp-avatar__card-photo">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-goi-banh-chung.webp" alt="" aria-hidden="true">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/gallery/su-kien-goi-banh-chung.webp"
+                                    alt="" aria-hidden="true">
                             </div>
-                            <img class="hp-avatar__card-logo" src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="" aria-hidden="true">
+                            <img class="hp-avatar__card-logo"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt=""
+                                aria-hidden="true">
                         </div>
                     </div>
                 </div>
@@ -407,7 +437,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     Khung ảnh đại diện<br><span>30 năm TECOTEC</span>
                 </h2>
                 <p class="hp-avatar__desc">
-                    Cùng nhau lan tỏa tinh thần kỷ niệm — tải ảnh cá nhân, chọn khung nhận diện 
+                    Cùng nhau lan tỏa tinh thần kỷ niệm — tải ảnh cá nhân, chọn khung nhận diện
                     30 năm và xuất avatar 1080×1080 để đăng lên Facebook, Zalo hoặc hồ sơ nội bộ.
                 </p>
 
@@ -428,7 +458,11 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
 
                 <a href="<?php echo home_url('/tao-khung-30-nam/'); ?>" class="hp-avatar__btn" id="hp-avatar-cta">
                     Tạo avatar ngay
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
                 </a>
             </div>
 
@@ -451,7 +485,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
 <!-- Floating Anniversary Logo -->
 <div class="hp-floating-logo" id="floatingLogo">
     <a href="<?php echo home_url('/'); ?>">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="30 Years TECOTEC">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-cam.webp" alt="30 Years TECOTEC">
     </a>
 </div>
 

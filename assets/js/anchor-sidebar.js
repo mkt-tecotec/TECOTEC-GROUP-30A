@@ -1,69 +1,87 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const items = document.querySelectorAll('.hp-anchor-item');
+/**
+ * Anchor Sidebar JS
+ * Mirrors gallery.js pattern (switchTab / updateSlidingLine) but vertically.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.querySelector('.hp-anchor-sidebar');
+    if (!sidebar) return;
+
+    const items    = sidebar.querySelectorAll('.hp-anchor-item');
+    const slidingLine = sidebar.querySelector('.hp-anchor-sliding-line');
     if (!items.length) return;
 
-    // Smooth scroll to section
-    items.forEach(item => {
-        item.addEventListener('click', function() {
-            const targetId = this.getAttribute('data-target');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                let offset = targetSection.getBoundingClientRect().top + window.scrollY;
-                
-                // Fine-tuning for sections
-                if (targetId === '#hp-overview') {
-                    // Overview might have some padding or pin logic
-                    offset -= 50; 
-                } else if (targetId === '#hp-news') {
-                    offset -= 50;
-                }
+    /* ── Sliding indicator ──────────────────────────────────── */
+    function updateSlidingLine() {
+        const activeItem = sidebar.querySelector('.hp-anchor-item.active');
+        if (!activeItem || !slidingLine) return;
 
-                window.scrollTo({
-                    top: offset,
-                    behavior: 'smooth'
-                });
-            }
+        // Both .hp-anchor-item and .hp-anchor-sliding-line share transform: translateY(-50%).
+        // We can precisely align them by mapping the exact inline `top` coordinate.
+        slidingLine.style.top = activeItem.style.top || (activeItem.offsetTop + 'px');
+    }
+
+    // Init after layout is ready
+    setTimeout(updateSlidingLine, 150);
+    window.addEventListener('resize', updateSlidingLine);
+
+    /* ── Smooth scroll to section ───────────────────────────── */
+    function scrollToSection(targetId) {
+        const targetEl = document.querySelector(targetId);
+        if (!targetEl) return;
+
+        let offset = targetEl.getBoundingClientRect().top + window.scrollY;
+
+        // Small nudge for sections with sticky headers / pin spacers
+        if (targetId === '#hp-overview' || targetId === '#hp-news') {
+            offset -= 50;
+        }
+
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+
+    /* ── Activate an item ───────────────────────────────────── */
+    function activateItem(item) {
+        if (item.classList.contains('active')) return;
+        items.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        updateSlidingLine();
+    }
+
+    /* ── Click handler ──────────────────────────────────────── */
+    items.forEach(item => {
+        item.addEventListener('click', function () {
+            activateItem(this);
+            scrollToSection(this.dataset.target);
         });
     });
 
-    // Update active state on scroll
-    function updateActiveAnchor() {
-        let currentActive = null;
-        // Check activation when section reaches middle of viewport
-        const scrollPosition = window.scrollY + (window.innerHeight / 2);
+    /* ── Scroll spy ─────────────────────────────────────────── */
+    function updateActiveOnScroll() {
+        const mid = window.scrollY + window.innerHeight / 2;
+        let current = null;
 
         items.forEach(item => {
-            const targetId = item.getAttribute('data-target');
-            const targetSection = document.querySelector(targetId);
-
-            if (targetSection) {
-                const rect = targetSection.getBoundingClientRect();
-                const absoluteTop = rect.top + window.scrollY;
-                
-                if (scrollPosition >= absoluteTop && scrollPosition < absoluteTop + rect.height) {
-                    currentActive = item;
-                }
+            const targetEl = document.querySelector(item.dataset.target);
+            if (!targetEl) return;
+            const rect = targetEl.getBoundingClientRect();
+            const absTop = rect.top + window.scrollY;
+            if (mid >= absTop && mid < absTop + rect.height) {
+                current = item;
             }
         });
 
-        // Fallback for bottom of page
+        // Fallback: bottom of page → last item
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-            currentActive = items[items.length - 1];
+            current = items[items.length - 1];
         }
-
-        // Fallback for top of page
+        // Fallback: top of page → first item
         if (window.scrollY < 100) {
-            currentActive = items[0];
+            current = items[0];
         }
 
-        if (currentActive) {
-            items.forEach(i => i.classList.remove('active'));
-            currentActive.classList.add('active');
-        }
+        if (current) activateItem(current);
     }
 
-    window.addEventListener('scroll', updateActiveAnchor, { passive: true });
-    // Initial call
-    setTimeout(updateActiveAnchor, 100);
+    window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+    setTimeout(updateActiveOnScroll, 200);
 });

@@ -149,36 +149,64 @@
     const stageInner = section.querySelector('.timeline-stage-inner');
     if (!stageInner) return;
 
-    // Zoom In on Enter — now scrubbed to match user scroll speed as it stacks over overview.
-    // The scale and opacity synchronize with the physical slide-up of the section.
-    gsap.fromTo(stageInner,
+    // Zoom In on Enter — scrubbed to match user scroll speed as it stacks over overview.
+    // FIX: immediateRender: false prevents GSAP from stamping the FROM state (opacity:0)
+    // when the page loads/jumps with scroll position already past this trigger's end point
+    // (e.g. user clicked anchor to Achievements). invalidateOnRefresh ensures correct
+    // coordinates after the overview pin spacer is inserted.
+    const zoomInTween = gsap.fromTo(stageInner,
       { scale: 0.95, opacity: 0 },
       {
         scale: 1,
         opacity: 1,
         ease: 'none',
-        immediateRender: true,
+        immediateRender: false,
         scrollTrigger: {
           trigger: section,
-          start: 'top bottom', // Begins animating when the top of timeline touches bottom of viewport
+          start: 'top bottom', // Begins animating when top of timeline touches bottom of viewport
           end: 'top top',      // Reaches full state when it completely covers the overview
           scrub: 0.5,
+          invalidateOnRefresh: true,
+          onLeave: () => {
+            // Section top has scrolled fully above viewport — we're now inside the section.
+            // Ensure stageInner is fully visible so neither Zoom In nor Zoom Out
+            // leaves it stuck at opacity:0 during the main pinned scroll.
+            gsap.set(stageInner, { scale: 1, opacity: 1, overwrite: false });
+          },
+          onEnterBack: () => {
+            // Scrolling back UP into the zoom-in zone: restore full state so the
+            // reverse-scrub starts from the correct visible position.
+            gsap.set(stageInner, { scale: 1, opacity: 1, overwrite: false });
+          },
         }
       }
     );
 
     // Zoom Out on Exit — only starts when section bottom is nearly at
     // viewport top (section almost fully scrolled past), not mid-content.
-    gsap.to(stageInner,
+    //
+    // CRITICAL FIX: Must use fromTo (not .to) and explicitly define the FROM state.
+    // If we use gsap.to, GSAP captures the element's CURRENT CSS value as the
+    // implicit FROM. Since CSS sets opacity:0 by default on .timeline-stage-inner,
+    // the captured from-value is 0. When the user reloads the page at a scroll
+    // position past the timeline section and then scrolls back up, GSAP reverses
+    // the scrub tween from opacity:0 → opacity:0 (both start and end are 0),
+    // keeping the timeline permanently invisible.
+    // Using fromTo with explicit {scale:1, opacity:1} guarantees the reverse scrub
+    // always correctly animates 1→0 (forward) and 0→1 (backward).
+    gsap.fromTo(stageInner,
+      { scale: 1, opacity: 1 },
       {
         scale: 0.85,
         opacity: 0,
         ease: 'power1.in',
+        immediateRender: false,
         scrollTrigger: {
           trigger: section,
           start: 'bottom 15%',
           end: 'bottom top',
           scrub: 1,
+          invalidateOnRefresh: true,
         }
       }
     );

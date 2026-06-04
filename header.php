@@ -20,7 +20,7 @@
                     </a>
                     <div class="logo-divider"></div>
                     <a href="<?php echo home_url('/'); ?>" class="logo-anniversary">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-header.svg"
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-cam.webp"
                             alt="30 Years TECOTEC">
                     </a>
                 </div>

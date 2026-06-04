@@ -495,10 +495,6 @@ section.hp-hero-final.section {
     margin: 0 auto;
 }
 
-.single-post-page {
-    padding: 5rem 0;
-}
-
 .single-post-detail__header {
     max-width: 860px;
     margin: 0 auto 2.5rem;
@@ -754,6 +750,7 @@ section.hp-hero-final.section {
 }
 
 @media (max-width: 768px) {
+
     .single-post-detail,
     .post-archive-page__shell {
         width: min(1120px, calc(100% - 1.5rem));
@@ -779,7 +776,13 @@ body {
     cursor: none;
 }
 
-a, button, .year-wrap, input, textarea, select {
+a,
+button,
+.year-wrap,
+input,
+textarea,
+select,
+.hp-gallery-img-wrapper {
     cursor: none !important;
 }
 
@@ -789,7 +792,8 @@ a, button, .year-wrap, input, textarea, select {
     left: -12.5px;
     width: 25px;
     height: 25px;
-    background-color: var(--secondary-color, #fe7c03); /* Cam */
+    background-color: var(--secondary-color, #fe7c03);
+    /* Cam */
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999999;

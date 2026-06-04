@@ -58,7 +58,7 @@ function tecotec_news_placeholder( $w, $h, $label = 'TECOTEC+News' ) {
 ?>
 
 <section class="hp-news" id="hp-news">
-    <div class="hp-news-inner">
+    <div class="container hp-news-inner">
 
         <!-- ── Header ──────────────────────────────────── -->
         <div class="hp-news-header">
