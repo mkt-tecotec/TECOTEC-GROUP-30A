@@ -11,15 +11,15 @@ tecotec_enqueue_script('anchor-sidebar', ['jquery']);
         <div class="hp-anchor-ticks"></div>
         <ul class="hp-anchor-list">
             <li class="hp-anchor-item active" data-target="#hp-hero" style="top: 27.16px;">
-                <span class="hp-anchor-label">Hero</span>
+                <span class="hp-anchor-label">Khởi đầu</span>
                 <span class="hp-anchor-mark"></span>
             </li>
             <li class="hp-anchor-item" data-target="#hp-overview" style="top: 96.01px;">
-                <span class="hp-anchor-label">Overview</span>
+                <span class="hp-anchor-label">Giới thiệu</span>
                 <span class="hp-anchor-mark"></span>
             </li>
             <li class="hp-anchor-item" data-target="#history" style="top: 233.71px;">
-                <span class="hp-anchor-label">Time Line</span>
+                <span class="hp-anchor-label">Dòng thời gian</span>
                 <span class="hp-anchor-mark"></span>
             </li>
             <li class="hp-anchor-item" data-target="#hp-achievements" style="top: 302.57px;">
