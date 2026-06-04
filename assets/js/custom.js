@@ -34,13 +34,13 @@
 
         // Hover effect using event delegation
         document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('a, button, .year-wrap, input, textarea, select')) {
+            if (e.target.closest('a, button, .year-wrap, input, textarea, select, .hp-gallery-img-wrapper')) {
                 cursor.classList.add('hover');
             }
         });
 
         document.addEventListener('mouseout', (e) => {
-            if (e.target.closest('a, button, .year-wrap, input, textarea, select')) {
+            if (e.target.closest('a, button, .year-wrap, input, textarea, select, .hp-gallery-img-wrapper')) {
                 cursor.classList.remove('hover');
             }
         });

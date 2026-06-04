@@ -83,7 +83,7 @@
     /* Phát sáng mềm mại và bám sát theo hình dáng logo thay vì tạo 1 viền tròn cứng nhắc */
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.15));
     /* Phóng to logo mà không làm thay đổi box layout, tránh đẩy các phần dưới xuống */
-    transform: scale(1.4);
+    transform: scale(1.2);
 }
 
 /* Cards Section */

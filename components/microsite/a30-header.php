@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="a30-shell a30-masthead__inner">
         <a class="a30-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/image/Logo-TECOTEC-Group.svg' ); ?>" alt="TECOTEC Group" />
-            <img class="a30-brand__mark" src="<?php echo esc_url( get_template_directory_uri() . '/assets/image/logo-ky-niem-30.svg' ); ?>" alt="Kỷ niệm 30 năm TECOTEC Group" />
+            <img class="a30-brand__mark" src="<?php echo esc_url( get_template_directory_uri() . '/assets/image/logo-ky-niem-cam.webp' ); ?>" alt="Kỷ niệm 30 năm TECOTEC Group" />
             <span class="a30-brand__meta">
                 <span class="a30-brand__kicker">1996–2026</span>
                 <span class="a30-brand__title">Hành trình tiếp nối</span>

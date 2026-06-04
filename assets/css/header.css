@@ -248,23 +248,6 @@ a {
     border-left-color: #ff6a00;
 }
 
-/* Footer */
-.site-footer {
-    background: var(--bg-dark);
-    color: var(--white);
-    padding: 50px 0 30px;
-    text-align: center;
-}
-
-.footer-links a {
-    color: #aaa;
-    margin: 0 15px;
-    font-size: 14px;
-}
-
-.footer-links a:hover {
-    color: var(--white);
-}
 
 /* Card */
 .card {
