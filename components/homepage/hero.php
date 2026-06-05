@@ -20,18 +20,19 @@ add_action('wp_footer', function () {
 
         <!-- Text content -->
         <div class="hp-hero-content">
+            <div class="hp-hero-eyebrow hero-anim" style="opacity:0; transform:translateY(30px); font-weight: 600; letter-spacing: 2px; margin-bottom: 15px; color: var(--tc-primary-main);">MEASURING EVERYTHING — 30 YEARS</div>
             <h1 class="hp-hero-title">
                 <span class="hero-anim" style="display:inline-block; opacity:0; transform:translateY(30px);"><span
                         class="hp-hero-highlight">30 NĂM</span></span> <br>
                 <span class="hero-anim" style="display:inline-block; opacity:0; transform:translateY(30px);">CHÍNH XÁC
-                    ĐỂ TẠO NIỀM TIN</span> <br>
+                    ĐỂ KIẾN TẠO NIỀM TIN</span> <br>
                 <span class="hero-anim" style="display:inline-block; opacity:0; transform:translateY(30px);">TĂNG TRƯỞNG
                     ĐỂ PHÁT TRIỂN BỀN VỮNG</span>
             </h1>
             <p class="hp-hero-desc hero-anim" style="opacity:0; transform:translateY(30px);">
-                Hành trình 30 năm TECOTEC không ngừng chuẩn mực, đổi mới và phụng sự <br class="hp-hero-br">
-                để đóng góp tích cực cho sự phát triển của doanh nghiệp và xã hội.
+                Hành trình 30 năm TECOTEC Group không ngừng chuẩn mực, đổi mới và phụng sự — đóng góp tích cực cho sự phát triển của doanh nghiệp và xã hội.
             </p>
+
         </div>
     </div>
 </section>

@@ -11,44 +11,44 @@ $base_gallery_data = [
     [
         'label' => '1996–2003',
         'folder' => '1996',
-        'title' => 'Thành lập Công ty Thiết bị Công nghệ tecotec',
-        'caption' => 'Đặt nền móng vững chắc cho hành trình 30 năm phát triển trong ngành đo lường và hiệu chuẩn.',
+        'title' => 'Thành lập & Đặt nền móng đo lường',
+        'caption' => 'Khởi đầu từ Công ty TNHH TDN (1996), đặt nền móng vững chắc cho hành trình 30 năm trong lĩnh vực đo lường và hiệu chuẩn.',
     ],
     [
         'label' => '2004–2007',
         'folder' => '2000',
         'title' => 'Mở rộng thị phần & Trở thành đối tác chiến lược',
-        'caption' => 'Mở rộng thị phần cung cấp thiết bị đo lường chính xác và hiệu chuẩn tại khu vực phía Bắc, trở thành đối tác chiến lược của nhiều thương hiệu thiết bị công nghệ lớn trên toàn cầu.',
+        'caption' => 'Mở rộng cung cấp thiết bị đo lường chính xác và hiệu chuẩn, trở thành đối tác chiến lược của nhiều thương hiệu thiết bị công nghệ lớn trên toàn cầu.',
     ],
     [
         'label' => '2008–2011',
         'folder' => '2005',
         'title' => 'Mở rộng quy mô & Khẳng định vị thế toàn quốc',
-        'caption' => 'Thành lập văn phòng đại diện tại Thành phố Hồ Chí Minh, chính thức phục vụ thị trường miền Nam và khẳng định vị thế nhà cung cấp giải pháp công nghệ kỹ thuật trên quy mô toàn quốc.',
+        'caption' => 'Thiết lập mạng lưới văn phòng đại diện ba miền, khẳng định vai trò nhà cung cấp giải pháp công nghệ kỹ thuật trên quy mô toàn quốc.',
     ],
     [
         'label' => '2012–2015',
         'folder' => '2010',
-        'title' => 'Ra mắt nền tảng thương mại số – Tái cấu trúc dịch vụ – Bắt đầu R&D',
-        'caption' => 'Chúng tôi ra mắt nền tảng thương mại số, mở rộng dịch vụ sang thị trường quốc tế và tái cấu trúc toàn diện hệ thống vận hành. Đồng thời, đầu tư mạnh mẽ cho nghiên cứu & phát triển, làm chủ công nghệ lõi để tạo nền tảng bứt phá trong giai đoạn tiếp theo.',
+        'title' => 'Nền tảng thương mại số – Tái cấu trúc – Bắt đầu R&D',
+        'caption' => 'Ra mắt nền tảng thương mại số, tái cấu trúc toàn diện hệ thống vận hành và đầu tư mạnh cho nghiên cứu & phát triển, làm chủ công nghệ lõi.',
     ],
     [
         'label' => '2016–2019',
         'folder' => '2016',
         'title' => 'Tái cấu trúc thành TECOTEC Group',
-        'caption' => 'Kỷ niệm 20 năm thành lập. Tái cấu trúc mô hình quản trị doanh nghiệp thành TECOTEC Group, định hướng phát triển đa ngành dựa trên nền tảng kỹ thuật và tích hợp hệ thống tự động hóa.',
+        'caption' => 'Kỷ niệm 20 năm thành lập. Tái cấu trúc mô hình quản trị thành TECOTEC Group, định hướng phát triển đa ngành trên nền tảng kỹ thuật và tích hợp hệ thống.',
     ],
     [
         'label' => '2020–2022',
         'folder' => '2020',
         'title' => 'Chuyển đổi số toàn diện & Vượt qua thách thức',
-        'caption' => 'Chuyển đổi số toàn diện doanh nghiệp và nâng cấp hạ tầng công nghệ. Vượt qua thách thức đại dịch, đảm bảo chuỗi cung ứng dịch vụ kỹ thuật hoạt động liên tục phục vụ sản xuất công nghiệp.',
+        'caption' => 'Chuyển đổi số toàn diện và nâng cấp hạ tầng công nghệ; vượt qua thách thức đại dịch, đảm bảo chuỗi cung ứng dịch vụ kỹ thuật liên tục.',
     ],
     [
         'label' => '2023–nay',
         'folder' => '2026',
         'title' => 'Kỷ niệm 30 năm phát triển bền vững',
-        'caption' => 'Kỷ niệm mốc son 30 năm phát triển bền vững (1996 - 2026). TECOTEC Group tiếp tục đổi mới không ngừng, bứt phá trong kỷ nguyên số và tự hào là đối tác công nghệ đáng tin cậy.',
+        'caption' => 'Kỷ niệm mốc son 30 năm (1996–2026). TECOTEC Group tiếp tục đổi mới không ngừng, tự hào là đối tác công nghệ đáng tin cậy.',
     ]
 ];
 

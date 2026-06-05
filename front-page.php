@@ -1,5 +1,36 @@
 <?php get_header(); ?>
 
+<!-- Preloader -->
+<div id="hp-preloader" class="hp-preloader">
+    <div class="hp-preloader-wrapper">
+        <div class="hp-preloader-content">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-cam.webp"
+                alt="TECOTEC 30 Years" class="hp-preloader-logo">
+            <div class="hp-preloader-spinner"></div>
+        </div>
+        <div class="hp-preloader-text">
+            Chào mừng kỷ niệm 30 năm thành lập TECOTEC GROUP<span
+                class="hp-dots"><span>.</span><span>.</span><span>.</span></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Preloader Logic
+    window.addEventListener('load', function () {
+        var preloader = document.getElementById('hp-preloader');
+        if (preloader) {
+            // Thêm độ trễ 3 giây (3000ms) sau khi trang đã tải xong hoàn toàn
+            setTimeout(function () {
+                preloader.classList.add('is-loaded');
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 600); // Khớp với thời gian transition CSS
+            }, 1000);
+        }
+    });
+</script>
+
 <?php get_template_part('components/homepage/hero'); ?>
 <?php get_template_part('components/homepage/overview'); ?>
 <?php get_template_part('components/homepage/timeline'); ?>
@@ -12,38 +43,38 @@ wp_enqueue_script('tecotec-achievements', get_template_directory_uri() . '/asset
 $achievements_data = [
     [
         'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>',
-        'number' => '30+',
+        'number' => '30',
         'unit' => 'NĂM',
-        'inline' => true,
+        'inline' => false,
         'desc' => 'Hình thành và phát triển<br>(1996 &ndash; 2026)'
     ],
     [
         'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-        'number' => '1.000+',
+        'number' => '200+',
         'unit' => 'NHÂN SỰ',
         'inline' => false,
         'desc' => 'Đội ngũ chuyên môn cao,<br>tận tâm và giàu kinh nghiệm'
     ],
     [
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>',
-        'number' => '500+',
-        'unit' => 'DỰ ÁN',
-        'inline' => false,
-        'desc' => 'Đã triển khai thành công<br>trên toàn quốc'
-    ],
-    [
         'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3-6.11 6.11"/><path d="m5 21 4.5-4.5a3 3 0 0 1 4.24 0"/></svg>',
-        'number' => '200+',
+        'number' => '100+',
         'unit' => 'ĐỐI TÁC',
         'inline' => false,
-        'desc' => 'Trong và ngoài nước<br>đồng hành lâu dài'
+        'desc' => 'Thương hiệu quốc tế từ<br>Mỹ, Nhật, Đức, Pháp'
     ],
     [
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
-        'number' => '10+',
-        'unit' => 'QUỐC GIA',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>',
+        'number' => '3',
+        'unit' => 'MIỀN',
         'inline' => false,
-        'desc' => 'Đối tác và khách hàng<br>quốc tế'
+        'desc' => 'Mạng lưới Bắc &ndash; Trung &ndash; Nam<br>(Hà Nội &middot; Đà Nẵng &middot; TP.HCM)'
+    ],
+    [
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+        'number' => 'ISO',
+        'unit' => '9001:2015',
+        'inline' => false,
+        'desc' => 'Hệ thống quản lý chất lượng<br>đạt chuẩn'
     ]
 ];
 ?>
@@ -56,9 +87,9 @@ $achievements_data = [
                 <div class="hp-achievements-tag">THÀNH TỰU</div>
                 <h2 class="hp-achievements-title">30 NĂM KIẾN TẠO GIÁ TRỊ &ndash;<br>NHIỀU DẤU ẤN TỰ HÀO</h2>
                 <p class="hp-achievements-desc">
-                    Trên hành trình 30 năm phát triển, TECOTEC Group không ngừng nỗ lực,
-                    đổi mới và kiến tạo những giá trị bền vững cho khách hàng, đối tác và cộng đồng.
-                    Những thành tựu đạt được là minh chứng cho cam kết và uy tín của chúng tôi.
+                    Trên hành trình 30 năm phát triển, TECOTEC Group không ngừng nỗ lực, đổi mới và kiến tạo những giá
+                    trị bền vững cho đối tác và cộng đồng. Những thành tựu đạt được là minh chứng cho cam kết và uy tín
+                    của chúng tôi.
                 </p>
             </div>
 
@@ -91,9 +122,9 @@ $achievements_data = [
                         </svg>
                     </div>
                     <div class="hp-commitment-content">
-                        <h4 class="hp-commitment-title">CHẤT LƯỢNG HÀNG ĐẦU</h4>
-                        <p class="hp-commitment-desc">Duy trì và nâng cao chất lượng dịch vụ, đáp ứng tiêu chuẩn quốc
-                            tế.</p>
+                        <h4 class="hp-commitment-title">CHẤT LƯỢNG CHUẨN MỰC</h4>
+                        <p class="hp-commitment-desc">Duy trì và nâng cao chất lượng dịch vụ theo hệ thống ISO
+                            9001:2015, đáp ứng tiêu chuẩn quốc tế.</p>
                     </div>
                 </div>
 
@@ -154,9 +185,9 @@ $achievements_data = [
                 </div>
                 <h3 class="hp-people-title">CON NGƯỜI LÀ NỀN TẢNG<br>CỦA MỌI THÀNH TỰU</h3>
                 <p class="hp-people-desc">
-                    Hơn 1.000 con người TECOTEC làm việc với tinh thần chính xác, trách nhiệm và khát vọng không ngừng
-                    vươn lên. Chúng tôi tin rằng phát triển con người là chìa khóa để kiến tạo giá trị bền vững cho
-                    khách hàng và cộng đồng.
+                    Hơn 200 con người TECOTEC làm việc với tinh thần chính xác, trách nhiệm và khát vọng không ngừng
+                    vươn lên. Chúng tôi tin rằng phát triển con người là chìa khóa để kiến tạo giá trị bền vững cho đối
+                    tác và cộng đồng.
                 </p>
 
                 <div class="hp-people-stats">
@@ -172,7 +203,7 @@ $achievements_data = [
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                 </svg>
                             </div>
-                            <h4 class="hp-people-stat-number">1.000+</h4>
+                            <h4 class="hp-people-stat-number">200+</h4>
                         </div>
                         <p class="hp-people-stat-label">CÁN BỘ NHÂN VIÊN</p>
                         <p class="hp-people-stat-desc">Đội ngũ chuyên môn cao và giàu kinh nghiệm</p>
@@ -188,9 +219,9 @@ $achievements_data = [
                                     <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                                 </svg>
                             </div>
-                            <h4 class="hp-people-stat-number">40%+</h4>
+                            <h4 class="hp-people-stat-number">~90%</h4>
                         </div>
-                        <p class="hp-people-stat-label">KỸ SƯ &amp; CỬ NHÂN</p>
+                        <p class="hp-people-stat-label">TRÌNH ĐỘ KỸ SƯ & CỬ NHÂN</p>
                         <p class="hp-people-stat-desc">Được đào tạo bài bản, cập nhật liên tục</p>
                     </div>
 
@@ -206,10 +237,11 @@ $achievements_data = [
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                 </svg>
                             </div>
-                            <h4 class="hp-people-stat-number">20+</h4>
+                            <h4 class="hp-people-stat-number">4</h4>
                         </div>
-                        <p class="hp-people-stat-label">ĐỘI NGŨ KỸ THUẬT</p>
-                        <p class="hp-people-stat-desc">Chuyên sâu về đo lường, hiệu chuẩn &amp; tích hợp</p>
+                        <p class="hp-people-stat-label">LĨNH VỰC KỸ THUẬT CHUYÊN SÂU</p>
+                        <p class="hp-people-stat-desc">Đo lường &middot; Hiệu chuẩn &middot; Vô tuyến&ndash;Tích hợp
+                            &middot; Phân tích&ndash;Môi trường</p>
                     </div>
 
                     <div class="hp-people-stat-item">
@@ -225,10 +257,10 @@ $achievements_data = [
                                     </path>
                                 </svg>
                             </div>
-                            <h4 class="hp-people-stat-number">10+</h4>
+                            <h4 class="hp-people-stat-number">30+</h4>
                         </div>
-                        <p class="hp-people-stat-label">QUỐC TỊCH</p>
-                        <p class="hp-people-stat-desc">Đa dạng văn hóa, kết nối toàn cầu</p>
+                        <p class="hp-people-stat-label">NĂM KINH NGHIỆM LÃNH ĐẠO</p>
+                        <p class="hp-people-stat-desc">Ban lãnh đạo gắn bó, dẫn dắt xuyên suốt hành trình</p>
                     </div>
                 </div>
             </div>
@@ -485,7 +517,8 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
 <!-- Floating Anniversary Logo -->
 <div class="hp-floating-logo" id="floatingLogo">
     <a href="<?php echo home_url('/'); ?>">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-cam.webp" alt="30 Years TECOTEC">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem-cam.webp"
+            alt="30 Years TECOTEC">
     </a>
 </div>
 

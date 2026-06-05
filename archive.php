@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php 
+tecotec_enqueue_style('archive');
+get_header(); 
+?>
 
 <main class="post-archive-page">
     <div class="post-archive-page__shell">

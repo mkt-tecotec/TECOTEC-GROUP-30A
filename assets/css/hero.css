@@ -48,7 +48,7 @@
 /* Text content */
 .hp-hero-content {
     width: 100%;
-    margin-top: -16px;
+    margin-top: 32px;
 }
 
 .hp-hero-title {
@@ -72,6 +72,57 @@
     margin: 0 auto;
     max-width: 680px;
 }
+
+.hp-hero-subscribe {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.hp-subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 100px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.hp-subscribe-btn .btn-text {
+    margin-right: 12px;
+    letter-spacing: 0.3px;
+}
+
+.hp-subscribe-btn .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: #fe7c03;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.hp-subscribe-btn:hover {
+    border-color: #fe7c03;
+    color: #fe7c03;
+}
+
+.hp-subscribe-btn:hover .btn-icon {
+    transform: translateX(4px);
+    background-color: #ffffff;
+    color: #fe7c03;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

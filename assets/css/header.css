@@ -119,6 +119,14 @@ a {
     height: 96px;
 }
 
+body.archive .site-header,
+body.single .site-header {
+    position: sticky;
+    background: rgba(1, 8, 24, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 .site-header .container {
     display: flex;
     justify-content: space-between;

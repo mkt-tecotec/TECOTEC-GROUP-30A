@@ -21,7 +21,7 @@ tecotec_enqueue_script('overview', ['jquery']);
     <section class="hp-overview-section">
         <div class="container">
             <h2 class="hp-overview-text">
-                Với bề dày 30 năm kiến tạo, <span class="highlight-word">TECOTEC Group</span> tự hào là ngọn cờ đầu trong lĩnh vực công nghệ, mang đến những giải pháp đo lường và kiểm định tối ưu.
+                Với gần 30 năm kiến tạo, <span class="highlight-word">TECOTEC Group</span> đồng hành cùng lĩnh vực Công nghệ – Đo lường – Kiểm định – Hiệu chuẩn tại Việt Nam, mang đến những <span class="highlight-word">giải pháp</span> tối ưu cho đối tác.
             </h2>
         </div>
     </section>
@@ -29,7 +29,7 @@ tecotec_enqueue_script('overview', ['jquery']);
     <section class="hp-overview-section">
         <div class="container">
             <h2 class="hp-overview-text">
-                Sự <span class="highlight-word">chính xác</span> và <span class="highlight-word">trách nhiệm</span> là kim chỉ nam cho mọi hoạt động, xây dựng <span class="highlight-word">niềm tin bền vững</span> với hàng ngàn đối tác trong nước và quốc tế.
+                Sự <span class="highlight-word">chính xác</span> và <span class="highlight-word">trách nhiệm</span> là kim chỉ nam cho mọi hoạt động, xây dựng <span class="highlight-word">niềm tin bền vững</span> với hơn <span class="highlight-word">100 đối tác</span> trong nước và quốc tế.
             </h2>
         </div>
     </section>
