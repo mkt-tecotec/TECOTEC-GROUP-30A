@@ -104,9 +104,11 @@
 }
 
 .hp-news-cta-arrow {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     transition: transform 0.25s ease;
-    line-height: 1;
+    line-height: 0;
+    position: relative;
+    top: -1px;
 }
 
 .hp-news-cta:hover .hp-news-cta-arrow {

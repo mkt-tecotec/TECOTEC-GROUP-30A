@@ -29,11 +29,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const targetEl = document.querySelector(targetId);
         if (!targetEl) return;
 
-        let offset = targetEl.getBoundingClientRect().top + window.scrollY;
+        let scrollTargetEl = targetEl;
+        const pinSpacer = targetEl.closest('.pin-spacer');
+        if (pinSpacer) {
+            scrollTargetEl = pinSpacer;
+        }
+
+        let offset = scrollTargetEl.getBoundingClientRect().top + window.scrollY;
 
         // Small nudge for sections with sticky headers / pin spacers
         if (targetId === '#hp-overview' || targetId === '#hp-news') {
             offset -= 50;
+        }
+
+        // Special case for #hp-achievements because it has a GSAP translateY wipe effect
+        // and a negative margin-top. To align its visual top to the viewport top,
+        // we need to scroll exactly to history_bottom - 50vh.
+        if (targetId === '#hp-achievements') {
+            const historyEl = document.getElementById('history');
+            if (historyEl) {
+                const historyBottom = historyEl.getBoundingClientRect().bottom + window.scrollY;
+                offset = historyBottom - (window.innerHeight / 2);
+            }
         }
 
         window.scrollTo({ top: offset, behavior: 'smooth' });
@@ -63,7 +80,13 @@ document.addEventListener('DOMContentLoaded', function () {
         items.forEach(item => {
             const targetEl = document.querySelector(item.dataset.target);
             if (!targetEl) return;
-            const rect = targetEl.getBoundingClientRect();
+            let spyTargetEl = targetEl;
+            const pinSpacer = targetEl.closest('.pin-spacer');
+            if (pinSpacer) {
+                spyTargetEl = pinSpacer;
+            }
+
+            const rect = spyTargetEl.getBoundingClientRect();
             const absTop = rect.top + window.scrollY;
             if (mid >= absTop && mid < absTop + rect.height) {
                 current = item;

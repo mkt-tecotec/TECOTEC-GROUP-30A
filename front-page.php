@@ -339,7 +339,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     </span>
                 </div>
 
-                <a href="<?php echo home_url('/hinh-nen-30-nam/'); ?>" class="hp-wallpaper__btn" id="hp-wallpaper-cta">
+                <a href="<?php echo home_url('/hinh-nen-30/'); ?>" class="hp-wallpaper__btn" id="hp-wallpaper-cta">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -488,7 +488,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                     </div>
                 </div>
 
-                <a href="<?php echo home_url('/tao-khung-30-nam/'); ?>" class="hp-avatar__btn" id="hp-avatar-cta">
+                <a href="<?php echo home_url('/tao-avatar-30/'); ?>" class="hp-avatar__btn" id="hp-avatar-cta">
                     Tạo avatar ngay
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">

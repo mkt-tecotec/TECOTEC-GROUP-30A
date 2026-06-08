@@ -27,7 +27,7 @@
         }
 
         _setup() {
-            this.canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
+            this.canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:20;';
             this.wrap.insertBefore(this.canvas, this.wrap.firstChild);
             this._resize();
         }
@@ -69,7 +69,7 @@
             for (let i = 0; i < this.particles.length; i++) {
                 const p = this.particles[i];
                 p.x += p.vx;
-                p.y += p.y;
+                p.y += p.vy;
 
                 if (p.x < -10) p.x = this.W + 10;
                 if (p.x > this.W + 10) p.x = -10;
@@ -95,8 +95,9 @@
         img.style.visibility = 'hidden';
 
         // Setup Canvas
+        const OVERFLOW = 150; // px extra canvas space on each side to allow particles to fly beyond wrapper
         const canvas = document.createElement('canvas');
-        canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;user-select:none;z-index:10;';
+        canvas.style.cssText = 'position:absolute;top:0;left:0;user-select:none;z-index:10;';
         
         wrapper.style.position = 'relative';
         wrapper.appendChild(canvas);
@@ -125,10 +126,15 @@
 
             if (width === 0 || height === 0) return;
 
-            canvas.style.width = `${width}px`;
-            canvas.style.height = `${height}px`;
-            canvas.width = Math.round(width * dpr);
-            canvas.height = Math.round(height * dpr);
+            // Expand canvas beyond wrapper so repelled particles are not clipped
+            const cw = width  + OVERFLOW * 2;
+            const ch = height + OVERFLOW * 2;
+            canvas.style.width  = `${cw}px`;
+            canvas.style.height = `${ch}px`;
+            canvas.style.top    = `-${OVERFLOW}px`;
+            canvas.style.left   = `-${OVERFLOW}px`;
+            canvas.width  = Math.round(cw * dpr);
+            canvas.height = Math.round(ch * dpr);
 
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(dpr, dpr);
@@ -143,8 +149,77 @@
             try {
                 const res = await fetch(jsonUrl);
                 const positions = await res.json();
+                
+                await document.fonts.ready;
 
                 let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                for (const p of positions) {
+                    if (p.x < minX) minX = p.x;
+                    if (p.y < minY) minY = p.y;
+                    if (p.x > maxX) maxX = p.x;
+                    if (p.y > maxY) maxY = p.y;
+                }
+
+                const origLw = maxX - minX;
+                const origLh = maxY - minY;
+
+                // --- TEXT TO DOTS LOGIC ---
+                const tCanvas = document.createElement('canvas');
+                const tCtx = tCanvas.getContext('2d', { willReadFrequently: true });
+                const tW = Math.floor(origLw * 1.5);
+                const tH = Math.floor(origLh);
+                tCanvas.width = tW;
+                tCanvas.height = tH;
+                
+                const fontSize1 = tH * 0.17;
+                const fontSize2 = tH * 0.09;
+                
+                tCtx.textBaseline = 'middle';
+                
+                // Draw YEARS
+                tCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+                tCtx.font = `800 ${fontSize1}px "Montserrat", "Inter", sans-serif`;
+                tCtx.fillText('YEARS', 0, tH * 0.47);
+                
+                // Draw 1996 - 2026
+                tCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+                tCtx.font = `700 ${fontSize2}px "Montserrat", "Inter", sans-serif`;
+                tCtx.fillText('1996 - 2026', 0, tH * 0.59);
+
+                const imgData = tCtx.getImageData(0, 0, tW, tH).data;
+                const stepOriginal = Math.max(2, Math.floor(tH / 140)); 
+                
+                const textStartX = minX + origLw * 0.58; 
+                const textStartY = minY;
+
+                let totalR = 0;
+                for (const p of positions) totalR += (p.rr || p.r || 1.2);
+                const avgR = (totalR / positions.length) * 0.42; // Tăng một chút so với 0.35 để chữ trắng được rõ và sáng hơn
+
+                const step = 4.5; // Giảm mạnh mật độ chấm để giảm lag (ít hạt hơn rất nhiều)
+                
+                for (let y = 0; y < tH; y += step) {
+                    for (let x = 0; x < tW; x += step) {
+                        const px = Math.floor(x);
+                        const py = Math.floor(y);
+                        const idx = (py * tW + px) * 4;
+                        const a = imgData[idx + 3];
+                        if (a > 128) {
+                            positions.push({
+                                x: textStartX + x,
+                                y: textStartY + y,
+                                r: avgR * 1.1, // Giảm kích thước hạt để chữ thanh thoát, không bị đậm/to quá
+                                cr: 255,
+                                cg: 255,
+                                cb: 255,
+                                opacity: 1
+                            });
+                        }
+                    }
+                }
+
+                // Recalculate bounds with new text dots
+                minX = Infinity; minY = Infinity; maxX = -Infinity; maxY = -Infinity;
                 for (const p of positions) {
                     if (p.x < minX) minX = p.x;
                     if (p.y < minY) minY = p.y;
@@ -158,7 +233,7 @@
                 circles = positions.map(pos => ({
                     originalX: pos.x - minX,
                     originalY: pos.y - minY,
-                    originalR: (pos.rr || pos.r || 1.2) * 0.9,
+                    originalR: (pos.rr || pos.r || avgR) * 0.9,
                     cr: pos.cr || 255,
                     cg: pos.cg || 255,
                     cb: pos.cb || 255,
@@ -182,13 +257,13 @@
         function recenterLogo() {
             const { width: lw, height: lh } = logoBounds;
             
-            // Adjust to fit EXACTLY within the wrapper padding bounds to match image
             const availW = width;
             const availH = height;
             
             const scale = Math.min(availW / lw, availH / lh);
-            const offX = (width - lw * scale) / 2;
-            const offY = (height - lh * scale) / 2;
+            // Shift by OVERFLOW so (0,0) in canvas coords = (-OVERFLOW,-OVERFLOW) in wrapper coords
+            const offX = (width - lw * scale) / 2 + OVERFLOW;
+            const offY = (height - lh * scale) / 2 + OVERFLOW;
 
             for (let c of circles) {
                 c.x = c.ox = c.originalX * scale + offX;
@@ -208,7 +283,7 @@
         function animate(timestamp) {
             if (!isAnimating) return;
 
-            ctx.clearRect(0, 0, width, height);
+            ctx.clearRect(0, 0, width + OVERFLOW * 2, height + OVERFLOW * 2);
 
             // Responsive repulsion radius
             const repelRadius = Math.min(width, window.innerWidth) * 0.08;

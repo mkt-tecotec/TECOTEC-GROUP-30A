@@ -55,7 +55,7 @@ function tecotec_enqueue_style(string $name, array $deps = ['tecotec-main-css'],
         $handle = "tecotec-{$name}";
     }
     $path = get_template_directory() . "/assets/css/{$name}.css";
-    $uri  = get_template_directory_uri() . "/assets/css/{$name}.css";
+    $uri = get_template_directory_uri() . "/assets/css/{$name}.css";
     wp_enqueue_style($handle, $uri, $deps, file_exists($path) ? (string) filemtime($path) : '1.0.0');
 }
 
@@ -77,7 +77,7 @@ function tecotec_enqueue_script(string $name, array $deps = [], bool $in_footer 
         $handle = "tecotec-{$name}-js";
     }
     $path = get_template_directory() . "/assets/js/{$name}.js";
-    $uri  = get_template_directory_uri() . "/assets/js/{$name}.js";
+    $uri = get_template_directory_uri() . "/assets/js/{$name}.js";
     wp_enqueue_script($handle, $uri, $deps, file_exists($path) ? (string) filemtime($path) : '1.0.0', $in_footer);
 }
 
@@ -88,7 +88,7 @@ function tecotec_enqueue_script(string $name, array $deps = [], bool $in_footer 
  */
 function tecotec_group_scripts()
 {
-    $version = '1.1.0';
+    $version = '1.1.1';
     $dir_uri = get_template_directory_uri();
     $dir_path = get_template_directory();
 

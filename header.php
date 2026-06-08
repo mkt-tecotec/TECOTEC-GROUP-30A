@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="site-branding-logos">
                     <a href="https://tecotec.com.vn/" class="logo-main">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-TECOTEC-Group.svg"
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-TECOTEC-Group-white.svg"
                             alt="TECOTEC Group">
                     </a>
                     <div class="logo-divider"></div>
@@ -27,16 +27,17 @@
                 <div class="header-right">
                     <button class="menu-toggle" id="menu-toggle" aria-expanded="false">
                         <div class="hamburger-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="4" cy="4" r="2.5"/>
-                                <circle cx="12" cy="4" r="2.5"/>
-                                <circle cx="20" cy="4" r="2.5"/>
-                                <circle cx="4" cy="12" r="2.5"/>
-                                <circle cx="12" cy="12" r="2.5"/>
-                                <circle cx="20" cy="12" r="2.5"/>
-                                <circle cx="4" cy="20" r="2.5"/>
-                                <circle cx="12" cy="20" r="2.5"/>
-                                <circle cx="20" cy="20" r="2.5"/>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="4" cy="4" r="2.5" />
+                                <circle cx="12" cy="4" r="2.5" />
+                                <circle cx="20" cy="4" r="2.5" />
+                                <circle cx="4" cy="12" r="2.5" />
+                                <circle cx="12" cy="12" r="2.5" />
+                                <circle cx="20" cy="12" r="2.5" />
+                                <circle cx="4" cy="20" r="2.5" />
+                                <circle cx="12" cy="20" r="2.5" />
+                                <circle cx="20" cy="20" r="2.5" />
                             </svg>
                         </div>
                     </button>
