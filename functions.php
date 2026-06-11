@@ -128,6 +128,10 @@ function tecotec_group_scripts()
     wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true);
     wp_enqueue_script('gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap'), '3.12.2', true);
     wp_enqueue_script('tecotec-custom-js', $dir_uri . '/assets/js/custom.js', array('jquery', 'gsap'), $version, true);
+
+    // Global Image Popup
+    wp_enqueue_style('tecotec-image-popup', $dir_uri . '/assets/css/image-popup.css', array('tecotec-main-css'), $version);
+    wp_enqueue_script('tecotec-image-popup', $dir_uri . '/assets/js/image-popup.js', array('jquery'), $version, true);
 }
 add_action('wp_enqueue_scripts', 'tecotec_group_scripts');
 

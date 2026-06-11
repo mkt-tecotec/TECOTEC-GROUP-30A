@@ -32,7 +32,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 50px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
 }
 
 .hp-achievements-content {
@@ -59,7 +59,7 @@
 
 .hp-achievements-desc {
     color: #B8C2D0;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1.6;
     max-width: 580px;
 }
@@ -88,13 +88,16 @@
 
 /* Cards Section */
 .hp-achievements-cards {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 24px;
     margin-top: 20px;
 }
 
 .achievement-card {
+    width: calc(20% - 19.2px);
+    /* 5 cards per row by default */
     background: linear-gradient(145deg, rgba(10, 37, 64, 0.6) 0%, rgba(4, 21, 41, 0.8) 100%);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
@@ -223,20 +226,32 @@
     color: #F4F7FA;
 }
 
-/* Responsive */
+/* Responsive Achievements Section */
 @media (max-width: 1200px) {
-    .hp-achievements-cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
     .hp-achievements-top {
         gap: 30px;
     }
-    
+
     .hp-achievements-visual {
-        width: 250px;
-        height: 250px;
-        transform: translateX(-20px);
+        width: 320px;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 1024px) {
+
+    /* Tablet Landscape */
+    .hp-achievements-cards .achievement-card {
+        width: calc(33.333% - 16px);
+    }
+
+    .hp-achievements-title {
+        font-size: 2rem;
+    }
+
+    .hp-achievements-title br {
+        display: none;
+        /* Hide hardcoded line break on smaller screens for natural wrapping */
     }
 }
 
@@ -245,35 +260,46 @@
         flex-direction: column;
         text-align: center;
     }
-    
+
     .hp-achievements-desc {
         margin: 0 auto;
     }
-    
+
     .hp-achievements-visual {
         margin: 40px auto 0;
-        transform: translateX(0);
     }
 }
 
 @media (max-width: 768px) {
-    .hp-achievements-cards {
-        grid-template-columns: repeat(2, 1fr);
+
+    /* Tablet Portrait */
+    .hp-achievements-cards .achievement-card {
+        width: calc(50% - 12px);
     }
-    
+
+    .hp-achievements-cards .achievement-card:last-child {
+        width: 100%;
+    }
+
     .hp-achievements-title {
         font-size: 2rem;
+    }
+
+    .hp-achievements {
+        padding: 50px 0;
     }
 }
 
 @media (max-width: 480px) {
-    .hp-achievements-cards {
-        grid-template-columns: 1fr;
+
+    /* Mobile */
+    .hp-achievements-cards .achievement-card {
+        width: 100%;
     }
-    
+
     .hp-achievements-visual {
-        width: 220px;
-        height: 220px;
+        width: 250px;
+        height: auto;
     }
 }
 
@@ -376,13 +402,13 @@
 }
 
 /* Responsive Awards Section */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .hp-awards-section {
         flex-direction: column;
         padding: 40px;
         margin-top: 60px;
     }
-    
+
     .hp-awards-content {
         max-width: 100%;
         text-align: center;
@@ -396,6 +422,7 @@
     .hp-awards-visual {
         max-width: 100%;
         width: 100%;
+        margin-right: 0;
     }
 }
 
@@ -496,12 +523,13 @@
 }
 
 /* Responsive Commitments */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .hp-commitments-list {
         flex-direction: column;
+        align-items: stretch;
         gap: 40px;
     }
-    
+
     .hp-commitment-divider {
         width: 100%;
         height: 1px;
@@ -514,7 +542,7 @@
     .hp-commitments-section {
         padding: 30px 20px;
     }
-    
+
     .hp-commitment-item {
         flex-direction: column;
         align-items: center;
@@ -662,13 +690,15 @@
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .hp-people-section {
         flex-direction: column;
     }
+
     .hp-people-content {
         max-width: 100%;
     }
+
     .hp-people-visual {
         max-width: 100%;
         width: 100%;
@@ -676,18 +706,37 @@
 }
 
 @media (max-width: 575px) {
-    .hp-people-stats {
-        grid-template-columns: 1fr;
+    .hp-people-title {
+        font-size: 24px;
     }
+    
+    .hp-people-title br {
+        display: none; /* Let text wrap naturally */
+    }
+
+    .hp-people-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 15px;
+    }
+    
+    .hp-people-stat-number {
+        font-size: 24px;
+    }
+
+    .hp-people-img-top img {
+        height: 250px;
+    }
+
     .hp-people-img-bottom {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
     }
 }
 
 /* Core Values Section */
 .hp-core-values-section {
     background-color: #071932;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 35px 40px;
     margin-top: 50px;
@@ -702,7 +751,8 @@
     margin-top: 0;
     display: flex;
     align-items: center;
-    justify-content: center; /* User requested text-align: center */
+    justify-content: center;
+    /* User requested text-align: center */
     text-align: center;
 }
 
@@ -772,7 +822,7 @@
 }
 
 /* Core Values Responsive */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .hp-core-values-grid {
         grid-template-columns: 1fr;
         gap: 30px;

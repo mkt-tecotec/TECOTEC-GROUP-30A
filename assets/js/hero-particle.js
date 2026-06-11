@@ -234,9 +234,9 @@
                     originalX: pos.x - minX,
                     originalY: pos.y - minY,
                     originalR: (pos.rr || pos.r || avgR) * 0.9,
-                    cr: pos.cr || 255,
-                    cg: pos.cg || 255,
-                    cb: pos.cb || 255,
+                    cr: pos.cr !== undefined ? pos.cr : 255,
+                    cg: pos.cg !== undefined ? pos.cg : 255,
+                    cb: pos.cb !== undefined ? pos.cb : 255,
                     opacity: ('opacity' in pos) ? pos.opacity : 1,
                     x: 0, y: 0, ox: 0, oy: 0, r: 0,
                     vx: 0, vy: 0,
@@ -308,13 +308,12 @@
                     
                     ctx.beginPath();
                     ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-                    if (c.cr > 200 && c.cg > 100 && c.cb < 100) {
-                        ctx.fillStyle = `rgba(255, 153, 0, ${c.opacity})`;
-                        ctx.fill();
-                    } else {
+                    if (c.cr === 255 && c.cg === 255 && c.cb === 255) {
                         ctx.fillStyle = `rgba(255, 255, 255, ${c.opacity})`;
-                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = `rgba(255, 153, 0, ${c.opacity})`;
                     }
+                    ctx.fill();
                 }
 
                 if (progress >= 1) {
@@ -345,13 +344,12 @@
 
                     ctx.beginPath();
                     ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-                    if (c.cr > 200 && c.cg > 100 && c.cb < 100) {
-                        ctx.fillStyle = `rgba(255, 153, 0, ${c.opacity})`;
-                        ctx.fill();
-                    } else {
+                    if (c.cr === 255 && c.cg === 255 && c.cb === 255) {
                         ctx.fillStyle = `rgba(255, 255, 255, ${c.opacity})`;
-                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = `rgba(255, 153, 0, ${c.opacity})`;
                     }
+                    ctx.fill();
                 }
             }
 

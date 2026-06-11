@@ -111,9 +111,13 @@ function tecotec_news_placeholder( $w, $h, $label = 'TECOTEC+News' ) {
                 $title      = get_the_title();
                 $excerpt    = get_the_excerpt();
                 $date_raw   = get_the_date( 'd.m.Y' );
-                $thumb_url  = has_post_thumbnail()
-                    ? get_the_post_thumbnail_url( $post_id, 'large' )
-                    : tecotec_news_placeholder( 900, 520, $title );
+                $thumb_url  = get_the_post_thumbnail_url( $post_id, 'large' );
+                if ( ! $thumb_url ) {
+                    $thumb_url = get_the_post_thumbnail_url( $post_id, 'full' );
+                }
+                if ( ! $thumb_url ) {
+                    $thumb_url = tecotec_news_placeholder( 900, 520, $title );
+                }
 
                 /* Category label */
                 $cats       = get_the_category( $post_id );
@@ -154,9 +158,13 @@ function tecotec_news_placeholder( $w, $h, $label = 'TECOTEC+News' ) {
         <?php
                 else :
                     /* ── LIST ITEMS (posts 2-4) ─────────── */
-                    $list_thumb = has_post_thumbnail()
-                        ? get_the_post_thumbnail_url( $post_id, 'medium' )
-                        : tecotec_news_placeholder( 360, 240, $title );
+                    $list_thumb = get_the_post_thumbnail_url( $post_id, 'medium' );
+                    if ( ! $list_thumb ) {
+                        $list_thumb = get_the_post_thumbnail_url( $post_id, 'full' );
+                    }
+                    if ( ! $list_thumb ) {
+                        $list_thumb = tecotec_news_placeholder( 360, 240, $title );
+                    }
         ?>
                         <a href="<?php echo esc_url( $permalink ); ?>"
                            class="hp-news-list-item"

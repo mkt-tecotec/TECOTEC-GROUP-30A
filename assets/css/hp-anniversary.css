@@ -470,39 +470,34 @@
     height: 260px;
     border-color: var(--secondary-color, #fe7c03);
     box-shadow: 0 0 0 1px rgba(254,124,3,0.3), 0 30px 60px rgba(0,0,0,0.6);
-    animation: hp-float 4s ease-in-out infinite;
 }
 
 .hp-avatar__card--left {
     z-index: 3;
     opacity: 0.75;
     filter: blur(0.5px);
-    animation: hp-float-left 5s ease-in-out infinite;
-    animation-delay: 0.5s;
+    transform: translateX(-190px) scale(0.88) rotate(-8deg);
 }
 
 .hp-avatar__card--right {
     z-index: 3;
     opacity: 0.75;
     filter: blur(0.5px);
-    animation: hp-float-right 6s ease-in-out infinite;
-    animation-delay: 1.2s;
+    transform: translateX(190px) scale(0.88) rotate(8deg);
 }
 
 .hp-avatar__card--top {
     z-index: 3;
     opacity: 0.7;
     filter: blur(0.5px);
-    animation: hp-float-top 7s ease-in-out infinite;
-    animation-delay: 0s;
+    transform: translateY(-185px) scale(0.84) rotate(5deg);
 }
 
 .hp-avatar__card--bottom {
     z-index: 3;
     opacity: 0.7;
     filter: blur(0.5px);
-    animation: hp-float-bottom 5.5s ease-in-out infinite;
-    animation-delay: 1.8s;
+    transform: translateY(185px) scale(0.84) rotate(-5deg);
 }
 
 

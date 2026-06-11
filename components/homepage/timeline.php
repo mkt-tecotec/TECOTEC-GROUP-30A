@@ -2,6 +2,9 @@
 /**
  * Timeline Component
  */
+if (!defined('ABSPATH')) {
+    exit; // Prevent direct access
+}
 tecotec_enqueue_style('timeline');
 tecotec_enqueue_script('timeline', ['jquery', 'gsap', 'gsap-scroll-trigger'], true, 'timeline-js');
 ?>
@@ -114,6 +117,7 @@ tecotec_enqueue_script('timeline', ['jquery', 'gsap', 'gsap-scroll-trigger'], tr
                         ['#FF9900', '#ffb84d'],
                         ['#146EB4', '#0a1929'],
                     ];
+                    $available_images = ['2008', '2013', '2016', '2018', '2021', '2022', '2023', '2024'];
                     foreach ($history_items as $index => $item):
                         $active_class = $index === 0 ? ' active' : '';
                         $color_count = count($colors);
@@ -121,7 +125,11 @@ tecotec_enqueue_script('timeline', ['jquery', 'gsap', 'gsap-scroll-trigger'], tr
                         $hue2 = $colors[$index % $color_count][1];
                     ?>
                         <div class="year-image<?php echo $active_class; ?>" data-index="<?php echo $index; ?>" style="--hue1: <?php echo $hue1; ?>; --hue2: <?php echo $hue2; ?>;">
-                            <span class="img-year"><?php echo $item['year']; ?></span>
+                            <?php if (in_array($item['year'], $available_images)): ?>
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/image/timeline/dòng thời gian <?php echo $item['year']; ?>.webp" alt="Timeline <?php echo $item['year']; ?>" onclick="if(window.openGlobalImagePopup) window.openGlobalImagePopup(this.src)">
+                            <?php else: ?>
+                                <span class="img-year"><?php echo $item['year']; ?></span>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

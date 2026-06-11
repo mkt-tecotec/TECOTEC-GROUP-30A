@@ -150,49 +150,6 @@
                 );
             }
         }
-
-        // Popup Lightbox Logic
-        const $popup = $('#hp-gallery-popup');
-        const $popupImg = $('#hp-gallery-popup-img');
-        const $popupClose = $('#hp-gallery-popup-close');
-        
-        $('.hp-gallery-img-wrapper').on('click', function() {
-            const imgSrc = $(this).find('img').attr('src');
-            $popupImg.attr('src', imgSrc);
-            $popup.css('display', 'flex');
-            
-            // Allow display block to apply before opacity transition
-            setTimeout(function() {
-                $popup.addClass('is-visible');
-            }, 10);
-        });
-
-        function closePopup() {
-            $popup.removeClass('is-visible');
-            setTimeout(function() {
-                $popup.css('display', 'none');
-                $popupImg.attr('src', '');
-            }, 300); // Wait for transition
-        }
-
-        $popupClose.on('click', function(e) {
-            e.preventDefault();
-            closePopup();
-        });
-
-        // Close on clicking outside the image
-        $popup.on('click', function(e) {
-            if ($(e.target).is($popup) || $(e.target).is('.hp-gallery-popup-content')) {
-                closePopup();
-            }
-        });
-        
-        // Close on escape key
-        $(document).keyup(function(e) {
-            if (e.key === "Escape") {
-                closePopup();
-            }
-        });
     });
 
 })(jQuery);

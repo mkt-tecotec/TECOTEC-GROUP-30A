@@ -4,17 +4,11 @@
         return;
     }
 
-    var assetsBase = (window.tecotecWallpaper && window.tecotecWallpaper.assetsBase) || '';
     var styleInputs = document.querySelectorAll('input[name="wl-style"]');
     var colorInputs = document.querySelectorAll('input[name="wl-color"]');
     var tabs = document.querySelectorAll('.wl-tab');
-    var phonePreview = document.getElementById('wl-preview-phone');
-    var desktopPreview = document.getElementById('wl-preview-desktop');
     var phonePanel = document.querySelector('[data-device-preview="phone"]');
     var desktopPanel = document.querySelector('[data-device-preview="desktop"]');
-    var downloadIphone = document.getElementById('wl-download-iphone');
-    var downloadAndroid = document.getElementById('wl-download-android');
-    var downloadDesktop = document.getElementById('wl-download-desktop');
 
     var state = {
         style: 'calm',
@@ -22,19 +16,10 @@
         device: 'phone'
     };
 
-    function getPath(device) {
-        return assetsBase + '/wallpapers/' + state.style + '-' + state.color + '-' + device + '.svg';
-    }
-
     function render() {
-        phonePreview.src = getPath('iphone');
-        desktopPreview.src = getPath('desktop');
-        downloadIphone.href = getPath('iphone');
-        downloadIphone.download = 'tecotec-30-' + state.style + '-' + state.color + '-iphone.svg';
-        downloadAndroid.href = getPath('android');
-        downloadAndroid.download = 'tecotec-30-' + state.style + '-' + state.color + '-android.svg';
-        downloadDesktop.href = getPath('desktop');
-        downloadDesktop.download = 'tecotec-30-' + state.style + '-' + state.color + '-desktop.svg';
+        // Tạm thời ẩn logic update ảnh theo style/color để dùng demo ảnh thật
+        // var assetsBase = (window.tecotecWallpaper && window.tecotecWallpaper.assetsBase) || '';
+        // phonePreview.src = ...
 
         phonePanel.classList.toggle('is-active', state.device === 'phone');
         desktopPanel.classList.toggle('is-active', state.device === 'desktop');

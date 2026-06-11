@@ -85,7 +85,7 @@ $achievements_data = [
         <div class="hp-achievements-top">
             <div class="hp-achievements-content">
                 <div class="hp-achievements-tag">THÀNH TỰU</div>
-                <h2 class="hp-achievements-title">30 NĂM KIẾN TẠO GIÁ TRỊ &ndash;<br>NHIỀU DẤU ẤN TỰ HÀO</h2>
+                <h2 class="hp-achievements-title">30 NĂM KIẾN TẠO GIÁ TRỊ &ndash;<br> NHIỀU DẤU ẤN TỰ HÀO</h2>
                 <p class="hp-achievements-desc">
                     Trên hành trình 30 năm phát triển, TECOTEC Group không ngừng nỗ lực, đổi mới và kiến tạo những giá
                     trị bền vững cho đối tác và cộng đồng. Những thành tựu đạt được là minh chứng cho cam kết và uy tín
@@ -183,7 +183,7 @@ $achievements_data = [
                     CON NGƯỜI TECOTEC
                     <span class="hp-people-tag-line"></span>
                 </div>
-                <h3 class="hp-people-title">CON NGƯỜI LÀ NỀN TẢNG<br>CỦA MỌI THÀNH TỰU</h3>
+                <h3 class="hp-people-title">CON NGƯỜI LÀ NỀN TẢNG <br>CỦA MỌI THÀNH TỰU</h3>
                 <p class="hp-people-desc">
                     Hơn 200 con người TECOTEC làm việc với tinh thần chính xác, trách nhiệm và khát vọng không ngừng
                     vươn lên. Chúng tôi tin rằng phát triển con người là chìa khóa để kiến tạo giá trị bền vững cho đối
@@ -319,7 +319,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                             <rect x="2" y="3" width="20" height="14" rx="2" />
                             <path d="M8 21h8M12 17v4" />
                         </svg>
-                        Desktop 1920×1080
+                        Desktop
                     </span>
                     <span class="hp-wallpaper__size-pill">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -327,7 +327,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                             <rect x="5" y="2" width="14" height="20" rx="2" />
                             <circle cx="12" cy="17" r="1" />
                         </svg>
-                        iPhone 1170×2532
+                        Tablet
                     </span>
                     <span class="hp-wallpaper__size-pill">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -335,7 +335,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
                             <rect x="5" y="2" width="14" height="20" rx="2" />
                             <circle cx="12" cy="17" r="1" />
                         </svg>
-                        Android 1080×2400
+                        Mobile
                     </span>
                 </div>
 
@@ -353,15 +353,6 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
             <!-- Right: Visual mockup -->
             <div class="hp-wallpaper__visual">
                 <div class="hp-wallpaper__devices">
-                    <!-- Floating badge -->
-                    <div class="hp-wallpaper__badge">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                        </svg>
-                        Chất lượng 4K · Miễn phí
-                    </div>
 
                     <!-- Desktop frame -->
                     <div class="hp-wallpaper__desktop-frame">

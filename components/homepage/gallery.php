@@ -28,40 +28,31 @@ $base_gallery_data = [
     ],
     [
         'label' => '2012–2015',
-        'folder' => '2010',
+        'folder' => '2012-2015',
         'title' => 'Nền tảng thương mại số – Tái cấu trúc – Bắt đầu R&D',
         'caption' => 'Ra mắt nền tảng thương mại số, tái cấu trúc toàn diện hệ thống vận hành và đầu tư mạnh cho nghiên cứu & phát triển, làm chủ công nghệ lõi.',
     ],
     [
         'label' => '2016–2019',
-        'folder' => '2016',
+        'folder' => '2016-2019',
         'title' => 'Tái cấu trúc thành TECOTEC Group',
         'caption' => 'Kỷ niệm 20 năm thành lập. Tái cấu trúc mô hình quản trị thành TECOTEC Group, định hướng phát triển đa ngành trên nền tảng kỹ thuật và tích hợp hệ thống.',
     ],
     [
         'label' => '2020–2022',
-        'folder' => '2020',
+        'folder' => '2020-2022',
         'title' => 'Chuyển đổi số toàn diện & Vượt qua thách thức',
         'caption' => 'Chuyển đổi số toàn diện và nâng cấp hạ tầng công nghệ; vượt qua thách thức đại dịch, đảm bảo chuỗi cung ứng dịch vụ kỹ thuật liên tục.',
     ],
     [
         'label' => '2023–nay',
-        'folder' => '2026',
+        'folder' => '2023-nay',
         'title' => 'Kỷ niệm 30 năm phát triển bền vững',
         'caption' => 'Kỷ niệm mốc son 30 năm (1996–2026). TECOTEC Group tiếp tục đổi mới không ngừng, tự hào là đối tác công nghệ đáng tin cậy.',
     ]
 ];
 
-// Fallback images for all periods if folders are missing/empty
-$default_fallbacks = [
-    get_template_directory_uri() . '/assets/image/con-nguoi.webp',
-    get_template_directory_uri() . '/assets/image/su-kien-da-bong.webp',
-    get_template_directory_uri() . '/assets/image/su-kien-goi-banh-chung.webp',
-    get_template_directory_uri() . '/assets/image/tat-nien-2026.webp',
-    get_template_directory_uri() . '/assets/image/con-nguoi.webp',
-    get_template_directory_uri() . '/assets/image/su-kien-da-bong.webp',
-    get_template_directory_uri() . '/assets/image/su-kien-goi-banh-chung.webp'
-];
+
 
 $gallery_data = [];
 $upload_dir = get_template_directory() . '/assets/image/gallery/';
@@ -84,25 +75,17 @@ foreach ($base_gallery_data as $item) {
         }
     }
 
-    // Fallback if no images found in directory
+    // Fallback to default-image directory if no images found
     if (empty($images)) {
-        $root_files = glob($upload_dir . '*.{jpg,jpeg,png,webp,gif,svg}', GLOB_BRACE);
-        if (!empty($root_files)) {
-            sort($root_files);
-            foreach ($root_files as $file) {
-                $images[] = get_template_directory_uri() . '/assets/image/gallery/' . basename($file);
+        $default_dir = $upload_dir . 'default-image';
+        if (is_dir($default_dir)) {
+            $default_files = glob($default_dir . '/*.{jpg,jpeg,png,webp,gif,svg}', GLOB_BRACE);
+            if (!empty($default_files)) {
+                sort($default_files);
+                foreach ($default_files as $file) {
+                    $images[] = get_template_directory_uri() . '/assets/image/gallery/default-image/' . basename($file);
+                }
             }
-        } else {
-            $images = $default_fallbacks;
-        }
-    }
-
-    // Repeat images to ensure there are exactly 20 images per period
-    $display_images = [];
-    $count = count($images);
-    if ($count > 0) {
-        for ($i = 0; $i < 20; $i++) {
-            $display_images[] = $images[$i % $count];
         }
     }
 
@@ -110,7 +93,7 @@ foreach ($base_gallery_data as $item) {
         'label' => $item['label'],
         'title' => $item['title'],
         'caption' => $item['caption'],
-        'images' => $display_images
+        'images' => $images
     ];
 }
 ?>
@@ -140,8 +123,8 @@ foreach ($base_gallery_data as $item) {
                 </svg>
             </button>
             <div class="hp-gallery-nav">
-                <div class="hp-gallery-tabs-container" style="position: relative; min-width: 800px; width: 100%;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/ngang_milestone.svg" class="hp-gallery-ruler-svg" alt="Ruler" style="width: 100%; height: auto; display: block;">
+                <div class="hp-gallery-tabs-container">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/image/ngang_milestone.svg" class="hp-gallery-ruler-svg" alt="Ruler">
                     
                     <ul class="hp-gallery-tabs">
                         <li class="hp-gallery-sliding-line" aria-hidden="true"></li>
@@ -159,7 +142,7 @@ foreach ($base_gallery_data as $item) {
                             $top_pct = 0; // Align to the top of the SVG milestones
                         ?>
                             <li class="hp-gallery-tab-item" style="left: <?php echo $percentages[$index]; ?>; top: <?php echo $top_pct; ?>%;">
-                                <button class="hp-gallery-tab-btn <?php echo $index === 3 ? 'is-active' : ''; ?>"
+                                <button class="hp-gallery-tab-btn <?php echo $index === 0 ? 'is-active' : ''; ?>"
                                     data-index="<?php echo $index; ?>">
                                     <span class="tab-year"><?php echo esc_html($item['label']); ?></span>
                                     <span class="tab-dot"></span>
@@ -180,9 +163,9 @@ foreach ($base_gallery_data as $item) {
         <!-- Panels Container -->
         <div class="hp-gallery-panels">
             <?php foreach ($gallery_data as $index => $item): ?>
-                <div class="hp-gallery-panel <?php echo $index === 3 ? 'is-active' : ''; ?>"
+                <div class="hp-gallery-panel <?php echo $index === 0 ? 'is-active' : ''; ?>"
                     data-index="<?php echo $index; ?>"
-                    style="<?php echo $index === 3 ? 'display: block;' : 'display: none;'; ?>">
+                    style="<?php echo $index === 0 ? 'display: block;' : 'display: none;'; ?>">
 
                     <div class="hp-gallery-panel-inner">
                         <!-- Gallery Images (Masonry) -->
@@ -202,13 +185,5 @@ foreach ($base_gallery_data as $item) {
             <?php endforeach; ?>
         </div>
 
-    </div>
-
-    <!-- Popup / Lightbox Modal -->
-    <div class="hp-gallery-popup" id="hp-gallery-popup">
-        <div class="hp-gallery-popup-content">
-            <button class="hp-gallery-popup-close" id="hp-gallery-popup-close">&times;</button>
-            <img src="" alt="Popup Image" class="hp-gallery-popup-img" id="hp-gallery-popup-img">
-        </div>
     </div>
 </section>

@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 <header class="a30-masthead">
     <div class="a30-shell a30-masthead__inner">
         <a class="a30-brand" href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/logo-TECOTEC-Group-white.svg'); ?>"
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/logo-TECOTEC-Group.svg'); ?>"
                 alt="TECOTEC Group" />
             <img class="a30-brand__mark"
                 src="<?php echo esc_url(get_template_directory_uri() . '/assets/image/logo-ky-niem-cam.webp'); ?>"

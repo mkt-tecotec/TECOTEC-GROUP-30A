@@ -24,12 +24,15 @@
         <div class="footer-col footer-col-links">
             <h4 class="footer-title">LIÊN KẾT NHANH</h4>
             <ul class="footer-links">
-                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/#hp-overview' ) ); ?>">Giới thiệu</a></li>
                 <li><a href="#">Lĩnh vực hoạt động</a></li>
                 <li><a href="#">Hệ thống năng lực</a></li>
-                <li><a href="#">Dấu mốc phát triển</a></li>
-                <li><a href="#">Thành tựu</a></li>
-                <li><a href="#">Tin tức</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/#history' ) ); ?>">Dấu mốc phát triển</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/#hp-achievements' ) ); ?>">Thành tựu</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/#hp-gallery' ) ); ?>">Thư viện ảnh</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/#hp-news' ) ); ?>">Tin tức</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/hinh-nen-30/' ) ); ?>">Tải hình nền</a></li>
+                <li><a href="<?php echo esc_url( home_url( '/tao-avatar-30/' ) ); ?>">Tạo avatar 30 năm</a></li>
             </ul>
         </div>
 
@@ -71,11 +74,12 @@
                     <img src="<?php echo $icon_url; ?>/phone-icon.svg" alt="Điện thoại">
                 </a>
             </div>
-            <p class="footer-marcom-credit">Crafted with <span class="footer-heart">&hearts;</span> by MarCom - TECOTEC&nbsp;Group</p>
         </div>
     </div>
 </footer>
 <?php endif; ?>
+
+<?php get_template_part('components/popup/image-popup'); ?>
 
 <?php wp_footer(); ?>
 </body>

@@ -29,7 +29,7 @@
 /* ----- Base (mobile) ----- */
 .timeline-intro {
     position: absolute;
-    top: 100px;
+    top: 42px;
     left: 50%;
     width: 80%;
     transform: translateX(-50%);
@@ -239,6 +239,7 @@
     position: relative;
     grid-area: 1 / 1;
     opacity: 0;
+    pointer-events: none;
     transition: 0.5s cubic-bezier(0.65, 0, 0.35, 1);
     will-change: opacity;
     user-select: none;
@@ -246,14 +247,17 @@
 
 .year-wrap.active {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .year-wrap.nearby {
     opacity: 0.2;
+    pointer-events: auto;
 }
 
 .year-wrap.far {
     opacity: 0.05;
+    pointer-events: auto;
 }
 
 .year-number {
@@ -261,7 +265,7 @@
     right: 50%;
     color: #fff;
     line-height: 1;
-    font-size: 5vw;
+    font-size: clamp(24px, 6vw, 42px);
     font-weight: 700;
     top: 50%;
     text-align: right;
@@ -280,17 +284,17 @@
 
 .year-content {
     color: #fff;
-    font-size: 3.07vw;
-    line-height: 1.3;
+    font-size: clamp(14px, 3vw, 18px);
+    line-height: 1.45;
     position: relative;
-    max-width: 38vw;
+    max-width: 50vw;
 }
 
 .year-content::before {
     content: "";
     position: absolute;
     top: 50%;
-    right: 107.45%;
+    right: 107.5%;
     transform: translateY(-50%);
     width: 2vw;
     height: 2vw;
@@ -346,6 +350,7 @@
 
     .year-number {
         font-size: 2.2vw;
+        right: 50%;
     }
 
     .year-content {
@@ -370,9 +375,9 @@
         position: absolute;
         top: 52vh;
         left: 11%;
-        pointer-events: none;
+        pointer-events: auto;
         display: block;
-        z-index: 4;
+        z-index: 10;
     }
 
     .year-image {
@@ -390,16 +395,87 @@
         will-change: opacity;
         background: linear-gradient(135deg, var(--hue1, #0a1929) 0%, var(--hue2, #146EB4) 100%);
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
     }
 
     .year-image.active {
         opacity: 1;
+        pointer-events: auto;
+    }
+
+    .year-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+        transition: opacity 0.5s ease;
+        cursor: pointer;
     }
 
     .year-image .img-year {
         font-size: 2vw;
         font-weight: 800;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.6);
         letter-spacing: -0.02em;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+}
+
+/* ----- Tablet Landscape Specific Tweaks ----- */
+@media (min-width: 1000px) and (max-width: 1024px) {
+    .timelinecircle-wrap {
+        width: 110vw;
+        left: -10vw;
+    }
+
+    .timelinecircle::before,
+    .timelinecircle::after,
+    .timelinecircle-bigdots {
+        width: 220vw;
+        height: 220vw;
+    }
+
+    .year-content::before {
+        right: 112.5%;
+        /* Adjusted to align perfectly with the scaled white dot */
+    }
+}
+
+/* ----- Mobile Specific Tweaks ----- */
+@media (max-width: 767px) {
+    .timelinecircle-wrap {
+        width: 200vw;
+        left: -80vw;
+    }
+
+    .timeline-intro {
+        position: absolute;
+        top: 75px;
+    }
+
+    .timelinecircle::before,
+    .timelinecircle::after,
+    .timelinecircle-bigdots {
+        width: 400vw;
+        height: 400vw;
+    }
+
+    .year-number {
+        right: 48%;
+    }
+
+    .year-content {
+        max-width: 55vw;
+    }
+
+    .year-content::before {
+        width: 3.5vw;
+        height: 3.5vw;
+        right: 110.2%;
     }
 }
