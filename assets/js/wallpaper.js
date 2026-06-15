@@ -4,15 +4,11 @@
         return;
     }
 
-    var styleInputs = document.querySelectorAll('input[name="wl-style"]');
-    var colorInputs = document.querySelectorAll('input[name="wl-color"]');
     var tabs = document.querySelectorAll('.wl-tab');
     var phonePanel = document.querySelector('[data-device-preview="phone"]');
     var desktopPanel = document.querySelector('[data-device-preview="desktop"]');
 
     var state = {
-        style: 'calm',
-        color: 'blue',
         device: 'phone'
     };
 
@@ -30,20 +26,6 @@
             tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
     }
-
-    styleInputs.forEach(function (input) {
-        input.addEventListener('change', function () {
-            state.style = input.value;
-            render();
-        });
-    });
-
-    colorInputs.forEach(function (input) {
-        input.addEventListener('change', function () {
-            state.color = input.value;
-            render();
-        });
-    });
 
     tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {

@@ -172,7 +172,7 @@ foreach ($base_gallery_data as $item) {
 
                         <div class="hp-gallery-grid">
                             <?php foreach ($item['images'] as $i => $img_src): ?>
-                                <div class="hp-gallery-img-wrapper img-<?php echo $i + 1; ?>">
+                                <div class="hp-gallery-img-wrapper">
                                     <img src="<?php echo esc_url($img_src); ?>"
                                         alt="TECOTEC Group <?php echo esc_attr($item['label']); ?> - Ảnh <?php echo $i + 1; ?>"
                                         loading="lazy">

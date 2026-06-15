@@ -6,23 +6,30 @@
 
     var ctx = canvas.getContext('2d');
     var uploadInput = document.getElementById('af-upload-input');
-    var frameInputs = document.querySelectorAll('input[name="af-frame"]');
     var downloadButton = document.getElementById('af-download');
     var shareButton = document.getElementById('af-share');
     var status = document.getElementById('af-status');
 
     var frameBasePath = (window.tecotecAvatar && window.tecotecAvatar.assetsBase) || '';
-    var frameMap = {
-        minimal: frameBasePath + '/frames/minimal.svg',
-        celebration: frameBasePath + '/frames/celebration.svg',
-        internal: frameBasePath + '/frames/internal.svg'
-    };
+    
+    // Lấy khung được chọn sẵn
+    var checkedFrameRadio = document.querySelector('input[name="af_frame"]:checked');
+    var defaultFrame = checkedFrameRadio ? checkedFrameRadio.value : 'Frame1.png';
+    var framePath = frameBasePath + '/frames/' + encodeURIComponent(defaultFrame);
 
-    var badgePath = frameBasePath + '/frames/badge-30.svg';
     var userImage = null;
-    var currentFrame = 'minimal';
-    var loadedFrames = {};
-    var loadedBadge = null;
+    var loadedFrame = null;
+
+    var zoomInput = document.getElementById('af-zoom');
+    var zoomVal = document.getElementById('af-zoom-val');
+    var controlsDiv = document.getElementById('af-controls');
+    var userScale = 1;
+    var minScale = 1;
+    var offsetX = 540;
+    var offsetY = 540;
+    var isDragging = false;
+    var startX = 0, startY = 0;
+    var startOffsetX = 0, startOffsetY = 0;
 
     function loadImage(src) {
         return new Promise(function (resolve, reject) {
@@ -34,20 +41,28 @@
         });
     }
 
-    function drawPlaceholder() {
+    function drawBackground() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#f4f6f8';
+        ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = '#146eb4';
-        ctx.beginPath();
-        ctx.arc(540, 470, 320, 0, Math.PI * 2);
-        ctx.fill();
+        if (!userImage) {
+            ctx.fillStyle = '#f4f6f8';
+            ctx.beginPath();
+            ctx.arc(540, 540, 540, 0, Math.PI * 2);
+            ctx.fill();
 
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '700 42px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('Tải ảnh để bắt đầu', 540, 500);
+            ctx.fillStyle = '#146eb4';
+            ctx.font = '700 42px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Tải ảnh để bắt đầu', 540, 540);
+        } else {
+            // Vẽ nền trắng cho vùng ảnh lọt thỏm nếu có thu nhỏ
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(540, 540, 540, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 
     function drawUserPhoto() {
@@ -56,14 +71,13 @@
         }
 
         var cx = 540;
-        var cy = 470;
-        var radius = 320;
+        var cy = 540;
+        var radius = 540;
 
-        var scale = Math.max((radius * 2) / userImage.width, (radius * 2) / userImage.height);
-        var drawW = userImage.width * scale;
-        var drawH = userImage.height * scale;
-        var drawX = cx - drawW / 2;
-        var drawY = cy - drawH / 2;
+        var drawW = userImage.width * userScale;
+        var drawH = userImage.height * userScale;
+        var drawX = offsetX - drawW / 2;
+        var drawY = offsetY - drawH / 2;
 
         ctx.save();
         ctx.beginPath();
@@ -75,15 +89,11 @@
     }
 
     function renderCanvas() {
-        drawPlaceholder();
+        drawBackground();
         drawUserPhoto();
 
-        if (loadedFrames[currentFrame]) {
-            ctx.drawImage(loadedFrames[currentFrame], 0, 0, canvas.width, canvas.height);
-        }
-
-        if (loadedBadge) {
-            ctx.drawImage(loadedBadge, 740, 800, 260, 220);
+        if (loadedFrame) {
+            ctx.drawImage(loadedFrame, 0, 0, canvas.width, canvas.height);
         }
     }
 
@@ -94,18 +104,36 @@
     }
 
     function preloadDecorators() {
-        return Promise.all([
-            loadImage(frameMap.minimal),
-            loadImage(frameMap.celebration),
-            loadImage(frameMap.internal),
-            loadImage(badgePath)
-        ]).then(function (images) {
-            loadedFrames.minimal = images[0];
-            loadedFrames.celebration = images[1];
-            loadedFrames.internal = images[2];
-            loadedBadge = images[3];
+        return loadImage(framePath).then(function (img) {
+            loadedFrame = img;
         }).catch(function () {
-            setStatus('Một số asset khung chưa tải được.');
+            setStatus('Không thể tải khung avatar.');
+        });
+    }
+
+    // Xử lý sự kiện đổi khung avatar
+    var frameRadios = document.querySelectorAll('input[name="af_frame"]');
+    if (frameRadios.length > 0) {
+        frameRadios.forEach(function (radio) {
+            radio.addEventListener('change', function (event) {
+                if (event.target.checked) {
+                    // Đổi viền báo hiệu chọn
+                    document.querySelectorAll('.af-frame-option').forEach(function (label) {
+                        label.style.borderColor = 'transparent';
+                    });
+                    event.target.closest('.af-frame-option').style.borderColor = 'var(--color-primary-500, #f90)';
+                    
+                    // Tải khung mới
+                    var selectedFrame = event.target.value;
+                    framePath = frameBasePath + '/frames/' + encodeURIComponent(selectedFrame);
+                    loadImage(framePath).then(function (img) {
+                        loadedFrame = img;
+                        renderCanvas();
+                    }).catch(function () {
+                        setStatus('Không thể tải khung avatar mới.');
+                    });
+                }
+            });
         });
     }
 
@@ -128,7 +156,24 @@
         reader.onload = function (event) {
             loadImage(event.target.result).then(function (img) {
                 userImage = img;
-                setStatus('Ảnh đã sẵn sàng, bạn có thể tải về hoặc chia sẻ.');
+                var baseScale = Math.max(1080 / userImage.width, 1080 / userImage.height);
+                minScale = baseScale * 0.2; // Cho phép thu nhỏ tối đa xuống còn 20% so với kích thước lấp đầy khung
+                userScale = baseScale;
+                offsetX = 540;
+                offsetY = 540;
+                userImage.baseScale = baseScale; // Lưu lại để dùng tính % hiển thị
+
+                if (zoomInput) {
+                    zoomInput.min = minScale;
+                    zoomInput.max = baseScale * 3;
+                    zoomInput.value = userScale;
+                    if (zoomVal) zoomVal.textContent = Math.round((userScale / baseScale) * 100) + '%';
+                }
+                if (controlsDiv) {
+                    controlsDiv.style.display = 'block';
+                }
+
+                setStatus('Ảnh đã sẵn sàng, bạn có thể điều chỉnh hoặc tải về.');
                 renderCanvas();
             }).catch(function () {
                 setStatus('Không đọc được ảnh tải lên.');
@@ -159,17 +204,96 @@
                 handleFile(files[0]);
             }
         });
-        uploadZone.addEventListener('click', function () {
-            uploadInput.click();
+    }
+
+    if (zoomInput) {
+        zoomInput.addEventListener('input', function() {
+            userScale = parseFloat(this.value);
+            var base = userImage && userImage.baseScale ? userImage.baseScale : minScale;
+            if (zoomVal) zoomVal.textContent = Math.round((userScale / base) * 100) + '%';
+            renderCanvas();
         });
     }
 
-    frameInputs.forEach(function (input) {
-        input.addEventListener('change', function () {
-            currentFrame = input.value;
+    var btnZoomOut = document.getElementById('af-zoom-out');
+    var btnZoomIn = document.getElementById('af-zoom-in');
+    
+    if (btnZoomOut && btnZoomIn && zoomInput) {
+        btnZoomOut.addEventListener('click', function() {
+            var step = parseFloat(zoomInput.step) || 0.05;
+            var newVal = parseFloat(zoomInput.value) - step * 5; // Tăng bước nhảy cho nút bấm để zoom nhanh hơn
+            if (newVal < parseFloat(zoomInput.min)) newVal = parseFloat(zoomInput.min);
+            zoomInput.value = newVal;
+            userScale = newVal;
+            var base = userImage && userImage.baseScale ? userImage.baseScale : minScale;
+            if (zoomVal) zoomVal.textContent = Math.round((userScale / base) * 100) + '%';
             renderCanvas();
         });
+        
+        btnZoomIn.addEventListener('click', function() {
+            var step = parseFloat(zoomInput.step) || 0.05;
+            var newVal = parseFloat(zoomInput.value) + step * 5;
+            if (newVal > parseFloat(zoomInput.max)) newVal = parseFloat(zoomInput.max);
+            zoomInput.value = newVal;
+            userScale = newVal;
+            var base = userImage && userImage.baseScale ? userImage.baseScale : minScale;
+            if (zoomVal) zoomVal.textContent = Math.round((userScale / base) * 100) + '%';
+            renderCanvas();
+        });
+    }
+
+    function getCanvasScale() {
+        var rect = canvas.getBoundingClientRect();
+        return 1080 / rect.width;
+    }
+
+    function handleDragStart(x, y) {
+        if (!userImage) return;
+        isDragging = true;
+        startX = x;
+        startY = y;
+        startOffsetX = offsetX;
+        startOffsetY = offsetY;
+        canvas.style.cursor = 'grabbing';
+    }
+
+    function handleDragMove(x, y) {
+        if (!isDragging) return;
+        var displayScale = getCanvasScale();
+        var dx = (x - startX) * displayScale;
+        var dy = (y - startY) * displayScale;
+        offsetX = startOffsetX + dx;
+        offsetY = startOffsetY + dy;
+        renderCanvas();
+    }
+
+    function handleDragEnd() {
+        isDragging = false;
+        if (userImage) canvas.style.cursor = 'grab';
+    }
+
+    canvas.addEventListener('mousedown', function(e) {
+        handleDragStart(e.clientX, e.clientY);
     });
+    window.addEventListener('mousemove', function(e) {
+        handleDragMove(e.clientX, e.clientY);
+    });
+    window.addEventListener('mouseup', handleDragEnd);
+
+    canvas.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+            handleDragStart(e.touches[0].clientX, e.touches[0].clientY);
+            if (userImage && e.cancelable) e.preventDefault();
+        }
+    }, { passive: false });
+    window.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 1 && isDragging) {
+            handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
+            if (e.cancelable) e.preventDefault();
+        }
+    }, { passive: false });
+    window.addEventListener('touchend', handleDragEnd);
+
 
     downloadButton.addEventListener('click', function () {
         canvas.toBlob(function (blob) {

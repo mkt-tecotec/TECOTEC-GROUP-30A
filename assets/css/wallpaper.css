@@ -56,17 +56,16 @@
     flex-direction: column;
     height: calc(100vh - 140px);
     max-height: 850px;
+    gap: 1.5rem;
 }
 
 .wl-preview-card {
     margin: 0;
     padding: 3rem;
-    background-color: #f1f5f9; /* Slate 100 - soft cool tint */
-    background-image: 
-        radial-gradient(circle at 100% 0%, rgba(20, 110, 180, 0.08) 0%, transparent 60%),
-        radial-gradient(circle at 0% 100%, rgba(255, 153, 0, 0.08) 0%, transparent 60%);
+    background-color: #F4F7FA; /* Light cool grey/blue */
+    background-image: radial-gradient(circle at 60% 50%, rgba(255, 107, 0, 0.08) 0%, transparent 60%);
     border: 1px solid rgba(24, 24, 27, 0.06);
-    border-radius: 1.5rem;
+    border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.02);
     flex: 1;
     display: flex;
@@ -75,25 +74,6 @@
     overflow: hidden;
     min-height: 0;
     position: relative;
-}
-
-/* Decorative background structural lines */
-.wl-preview-card::before {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    right: 35%;
-    width: 1px;
-    background: rgba(20, 110, 180, 0.05);
-    pointer-events: none;
-}
-.wl-preview-card::after {
-    content: '';
-    position: absolute;
-    bottom: 25%; left: 0; right: 0;
-    height: 1px;
-    background: rgba(20, 110, 180, 0.05);
-    pointer-events: none;
 }
 
 .wl-device {
@@ -114,14 +94,13 @@
     display: block;
     position: relative;
     background: #000; /* Screen inner bezel */
-    border: 4px solid #e4e4e7; /* Silver outer frame */
-    padding: 8px; /* Bezel width */
+    border: 6px solid #18181b; /* Dark frame */
+    padding: 6px; /* Bezel width */
     border-radius: 3rem;
     box-shadow: 
-        inset 0 0 0 1px rgba(0,0,0,0.1),
-        0 0 0 1px #d4d4d8, /* Outer subtle rim */
-        0 25px 50px -12px rgba(20, 110, 180, 0.2),
-        0 10px 20px -5px rgba(0,0,0,0.1);
+        inset 0 0 0 1px rgba(255,255,255,0.05),
+        0 30px 60px -12px rgba(255, 107, 0, 0.15),
+        0 18px 36px -18px rgba(0,0,0,0.2);
     height: 100%;
     width: auto;
     max-width: 100%;
@@ -143,12 +122,12 @@
     content: '';
     position: absolute;
     top: 140px;
-    right: -6px;
+    right: -8px;
     width: 3px;
     height: 60px;
-    background: #e4e4e7;
+    background: #27272a;
     border-radius: 0 3px 3px 0;
-    box-shadow: inset 1px 0 2px rgba(0,0,0,0.1);
+    box-shadow: inset 1px 0 2px rgba(255,255,255,0.1);
 }
 
 /* Volume Buttons */
@@ -156,14 +135,14 @@
     content: '';
     position: absolute;
     top: 120px;
-    left: -6px;
+    left: -8px;
     width: 3px;
     height: 45px;
-    background: #e4e4e7;
+    background: #27272a;
     border-radius: 3px 0 0 3px;
     box-shadow: 
-        inset -1px 0 2px rgba(0,0,0,0.1),
-        0 60px 0 0 #e4e4e7; /* Volume Down button below */
+        inset -1px 0 2px rgba(255,255,255,0.1),
+        0 60px 0 0 #27272a; /* Volume Down button below */
 }
 
 .wl-device--phone .wl-screen {
@@ -193,7 +172,7 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 40%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%);
     pointer-events: none;
     z-index: 11;
 }
@@ -222,8 +201,8 @@
     padding: 12px 12px 28px 12px; /* Thick bottom chin for Monitor look */
     border-radius: 1rem;
     box-shadow: 
-        0 25px 50px -12px rgba(20, 110, 180, 0.2),
-        0 0 0 2px #d4d4d8; /* Silver frame */
+        0 30px 60px -12px rgba(255, 107, 0, 0.15),
+        0 0 0 2px #18181b; /* Dark frame */
     aspect-ratio: 16 / 9;
     width: 100%;
     position: relative;
@@ -257,12 +236,12 @@
 .wl-device--desktop .wl-desktop-base {
     width: 120px;
     height: 30px;
-    background: linear-gradient(to bottom, #e4e4e7, #a1a1aa);
+    background: linear-gradient(to bottom, #27272a, #18181b);
     border-radius: 0 0 0.5rem 0.5rem;
     position: relative;
     z-index: 1;
     margin-top: -4px; /* Hide behind screen */
-    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
 }
 
 /* Base bottom foot */
@@ -274,29 +253,15 @@
     transform: translateX(-50%);
     width: 160px;
     height: 6px;
-    background: #a1a1aa;
+    background: #18181b;
     border-radius: 4px 4px 0 0;
-}
-
-.wl-options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 2rem;
 }
 
 .wl-preview-header {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.wl-panel {
-    background: var(--wl-surface);
-    border: 1px solid var(--wl-border);
-    border-radius: 0.9rem;
-    padding: 1.25rem;
-    box-shadow: var(--wl-shadow);
+    justify-content: flex-end;
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
 
 .wl-panel-title {
@@ -305,62 +270,14 @@
     font-family: 'Geist', sans-serif;
 }
 
-.wl-style-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-}
-
-.wl-color-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-}
-
-.wl-style-item,
-.wl-color-item {
-    display: grid;
-    justify-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem;
-    cursor: pointer;
-    border: 1px solid var(--wl-border);
-    border-radius: 0.6rem;
-    background: #ffffff;
-    font-family: 'Geist', sans-serif;
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.wl-style-item:has(input:checked),
-.wl-color-item:has(input:checked) {
-    border-color: var(--wl-accent);
-    transform: translateY(-1px);
-}
-
-.wl-style-item input,
-.wl-color-item input {
-    position: absolute;
-    opacity: 0;
-}
-
-.wl-swatch {
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 999px;
-    border: 1px solid rgba(24, 24, 27, 0.12);
-}
-
-.wl-swatch--blue   { background: #146eb4; }
-.wl-swatch--orange { background: #ff9900; }
-.wl-swatch--light  { background: #f4f6f8; }
-
 .wl-tab-row {
     display: inline-flex;
     gap: 0;
     background: #ffffff;
-    border: 1px solid var(--wl-border);
+    border: 1px solid rgba(0,0,0,0.06);
     border-radius: 999px;
     padding: 0.3rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .wl-tab {
@@ -377,7 +294,7 @@
 
 .wl-tab.is-active {
     background: var(--wl-accent);
-    color: var(--wl-ink);
+    color: #ffffff;
 }
 
 .wl-download-grid {
@@ -387,9 +304,10 @@
     margin-top: 0.75rem;
 }
 
-.wl-download-item {
-    display: grid;
-    gap: 0.25rem;
+.wl-download-item, .wl-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
     padding: 1rem;
     text-decoration: none;
     color: var(--wl-ink);
@@ -405,19 +323,113 @@
     border-color: var(--wl-primary);
 }
 
-.wl-download-item strong {
-    font-size: 1.05rem;
+.wl-download-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-accent);
 }
 
-.wl-download-item span {
+.wl-download-text, .wl-feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.wl-download-text strong, .wl-feature-text strong {
+    font-size: 1.05rem;
+    color: var(--wl-ink);
+}
+
+.wl-download-text span, .wl-feature-text span {
     color: var(--wl-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+}
+
+.wl-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.wl-feature-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.wl-icon-orange {
+    background: var(--wl-accent);
+}
+
+.wl-icon-navy {
+    background: var(--wl-bg); /* Use background color which is very dark blue according to the image, actually image shows a dark navy/grey */
+    background: #17253d;
+}
+
+.wl-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 3rem;
+    padding: 0 1rem;
+}
+
+.wl-timeline-line {
+    position: absolute;
+    top: 6px;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background: var(--wl-border);
+    z-index: 0;
+}
+
+.wl-timeline-point {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.wl-timeline-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--wl-primary);
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.wl-timeline-year {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--wl-primary);
+    font-family: 'Geist', sans-serif;
+}
+
+.wl-timeline-point.is-active .wl-timeline-dot {
+    background: var(--wl-accent);
+}
+
+.wl-timeline-point.is-active .wl-timeline-year {
+    color: var(--wl-accent);
 }
 
 @media (max-width: 900px) {
-    .wl-workspace-grid,
-    .wl-options-grid,
-    .wl-download-grid {
+    .wl-workspace-grid {
+        grid-template-columns: 1fr;
+    }
+    .wl-download-grid, .wl-features-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -425,10 +437,5 @@
 @media (max-width: 768px) {
     .wl-shell {
         width: min(1200px, calc(100% - 1.5rem));
-    }
-
-    .wl-style-grid,
-    .wl-color-grid {
-        grid-template-columns: 1fr;
     }
 }
