@@ -15,7 +15,7 @@
    Section Shell
    ============================ */
 .hp-news {
-    background: #061835;
+    background: var(--section-background-gradient-vertical);
     padding: 96px 0 110px;
     position: relative;
     overflow: hidden;

@@ -11,6 +11,8 @@
     --white: #ffffff;
     --container-width: 1200px;
     --font-main: 'Inter', sans-serif;
+    --section-background-gradient: linear-gradient(90deg, #020c1b 0%, #051a3a 50%, #0b2c5f 100%);
+    --section-background-gradient-vertical: linear-gradient(180deg, #020c1b 0%, #051a3a 50%, #0b2c5f 100%);
 }
 
 /* --- Global Fonts Override --- */

@@ -17,7 +17,7 @@
 
 /* ── Wallpaper Section ───────────────────────────────────────── */
 .hp-wallpaper {
-    background: var(--dark-navy, #051a3a);
+    background: var(--section-background-gradient);
     padding: 100px 0;
 }
 
@@ -278,7 +278,7 @@
 
 /* ── Avatar Section ──────────────────────────────────────────── */
 .hp-avatar {
-    background: var(--dark-blue, #020c1b);
+    background: var(--section-background-gradient-vertical);
     padding: 100px 0;
 }
 

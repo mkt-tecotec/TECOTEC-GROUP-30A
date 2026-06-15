@@ -8,7 +8,7 @@
    z-index: 20 keeps it above .timeline-stage (z-index: 10).
    ======================================================================= */
 .hp-achievements {
-    background: radial-gradient(circle at 70% 20%, #061c3a 0%, #00172f 40%, #000d20 100%);
+    background: var(--section-background-gradient);
     color: #F4F7FA;
     padding: 100px 0;
     position: relative;
