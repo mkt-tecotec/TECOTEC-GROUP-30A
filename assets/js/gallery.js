@@ -29,78 +29,12 @@
             });
         }
 
-        function getImageRatio($img) {
-            const image = $img.get(0);
-            if (image && image.naturalWidth && image.naturalHeight) {
-                return image.naturalWidth / image.naturalHeight;
-            }
-            return 4 / 3;
-        }
-
-        function layoutJustifiedGallery($panel) {
-            const $grid = $panel.find('.hp-gallery-grid');
-            if (!$grid.length || !$panel.is(':visible')) return;
-
-            const gap = 12;
-            const containerWidth = $grid.width();
-            const baseRowHeight = window.innerWidth < 768 ? 150 : 220;
-            const minItemsLastRow = 3;
-            const $items = $grid.find('.hp-gallery-img-wrapper');
-            let row = [];
-            let rowRatio = 0;
-
-            if (!containerWidth) return;
-
-            $items.css({ width: '', height: baseRowHeight + 'px' });
-
-            function applyRow(items, ratioSum, isLastRow) {
-                if (!items.length) return;
-
-                const gapsWidth = gap * (items.length - 1);
-                let rowHeight = (containerWidth - gapsWidth) / ratioSum;
-
-                if (isLastRow && items.length < minItemsLastRow) {
-                    rowHeight = baseRowHeight;
-                }
-
-                items.forEach(function ($item) {
-                    const ratio = getImageRatio($item.find('img'));
-                    $item.css({
-                        width: Math.max(120, Math.floor(rowHeight * ratio)) + 'px',
-                        height: Math.floor(rowHeight) + 'px'
-                    });
-                });
-            }
-
-            $items.each(function () {
-                const $item = $(this);
-                const ratio = getImageRatio($item.find('img'));
-                row.push($item);
-                rowRatio += ratio;
-
-                const projectedWidth = rowRatio * baseRowHeight + gap * (row.length - 1);
-                if (projectedWidth >= containerWidth) {
-                    applyRow(row, rowRatio, false);
-                    row = [];
-                    rowRatio = 0;
-                }
-            });
-
-            applyRow(row, rowRatio, true);
-        }
-
-        function layoutActiveGallery() {
-            layoutJustifiedGallery($panels.filter('.is-active'));
-        }
-
-        // Initialize position after a short delay to ensure fonts/layout are ready
+        // Initialize sliding line position after fonts/layout are ready
         setTimeout(function () {
             updateSlidingLine();
-            layoutActiveGallery();
         }, 100);
         $(window).on('resize', function () {
             updateSlidingLine();
-            layoutActiveGallery();
         });
 
         function switchTab(targetIndex) {
@@ -135,7 +69,6 @@
                         
                         // Show and animate new panel
                         $targetPanel.css('display', 'block').addClass('is-active');
-                        layoutJustifiedGallery($targetPanel);
                         const $targetImages = $targetPanel.find('.hp-gallery-img-wrapper');
                         
                         gsap.killTweensOf($targetPanel);
@@ -149,7 +82,6 @@
                 });
             } else if (typeof gsap !== 'undefined') {
                 $targetPanel.css('display', 'block').addClass('is-active');
-                layoutJustifiedGallery($targetPanel);
                 const $targetImages = $targetPanel.find('.hp-gallery-img-wrapper');
                 
                 gsap.killTweensOf($targetPanel);

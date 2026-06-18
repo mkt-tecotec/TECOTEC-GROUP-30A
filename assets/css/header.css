@@ -175,21 +175,28 @@ body.single .site-header {
 .header-right {
     position: fixed;
     top: 22px;
-    right: 15px;
+    right: calc(10% - (10% - 15px) * var(--scroll-progress, 0));
     z-index: 10001;
     display: flex;
     align-items: center;
+    transition: right 0.1s ease-out;
+}
+
+@media (min-width: 1000px) {
+    .header-right {
+        right: calc(11vw - (11vw - 15px) * var(--scroll-progress, 0));
+    }
 }
 
 @media (min-width: 1025px) {
     .header-right {
-        right: 13px;
+        right: calc(11vw - (11vw - 13px) * var(--scroll-progress, 0));
     }
 }
 
 @media (min-width: 1201px) {
     .header-right {
-        right: 28px;
+        right: calc(11vw - (11vw - 28px) * var(--scroll-progress, 0));
     }
 }
 

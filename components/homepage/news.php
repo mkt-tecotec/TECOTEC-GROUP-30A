@@ -7,10 +7,10 @@ tecotec_enqueue_style('news');
 
 /* ── Category definitions ─────────────────────────────── */
 $news_categories = array(
-    ''                    => 'Tất cả',
-    'su-kien-noi-bat'     => 'Sự kiện nổi bật',
-    'hoat-dong-cong-ty'   => 'Hoạt động công ty',
-    'hoi-thao-dao-tao'    => 'Hội thảo & Đào tạo',
+    '' => 'Tất cả',
+    'su-kien-noi-bat' => 'Sự kiện nổi bật',
+    'hoat-dong-cong-ty' => 'Hoạt động công ty',
+    'hoi-thao-dao-tao' => 'Hội thảo & Đào tạo',
     'thanh-tuu-giai-thuong' => 'Thành tựu & Giải thưởng',
 );
 
@@ -19,40 +19,44 @@ $active_cat = isset($_GET['news_cat']) ? sanitize_text_field($_GET['news_cat']) 
 
 /* ── Query: 4 posts (1 featured + 3 list) ──────────────── */
 $query_args = array(
-    'post_type'           => 'post',
-    'posts_per_page'      => 4,
-    'post_status'         => 'publish',
+    'post_type' => 'tin_tuc',
+    'posts_per_page' => 4,
+    'post_status' => 'publish',
     'ignore_sticky_posts' => true,
-    'orderby'             => 'date',
-    'order'               => 'DESC',
+    'orderby' => 'date',
+    'order' => 'DESC',
 );
 
-if ( $active_cat && array_key_exists( $active_cat, $news_categories ) ) {
+if ($active_cat && array_key_exists($active_cat, $news_categories)) {
     $query_args['tax_query'] = array(
         array(
-            'taxonomy' => 'category',
-            'field'    => 'slug',
-            'terms'    => $active_cat,
+            'taxonomy' => 'danh_muc_tin_tuc',
+            'field' => 'slug',
+            'terms' => $active_cat,
         ),
     );
 }
 
 /* Helper: calendar icon SVG */
-function tecotec_news_calendar_icon() {
+function tecotec_news_calendar_icon()
+{
     return '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
 }
 
 /* Helper: arrow right */
-function tecotec_news_arrow_icon() {
+function tecotec_news_arrow_icon()
+{
     return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 }
 
 /* Helper: placeholder image via dummyimage */
-function tecotec_news_placeholder( $w, $h, $label = 'TECOTEC+News' ) {
+function tecotec_news_placeholder($w, $h, $label = 'TECOTEC+News')
+{
     return sprintf(
         'https://dummyimage.com/%dx%d/0b2c5f/fe7c03.jpg&text=%s',
-        $w, $h,
-        rawurlencode( $label )
+        $w,
+        $h,
+        rawurlencode($label)
     );
 }
 ?>
@@ -71,198 +75,200 @@ function tecotec_news_placeholder( $w, $h, $label = 'TECOTEC+News' ) {
                 </p>
             </div>
 
-            <a href="<?php echo esc_url( home_url( '/tin-tuc/' ) ); ?>"
-               class="hp-news-cta" aria-label="Xem tất cả tin tức">
-                XEM TẤT CẢ TIN TỨC
+            <a href="/tin-tuc" class="hp-news-cta" aria-label="Khám phá thêm">
+                Khám phá ngay
                 <span class="hp-news-cta-arrow" aria-hidden="true">›</span>
             </a>
         </div>
 
         <!-- ── Filter tabs ──────────────────────────────── -->
         <div class="hp-news-filters" role="tablist" aria-label="Lọc theo chuyên mục">
-            <?php foreach ( $news_categories as $slug => $label ) :
-                $is_active = ( $active_cat === $slug );
-            ?>
-                <button
-                    class="hp-news-filter-btn<?php echo $is_active ? ' is-active' : ''; ?>"
-                    data-cat="<?php echo esc_attr( $slug ); ?>"
-                    role="tab"
-                    aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>"
-                    type="button"
-                >
-                    <?php echo esc_html( $label ); ?>
+            <?php foreach ($news_categories as $slug => $label):
+                $is_active = ($active_cat === $slug);
+                ?>
+                <button class="hp-news-filter-btn<?php echo $is_active ? ' is-active' : ''; ?>"
+                    data-cat="<?php echo esc_attr($slug); ?>" role="tab"
+                    aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>" type="button">
+                    <?php echo esc_html($label); ?>
                 </button>
             <?php endforeach; ?>
         </div>
 
         <!-- ── Main grid ────────────────────────────────── -->
         <div class="hp-news-grid" id="hp-news-grid">
-        <?php
-        $news_query = new WP_Query( $query_args );
+            <?php
+            $news_query = new WP_Query($query_args);
 
-        if ( $news_query->have_posts() ) :
-            $post_index = 0;
+            if ($news_query->have_posts()):
+                $post_index = 0;
 
-            while ( $news_query->have_posts() ) :
-                $news_query->the_post();
+                while ($news_query->have_posts()):
+                    $news_query->the_post();
 
-                $post_id    = get_the_ID();
-                $permalink  = get_permalink();
-                $title      = get_the_title();
-                $excerpt    = get_the_excerpt();
-                $date_raw   = get_the_date( 'd.m.Y' );
-                $thumb_url  = get_the_post_thumbnail_url( $post_id, 'large' );
-                if ( ! $thumb_url ) {
-                    $thumb_url = get_the_post_thumbnail_url( $post_id, 'full' );
-                }
-                if ( ! $thumb_url ) {
-                    $thumb_url = tecotec_news_placeholder( 900, 520, $title );
-                }
+                    $post_id = get_the_ID();
+                    $permalink = get_permalink();
 
-                /* Category label */
-                $cats       = get_the_category( $post_id );
-                $cat_label  = ! empty( $cats ) ? $cats[0]->name : 'Tin tức';
+                    /* Lấy custom field: external url, description */
+                    $external_url = get_field('external_url', $post_id);
+                    $post_link = $external_url ? $external_url : $permalink;
+                    $target_attr = $external_url ? ' target="_blank" rel="noopener noreferrer"' : '';
 
-                if ( 0 === $post_index ) :
-                    /* ── FEATURED POST ─────────────────── */
-        ?>
-                    <article class="hp-news-featured" id="hp-news-featured">
-                        <div class="hp-news-featured-img">
-                            <img src="<?php echo esc_url( $thumb_url ); ?>"
-                                 alt="<?php echo esc_attr( $title ); ?>"
-                                 loading="eager" decoding="async">
-                            <span class="hp-news-badge"><?php echo esc_html( $cat_label ); ?></span>
-                        </div>
+                    $title = get_the_title();
 
-                        <div class="hp-news-featured-body">
-                            <div class="hp-news-featured-date">
-                                <?php echo tecotec_news_calendar_icon(); ?>
-                                <?php echo esc_html( $date_raw ); ?>
-                            </div>
-                            <h3 class="hp-news-featured-title">
-                                <a href="<?php echo esc_url( $permalink ); ?>">
-                                    <?php echo esc_html( $title ); ?>
+                    $short_desc = get_field('short_description', $post_id);
+                    $excerpt = $short_desc ? wp_trim_words($short_desc, 25) : get_the_excerpt();
+
+                    $date_raw = get_the_date('d.m.Y');
+                    $thumb_url = get_the_post_thumbnail_url($post_id, 'large');
+                    if (!$thumb_url) {
+                        $thumb_url = get_the_post_thumbnail_url($post_id, 'full');
+                    }
+                    if (!$thumb_url) {
+                        $thumb_url = tecotec_news_placeholder(900, 520, $title);
+                    }
+
+                    /* Category label */
+                    $cats = get_the_terms($post_id, 'danh_muc_tin_tuc');
+                    $cat_label = ($cats && !is_wp_error($cats)) ? $cats[0]->name : 'Tin tức';
+
+                    if (0 === $post_index):
+                        /* ── FEATURED POST ─────────────────── */
+                        ?>
+                        <article class="hp-news-featured" id="hp-news-featured">
+                            <div class="hp-news-featured-img">
+                                <a href="<?php echo esc_url($post_link); ?>" <?php echo $target_attr; ?> style="display:block;">
+                                    <img src="<?php echo esc_url($thumb_url); ?>" alt="<?php echo esc_attr($title); ?>"
+                                        loading="eager" decoding="async">
                                 </a>
-                            </h3>
-                            <p class="hp-news-featured-excerpt"><?php echo esc_html( $excerpt ); ?></p>
-                            <a href="<?php echo esc_url( $permalink ); ?>"
-                               class="hp-news-read-more"
-                               aria-label="Đọc thêm về <?php echo esc_attr( $title ); ?>">
-                                ĐỌC THÊM <?php echo tecotec_news_arrow_icon(); ?>
-                            </a>
-                        </div>
-                    </article>
-
-                    <!-- Right list starts -->
-                    <div class="hp-news-list" id="hp-news-list">
-        <?php
-                else :
-                    /* ── LIST ITEMS (posts 2-4) ─────────── */
-                    $list_thumb = get_the_post_thumbnail_url( $post_id, 'medium' );
-                    if ( ! $list_thumb ) {
-                        $list_thumb = get_the_post_thumbnail_url( $post_id, 'full' );
-                    }
-                    if ( ! $list_thumb ) {
-                        $list_thumb = tecotec_news_placeholder( 360, 240, $title );
-                    }
-        ?>
-                        <a href="<?php echo esc_url( $permalink ); ?>"
-                           class="hp-news-list-item"
-                           aria-label="<?php echo esc_attr( $title ); ?>">
-
-                            <div class="hp-news-list-thumb">
-                                <img src="<?php echo esc_url( $list_thumb ); ?>"
-                                     alt="<?php echo esc_attr( $title ); ?>"
-                                     loading="lazy" decoding="async">
-                                <span class="hp-news-list-badge"><?php echo esc_html( $cat_label ); ?></span>
+                                <span class="hp-news-badge"><?php echo esc_html($cat_label); ?></span>
                             </div>
 
-                            <div class="hp-news-list-body">
-                                <div class="hp-news-list-date">
+                            <div class="hp-news-featured-body">
+                                <div class="hp-news-featured-date">
                                     <?php echo tecotec_news_calendar_icon(); ?>
-                                    <?php echo esc_html( $date_raw ); ?>
+                                    <?php echo esc_html($date_raw); ?>
                                 </div>
-                                <h4 class="hp-news-list-title"><?php echo esc_html( $title ); ?></h4>
-                                <p class="hp-news-list-excerpt"><?php echo esc_html( $excerpt ); ?></p>
+                                <h3 class="hp-news-featured-title">
+                                    <a href="<?php echo esc_url($post_link); ?>" <?php echo $target_attr; ?>>
+                                        <?php echo esc_html($title); ?>
+                                    </a>
+                                </h3>
+                                <p class="hp-news-featured-excerpt"><?php echo esc_html($excerpt); ?></p>
+                                <a href="<?php echo esc_url($post_link); ?>" <?php echo $target_attr; ?> class="hp-news-read-more"
+                                    aria-label="Đọc thêm về <?php echo esc_attr($title); ?>">
+                                    ĐỌC THÊM <?php echo tecotec_news_arrow_icon(); ?>
+                                </a>
                             </div>
+                        </article>
 
-                            <span class="hp-news-list-arrow" aria-hidden="true">→</span>
-                        </a>
-        <?php
-                endif;
+                        <!-- Right list starts -->
+                        <div class="hp-news-list" id="hp-news-list">
+                            <?php
+                    else:
+                        /* ── LIST ITEMS (posts 2-4) ─────────── */
+                        $list_thumb = get_the_post_thumbnail_url($post_id, 'medium');
+                        if (!$list_thumb) {
+                            $list_thumb = get_the_post_thumbnail_url($post_id, 'full');
+                        }
+                        if (!$list_thumb) {
+                            $list_thumb = tecotec_news_placeholder(360, 240, $title);
+                        }
+                        ?>
+                            <a href="<?php echo esc_url($post_link); ?>" <?php echo $target_attr; ?> class="hp-news-list-item"
+                                aria-label="<?php echo esc_attr($title); ?>">
 
-                $post_index++;
-            endwhile;
+                                <div class="hp-news-list-thumb">
+                                    <img src="<?php echo esc_url($list_thumb); ?>" alt="<?php echo esc_attr($title); ?>"
+                                        loading="lazy" decoding="async">
+                                    <span class="hp-news-list-badge"><?php echo esc_html($cat_label); ?></span>
+                                </div>
 
-            wp_reset_postdata();
-        ?>
-                    </div><!-- /.hp-news-list -->
-        <?php
-        else :
-        ?>
-            <p class="hp-news-empty">Hiện chưa có bài viết nào.</p>
-        <?php
-        endif;
-        ?>
+                                <div class="hp-news-list-body">
+                                    <div class="hp-news-list-date">
+                                        <?php echo tecotec_news_calendar_icon(); ?>
+                                        <?php echo esc_html($date_raw); ?>
+                                    </div>
+                                    <h4 class="hp-news-list-title"><?php echo esc_html($title); ?></h4>
+                                    <p class="hp-news-list-excerpt"><?php echo esc_html($excerpt); ?></p>
+                                </div>
+
+                                <span class="hp-news-list-arrow" aria-hidden="true">→</span>
+                            </a>
+                            <?php
+                    endif;
+
+                    $post_index++;
+                endwhile;
+
+                wp_reset_postdata();
+                ?>
+                </div><!-- /.hp-news-list -->
+                <?php
+            else:
+                ?>
+                <p class="hp-news-empty">Hiện chưa có bài viết nào.</p>
+                <?php
+            endif;
+            ?>
         </div><!-- /.hp-news-grid -->
 
     </div><!-- /.hp-news-inner -->
 </section>
 
 <script>
-(function () {
-    'use strict';
+    (function () {
+        'use strict';
 
-    var grid      = document.getElementById('hp-news-grid');
-    var filterBar = document.querySelector('.hp-news-filters');
-    if (!filterBar || !grid) return;
+        var grid = document.getElementById('hp-news-grid');
+        var filterBar = document.querySelector('.hp-news-filters');
+        if (!filterBar || !grid) return;
 
-    filterBar.addEventListener('click', function (e) {
-        var btn = e.target.closest('.hp-news-filter-btn');
-        if (!btn) return;
+        filterBar.addEventListener('click', function (e) {
+            var btn = e.target.closest('.hp-news-filter-btn');
+            if (!btn) return;
 
-        /* Update active state */
-        filterBar.querySelectorAll('.hp-news-filter-btn').forEach(function (b) {
-            b.classList.remove('is-active');
-            b.setAttribute('aria-selected', 'false');
-        });
-        btn.classList.add('is-active');
-        btn.setAttribute('aria-selected', 'true');
-
-        var cat = btn.getAttribute('data-cat');
-
-        /* Fade out → fetch → fade in */
-        grid.style.opacity = '0.35';
-        grid.style.pointerEvents = 'none';
-
-        /* Build AJAX URL */
-        var url = new URL(window.location.href);
-        if (cat) {
-            url.searchParams.set('news_cat', cat);
-        } else {
-            url.searchParams.delete('news_cat');
-        }
-
-        /* Replace history state (no full reload) */
-        window.history.replaceState(null, '', url.toString());
-
-        /* Reload the section via fetch */
-        fetch(url.toString(), { credentials: 'same-origin' })
-            .then(function (res) { return res.text(); })
-            .then(function (html) {
-                var parser  = new DOMParser();
-                var doc     = parser.parseFromString(html, 'text/html');
-                var newGrid = doc.getElementById('hp-news-grid');
-                if (newGrid) {
-                    grid.innerHTML    = newGrid.innerHTML;
-                }
-                grid.style.opacity       = '1';
-                grid.style.pointerEvents = '';
-            })
-            .catch(function () {
-                grid.style.opacity       = '1';
-                grid.style.pointerEvents = '';
+            /* Update active state */
+            filterBar.querySelectorAll('.hp-news-filter-btn').forEach(function (b) {
+                b.classList.remove('is-active');
+                b.setAttribute('aria-selected', 'false');
             });
-    });
-}());
+            btn.classList.add('is-active');
+            btn.setAttribute('aria-selected', 'true');
+
+            var cat = btn.getAttribute('data-cat');
+
+            /* Fade out → fetch → fade in */
+            grid.style.opacity = '0.35';
+            grid.style.pointerEvents = 'none';
+
+            /* Build AJAX URL */
+            var url = new URL(window.location.href);
+            if (cat) {
+                url.searchParams.set('news_cat', cat);
+            } else {
+                url.searchParams.delete('news_cat');
+            }
+
+            /* Replace history state (no full reload) */
+            window.history.replaceState(null, '', url.toString());
+
+            /* Reload the section via fetch */
+            fetch(url.toString(), { credentials: 'same-origin' })
+                .then(function (res) { return res.text(); })
+                .then(function (html) {
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(html, 'text/html');
+                    var newGrid = doc.getElementById('hp-news-grid');
+                    if (newGrid) {
+                        grid.innerHTML = newGrid.innerHTML;
+                    }
+                    grid.style.opacity = '1';
+                    grid.style.pointerEvents = '';
+                })
+                .catch(function () {
+                    grid.style.opacity = '1';
+                    grid.style.pointerEvents = '';
+                });
+        });
+    }());
 </script>

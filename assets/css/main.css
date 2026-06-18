@@ -106,7 +106,19 @@ body {
     text-transform: uppercase;
     display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    line-height: 1.5;
     animation: hp-fade-text 2s infinite alternate;
+}
+
+@media only screen and (max-width: 48em) {
+    .hp-preloader-text {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+    }
 }
 
 .hp-dots span {
@@ -903,4 +915,22 @@ select,
     height: 30px;
     background-color: rgba(254, 124, 3, 0.2);
     border: 1px solid var(--secondary-color, #fe7c03);
+}
+
+@media (max-width: 1024px) {
+    body {
+        cursor: auto !important;
+    }
+    a, button, .year-wrap, .hp-gallery-img-wrapper {
+        cursor: pointer !important;
+    }
+    input, textarea {
+        cursor: text !important;
+    }
+    select {
+        cursor: pointer !important;
+    }
+    .custom-cursor {
+        display: none !important;
+    }
 }

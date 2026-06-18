@@ -12,10 +12,7 @@
 
     var frameBasePath = (window.tecotecAvatar && window.tecotecAvatar.assetsBase) || '';
     
-    // Lấy khung được chọn sẵn
-    var checkedFrameRadio = document.querySelector('input[name="af_frame"]:checked');
-    var defaultFrame = checkedFrameRadio ? checkedFrameRadio.value : 'Frame1.png';
-    var framePath = frameBasePath + '/frames/' + encodeURIComponent(defaultFrame);
+    var framePath = frameBasePath + '/frames/Frame1.png';
 
     var userImage = null;
     var loadedFrame = null;
@@ -108,32 +105,6 @@
             loadedFrame = img;
         }).catch(function () {
             setStatus('Không thể tải khung avatar.');
-        });
-    }
-
-    // Xử lý sự kiện đổi khung avatar
-    var frameRadios = document.querySelectorAll('input[name="af_frame"]');
-    if (frameRadios.length > 0) {
-        frameRadios.forEach(function (radio) {
-            radio.addEventListener('change', function (event) {
-                if (event.target.checked) {
-                    // Đổi viền báo hiệu chọn
-                    document.querySelectorAll('.af-frame-option').forEach(function (label) {
-                        label.style.borderColor = 'transparent';
-                    });
-                    event.target.closest('.af-frame-option').style.borderColor = 'var(--color-primary-500, #f90)';
-                    
-                    // Tải khung mới
-                    var selectedFrame = event.target.value;
-                    framePath = frameBasePath + '/frames/' + encodeURIComponent(selectedFrame);
-                    loadImage(framePath).then(function (img) {
-                        loadedFrame = img;
-                        renderCanvas();
-                    }).catch(function () {
-                        setStatus('Không thể tải khung avatar mới.');
-                    });
-                }
-            });
         });
     }
 

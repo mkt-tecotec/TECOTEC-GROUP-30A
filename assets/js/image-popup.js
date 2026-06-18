@@ -8,13 +8,31 @@
         
         let currentGroup = [];
         let currentIndex = -1;
+        let currentZoom = 1;
+        const ZOOM_SPEED = 0.1;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let currentX = 0, currentY = 0;
 
         if (!$popup.length) return;
 
+        function resetZoom() {
+            currentZoom = 1;
+            currentX = 0;
+            currentY = 0;
+            $popupImg.css({
+                'transform': 'translate(0px, 0px) scale(1)',
+                'transition': 'none',
+                'cursor': 'default'
+            });
+        }
+
         // Expose global function to open popup
         window.openGlobalImagePopup = function(imgSrc, groupImgs) {
+            resetZoom();
             $popupImg.attr('src', imgSrc);
             $popup.css('display', 'flex');
+            $('body').css('overflow', 'hidden');
             
             if (groupImgs && groupImgs.length > 1) {
                 currentGroup = groupImgs;
@@ -38,9 +56,11 @@
 
         function closePopup() {
             $popup.removeClass('is-visible');
+            $('body').css('overflow', '');
             setTimeout(function() {
                 $popup.css('display', 'none');
                 $popupImg.attr('src', '');
+                resetZoom();
             }, 300); // Wait for transition
         }
         
@@ -56,6 +76,7 @@
             // Optional: simple fade effect
             $popupImg.css('opacity', '0.5');
             setTimeout(() => {
+                resetZoom();
                 $popupImg.attr('src', nextSrc);
                 $popupImg.css('opacity', '1');
             }, 100);
@@ -88,6 +109,71 @@
                 } else if (e.key === "ArrowRight") {
                     navigatePopup(1);
                 }
+            }
+        });
+
+        $popupImg.on('wheel', function(e) {
+            e.preventDefault();
+            
+            if (e.originalEvent.deltaY < 0) {
+                // Scroll up -> Zoom in
+                currentZoom += ZOOM_SPEED;
+            } else {
+                // Scroll down -> Zoom out
+                currentZoom -= ZOOM_SPEED;
+            }
+            
+            // Limit zoom scale
+            if (currentZoom > 5) currentZoom = 5;
+            if (currentZoom < 0.2) currentZoom = 0.2;
+            
+            // Fix floating point issues
+            currentZoom = Math.round(currentZoom * 10) / 10;
+
+            // Reset position if zoomed out
+            if (currentZoom <= 1) {
+                currentX = 0;
+                currentY = 0;
+            }
+            
+            $popupImg.css({
+                'transform': `translate(${currentX}px, ${currentY}px) scale(${currentZoom})`,
+                'transition': 'transform 0.1s ease',
+                'cursor': currentZoom > 1 ? 'grab' : 'default'
+            });
+        });
+
+        $popupImg.on('mousedown', function(e) {
+            if (currentZoom > 1) {
+                e.preventDefault();
+                isDragging = true;
+                startX = e.clientX - currentX;
+                startY = e.clientY - currentY;
+                $popupImg.css({
+                    'cursor': 'grabbing',
+                    'transition': 'none'
+                });
+            }
+        });
+
+        $(window).on('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            
+            $popupImg.css({
+                'transform': `translate(${currentX}px, ${currentY}px) scale(${currentZoom})`
+            });
+        });
+
+        $(window).on('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                $popupImg.css({
+                    'cursor': 'grab',
+                    'transition': 'transform 0.1s ease'
+                });
             }
         });
         

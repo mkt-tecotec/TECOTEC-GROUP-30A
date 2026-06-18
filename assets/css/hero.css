@@ -149,6 +149,11 @@
         font-size: 1.5rem;
     }
 
+    .pdx-10 {
+        padding-left: 0px;
+        padding-right: 10px;
+    }
+
     .hp-hero-desc {
         font-size: 0.95rem;
     }

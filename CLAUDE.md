@@ -42,7 +42,9 @@ tecotec-group/
 ├── assets/css/custom.css      # CSS tự viết — TẤT CẢ style phải vào đây
 ├── assets/js/custom.js        # JS tự viết
 ├── components/                # Component UI tái sử dụng (hero, slider, card...)
-├── inc/package.php            # Backend logic
+├── inc/
+│   ├── CPT/                   # Modular CPT registrations & ACF JSON
+│   └── package.php            # Backend logic
 ├── functions.php              # Enqueue CSS/JS, cấu hình theme
 ├── header.php                 # Global header (get_header())
 ├── footer.php                 # Global footer (get_footer())
@@ -140,3 +142,39 @@ tecotec-group/
 - CSS class naming: BEM (`card__title`, `card--dark`) hoặc utility rõ ràng.
 - SEO: `<head>` phải có title, meta description, Open Graph, Twitter Card (xem `cau-truc-theme.md` mục 5).
 - Hình ảnh: luôn có `loading="lazy"`, dùng hàm chuẩn WP để tự sinh.
+
+---
+
+## 5. Kiến trúc Module cho Custom Post Type (CPT) & ACF
+
+### Cấu trúc thư mục chuẩn
+Mỗi CPT phải được đóng gói thành một module độc lập trong thư mục `inc/CPT/{cpt_name}/` theo cấu trúc:
+```
+inc/CPT/{cpt_name}/
+├── acf-json/               # Lưu file JSON cấu hình ACF Field Groups
+└── register/               # Chứa logic đăng ký CPT và Taxonomy
+    └── register.php        # File khai báo code register_post_type & register_taxonomy
+```
+
+### Đăng ký CPT
+- **KHÔNG ĐƯỢC** khai báo hàm `register_post_type` hay `register_taxonomy` trực tiếp bên trong `functions.php`.
+- Viết code đăng ký vào file `inc/CPT/{cpt_name}/register/register.php` và hook vào `init`.
+- Trong `functions.php`, chỉ gọi file bằng 1 dòng duy nhất: 
+  `require_once get_template_directory() . '/inc/CPT/{cpt_name}/register/register.php';`
+- Slug CPT dùng tiếng Việt không dấu, viết thường, cách nhau bằng dấu gạch dưới (VD: `tin_tuc`). Rewrite slug dùng dấu gạch ngang (VD: `'rewrite' => array('slug' => 'tin-tuc')`).
+- Nếu CPT cần phân loại, tạo Custom Taxonomy riêng biệt (VD: `danh_muc_tin_tuc`), KHÔNG dùng chung categories mặc định của bài viết blog.
+
+### ACF Fields
+- File cấu hình nhóm trường ACF **BẮT BUỘC** lưu dạng JSON trong thư mục `inc/CPT/{cpt_name}/acf-json/` của module tương ứng.
+- **KHÔNG** đăng ký bằng code PHP (`acf_add_local_field_group()`).
+- Bắt buộc cập nhật filter trong `functions.php` để ACF tự động nhận diện (load) và lưu (save) vào đúng thư mục của module:
+  ```php
+  add_filter('acf/settings/load_json', function ($paths) {
+      $paths[] = get_template_directory() . '/inc/CPT/{cpt_name}/acf-json';
+      return $paths;
+  });
+  add_filter('acf/settings/save_json', function ($path) {
+      return get_template_directory() . '/inc/CPT/{cpt_name}/acf-json';
+  });
+  ```
+- Khi lấy giá trị ACF ngoài frontend dùng `get_field('field_name', $post_id)` — KHÔNG dùng `get_post_meta()`.

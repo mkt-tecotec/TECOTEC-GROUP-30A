@@ -1,109 +1,116 @@
 <?php
-tecotec_enqueue_style('archive');
+/**
+ * The template for displaying archive pages
+ */
+
 get_header();
 
-/* ─────────────────────────────────────────────────────────────
- * Determine which query to use.
- * - If WordPress already built a valid loop (category / tag / tax
- *   / date / author archive) → use it as-is.
- * - Otherwise (blog home page set as static page, plain /tin-tuc/,
- *   or any other context) → run a custom query for all posts.
- * ───────────────────────────────────────────────────────────── */
-$paged         = max( 1, get_query_var( 'paged' ) ?: get_query_var( 'page' ) );
-$use_custom_q  = false;
-$archive_query = null;
-
-if ( ! have_posts() ) {
-    $use_custom_q  = true;
-    $archive_query = new WP_Query( array(
-        'post_type'      => 'post',
-        'post_status'    => 'publish',
-        'posts_per_page' => 12,
-        'paged'          => $paged,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-    ) );
-}
+// Enqueue stylesheet cho trang archive
+wp_enqueue_style('archive-css', get_template_directory_uri() . '/assets/css/archive.css', array(), filemtime(get_template_directory() . '/assets/css/archive.css'));
 ?>
 
-<main class="post-archive-page">
-    <div class="post-archive-page__shell">
-        <header class="post-archive-page__header">
-            <?php if ( is_category() || is_tag() || is_tax() ) : ?>
-                <h1><?php echo wp_kses_post( get_the_archive_title() ); ?></h1>
-                <?php if ( get_the_archive_description() ) : ?>
-                    <div class="post-archive-page__description">
-                        <?php echo wp_kses_post( get_the_archive_description() ); ?>
-                    </div>
-                <?php endif; ?>
-            <?php else : ?>
-                <h1>Tin tức</h1>
-                <p>Cập nhật những thông tin mới nhất về hoạt động công ty, công nghệ mới và sự kiện nổi bật trong ngành.</p>
-            <?php endif; ?>
-        </header>
-
-        <?php
-        /* ── Decide which loop to run ── */
-        $has_posts = $use_custom_q ? $archive_query->have_posts() : have_posts();
-        ?>
-
-        <?php if ( $has_posts ) : ?>
-            <div class="post-archive-grid">
-                <?php while ( $use_custom_q ? $archive_query->have_posts() : have_posts() ) :
-                    $use_custom_q ? $archive_query->the_post() : the_post(); ?>
-                    <article <?php post_class( 'post-card' ); ?>>
-                        <a class="post-card__media" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
-                            <?php if ( has_post_thumbnail() ) : ?>
-                                <?php the_post_thumbnail( 'large', array( 'loading' => 'lazy' ) ); ?>
-                            <?php else : ?>
-                                <img src="https://dummyimage.com/800x500/f4f6f8/146eb4.jpg&amp;text=TECOTEC+A30" alt="TECOTEC A30" loading="lazy" />
-                            <?php endif; ?>
-                        </a>
-                        <div class="post-card__body">
-                            <?php
-                            $categories = get_the_category();
-                            if ( ! empty( $categories ) ) :
-                                ?>
-                                <a class="post-card__category" href="<?php echo esc_url( get_category_link( $categories[0]->term_id ) ); ?>">
-                                    <?php echo esc_html( $categories[0]->name ); ?>
-                                </a>
-                            <?php endif; ?>
-                            <h2 class="post-card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                            <div class="post-card__excerpt"><?php the_excerpt(); ?></div>
-                            <a href="<?php the_permalink(); ?>" class="post-card__link">Đọc tiếp</a>
-                        </div>
-                    </article>
-                <?php endwhile;
-                if ( $use_custom_q ) wp_reset_postdata();
-                ?>
-            </div>
-        <?php else : ?>
-            <p class="post-archive-page__empty">Hiện chưa có bài viết nào trong chuyên mục này.</p>
-        <?php endif; ?>
-
-        <div class="post-archive-page__pagination">
-            <?php
-            if ( $use_custom_q ) :
-                /* Custom query pagination */
-                echo paginate_links( array(
-                    'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
-                    'format'    => '?paged=%#%',
-                    'current'   => $paged,
-                    'total'     => $archive_query->max_num_pages,
-                    'prev_text' => 'Trước',
-                    'next_text' => 'Tiếp',
-                ) );
-            else :
-                the_posts_pagination( array(
-                    'mid_size'  => 2,
-                    'prev_text' => 'Trước',
-                    'next_text' => 'Tiếp',
-                ) );
-            endif;
-            ?>
+<section class="archive-hero">
+    <div class="archive-hero__bg">
+        <div class="archive-hero__map"></div>
+        <div class="archive-hero__circles archive-hero__circles--left">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="archive-hero__circles archive-hero__circles--right">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="archive-hero__circles archive-hero__circles--center">
+            <span></span><span></span><span></span><span></span>
         </div>
     </div>
-</main>
+    <div class="archive-hero__inner">
+        <h1 class="archive-hero__title">Tin tức & Sự kiện</h1>
+    </div>
+</section>
 
-<?php get_footer(); ?>
+<div class="post-archive-page">
+    <div class="post-archive-page__shell">
 
+
+        <?php if (have_posts()) : ?>
+            <div class="post-archive-grid">
+                <?php
+                while (have_posts()) :
+                    the_post();
+                    
+                    // Lấy danh mục của bài viết (hỗ trợ taxonomy danh-muc-tin-tuc cho CPT tin-tuc hoặc category mặc định)
+                    $categories = get_the_terms(get_the_ID(), 'danh-muc-tin-tuc');
+                    if (!$categories || is_wp_error($categories)) {
+                        $categories = get_the_category();
+                    }
+                    $first_category = (!empty($categories) && !is_wp_error($categories)) ? $categories[0] : null;
+                    ?>
+                    
+                    <?php 
+                    $external_url = get_field('external_url');
+                    $post_link = $external_url ? esc_url($external_url) : get_permalink();
+                    $target = $external_url ? ' target="_blank" rel="noopener noreferrer"' : '';
+                    ?>
+                    
+                    <article class="post-card">
+                        <a href="<?php echo $post_link; ?>"<?php echo $target; ?> class="post-card__media">
+                            <?php 
+                            if (has_post_thumbnail()) {
+                                the_post_thumbnail('large', ['loading' => 'lazy']);
+                            } else {
+                                echo '<img src="' . esc_url(get_template_directory_uri() . '/assets/images/default-thumbnail.jpg') . '" alt="' . esc_attr(get_the_title()) . '" loading="lazy">';
+                            }
+                            ?>
+                        </a>
+                        
+                        <div class="post-card__body">
+                            <?php if ($first_category) : ?>
+                                <a href="<?php echo esc_url(get_term_link($first_category)); ?>" class="post-card__category">
+                                    <?php echo esc_html($first_category->name); ?>
+                                </a>
+                            <?php endif; ?>
+                            
+                            <h2 class="post-card__title">
+                                <a href="<?php echo $post_link; ?>"<?php echo $target; ?>><?php the_title(); ?></a>
+                            </h2>
+                            
+                            <div class="post-card__excerpt">
+                                <?php 
+                                $short_desc = get_field('short_description');
+                                if ($short_desc) {
+                                    echo wp_trim_words($short_desc, 25, '...');
+                                } else {
+                                    echo wp_trim_words(get_the_excerpt(), 25, '...');
+                                }
+                                ?>
+                            </div>
+                            
+                            <div class="post-card__footer">
+                                <span class="post-card__date"><?php echo get_the_date('l, d/m/Y'); ?></span>
+                                <a href="<?php echo $post_link; ?>"<?php echo $target; ?> class="post-card__link">XEM THÊM</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                <?php endwhile; ?>
+            </div>
+
+            <div class="post-archive-page__pagination">
+                <?php
+                the_posts_pagination(array(
+                    'mid_size'  => 2,
+                    'prev_text' => __('&laquo; Trước', 'tecotec-group'),
+                    'next_text' => __('Sau &raquo;', 'tecotec-group'),
+                ));
+                ?>
+            </div>
+
+        <?php else : ?>
+            <div class="post-archive-page__empty">
+                <p><?php _e('Hiện tại chưa có bài viết nào.', 'tecotec-group'); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php
+get_footer();

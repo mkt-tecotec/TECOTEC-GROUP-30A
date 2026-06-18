@@ -176,7 +176,7 @@ $achievements_data = [
         </div>
 
         <!-- People Section -->
-        <div class="hp-people-section">
+        <div class="hp-people-section" id="people">
             <div class="hp-people-content">
                 <div class="hp-people-tag">
                     <span class="hp-people-tag-line"></span>
@@ -305,7 +305,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
             <div class="hp-wallpaper__text">
                 <p class="hp-wallpaper__eyebrow">TECOTEC GROUP 1996 – 2026</p>
                 <h2 id="hp-wallpaper-title" class="hp-wallpaper__title">
-                    Hình nền <span>kỷ niệm</span><br>30 năm thành lập
+                    Hình nền <span>kỷ niệm </span><br>30 năm thành lập
                 </h2>
                 <p class="hp-wallpaper__desc">
                     Tải bộ hình nền nhận diện thương hiệu dành riêng cho dịp 30 năm TECOTEC Group.
@@ -457,7 +457,7 @@ tecotec_enqueue_style('hp-anniversary', ['tecotec-main-css']);
             <div class="hp-avatar__content">
                 <p class="hp-avatar__eyebrow">TẠO AVATAR KỶ NIỆM</p>
                 <h2 id="hp-avatar-title" class="hp-avatar__title">
-                    Khung ảnh đại diện<br><span>30 năm TECOTEC</span>
+                    Khung ảnh đại diện <br><span>30 năm TECOTEC GROUP</span>
                 </h2>
                 <p class="hp-avatar__desc">
                     Cùng nhau lan tỏa tinh thần kỷ niệm — tải ảnh cá nhân, chọn khung nhận diện

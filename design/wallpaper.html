@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TECOTEC 30 năm · Trình tải hình nền</title>
+  <style>
+    :root{
+      --brand-blue:#146EB4;
+      --brand-navy:#0E1638;
+      --brand-orange:#FF9900;
+      --bg:#F4F6F8;
+      --surface:#FFFFFF;
+      --text:#111318;
+      --muted:#687080;
+      --line:#E2E7EE;
+      --soft-blue:#EAF4FC;
+      --soft-orange:#FFF4E2;
+      --shadow:0 18px 60px rgba(14,22,56,.10);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 88% 9%, rgba(255,153,0,.08), transparent 18rem),
+        radial-gradient(circle at 8% 85%, rgba(20,110,180,.08), transparent 22rem),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .shell{max-width:1440px;margin:auto;padding:0 28px 56px}
+
+    header{
+      height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(14,22,56,.07);
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(244,246,248,.86);
+      backdrop-filter:blur(18px);
+    }
+
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-mark{
+      width:42px;height:42px;border-radius:13px;
+      display:grid;place-items:center;color:white;font-weight:900;
+      background:linear-gradient(145deg,var(--brand-orange),#ffb341);
+      box-shadow:0 10px 24px rgba(255,153,0,.24);
+    }
+    .brand-copy strong{display:block;font-size:14px;letter-spacing:.02em}
+    .brand-copy span{font-size:12px;color:var(--muted)}
+
+    nav{display:flex;align-items:center;gap:26px;font-size:14px;font-weight:700;color:var(--muted)}
+    nav a{color:inherit;text-decoration:none}
+    nav a.active{color:var(--brand-blue)}
+    .header-cta{
+      border:0;border-radius:999px;padding:11px 18px;font-weight:800;
+      background:var(--brand-orange);color:#111;box-shadow:0 10px 25px rgba(255,153,0,.22);
+    }
+
+    main{
+      display:grid;
+      grid-template-columns:minmax(0, 1.05fr) minmax(420px, .95fr);
+      gap:54px;
+      padding-top:48px;
+      align-items:start;
+    }
+
+    .eyebrow{
+      color:var(--brand-blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    h1{
+      margin:12px 0 12px;
+      font-size:clamp(38px,5vw,66px);
+      line-height:.98;
+      letter-spacing:-.045em;
+      max-width:760px;
+    }
+    .lead{margin:0 0 30px;color:var(--muted);font-size:17px;line-height:1.6;max-width:680px}
+
+    .panel{
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(14,22,56,.08);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
+    }
+    .config{padding:22px}
+
+    .device-tabs{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+      background:#EFF2F6;padding:6px;border-radius:17px;margin-bottom:22px;
+    }
+    .device-tab{
+      border:0;background:transparent;padding:12px 10px;border-radius:12px;
+      color:var(--muted);font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;
+      transition:.2s ease;
+    }
+    .device-tab svg{width:18px;height:18px}
+    .device-tab.active{
+      color:#111;background:white;box-shadow:0 6px 18px rgba(14,22,56,.10);
+    }
+
+    .section-label{
+      display:flex;align-items:end;justify-content:space-between;gap:18px;margin:3px 0 12px;
+    }
+    .section-label h2{font-size:16px;margin:0}
+    .section-label span{font-size:12px;color:var(--muted)}
+
+    .recommend{
+      position:relative;
+      border:1.5px solid rgba(20,110,180,.35);
+      background:linear-gradient(145deg,#F5FBFF,#EDF7FF);
+      border-radius:18px;
+      padding:18px;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:14px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .recommend::after{
+      content:"ĐỀ XUẤT";
+      position:absolute;top:-10px;right:14px;
+      background:var(--brand-blue);color:white;font-size:10px;font-weight:900;letter-spacing:.08em;
+      padding:5px 8px;border-radius:999px;
+    }
+    .recommend-icon{
+      width:46px;height:46px;border-radius:14px;background:white;color:var(--brand-blue);
+      display:grid;place-items:center;box-shadow:0 7px 18px rgba(20,110,180,.12);
+    }
+    .recommend-icon svg{width:24px;height:24px}
+    .recommend strong{display:block;font-size:17px}
+    .recommend small{display:block;color:var(--muted);margin-top:4px}
+    .check{
+      width:25px;height:25px;border-radius:50%;background:var(--brand-blue);color:#fff;display:grid;place-items:center;
+      box-shadow:0 4px 10px rgba(20,110,180,.22);
+    }
+
+    .option-list{display:grid;gap:9px}
+    .size-option{
+      position:relative;
+      display:grid;
+      grid-template-columns:24px 1fr auto;
+      gap:12px;align-items:center;
+      padding:14px 15px;
+      background:white;border:1px solid var(--line);border-radius:15px;
+      transition:.18s ease;
+    }
+    .size-option:hover{transform:translateY(-1px);border-color:#BCC8D7}
+    .size-option.selected{border-color:var(--brand-blue);box-shadow:0 0 0 3px rgba(20,110,180,.10)}
+    .radio{
+      width:20px;height:20px;border-radius:50%;border:2px solid #BBC4D1;display:grid;place-items:center;
+    }
+    .selected .radio{border-color:var(--brand-blue)}
+    .selected .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand-blue)}
+    .size-main strong{font-size:15px}
+    .size-main span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+    .ratio-pill{
+      padding:6px 9px;border-radius:999px;background:#F2F4F7;color:#5E6675;font-size:11px;font-weight:800;
+    }
+
+    .helper{
+      margin-top:18px;border-top:1px solid var(--line);padding-top:17px;
+    }
+    .helper summary{
+      list-style:none;cursor:pointer;font-weight:800;font-size:14px;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .helper summary::-webkit-details-marker{display:none}
+    .helper summary::after{content:"+";font-size:21px;color:var(--brand-blue)}
+    .helper[open] summary::after{content:"−"}
+    .search-wrap{margin-top:13px;position:relative}
+    .search-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;color:var(--muted)}
+    .model-input{
+      width:100%;border:1px solid var(--line);border-radius:13px;padding:13px 13px 13px 40px;outline:none;background:#FBFCFD;
+    }
+    .model-input:focus{border-color:var(--brand-blue);box-shadow:0 0 0 3px rgba(20,110,180,.10)}
+    .model-result{
+      margin-top:9px;padding:12px;border-radius:13px;background:var(--soft-orange);display:none;
+      font-size:13px;line-height:1.5;
+    }
+
+    .download-row{
+      display:flex;gap:10px;margin-top:20px;
+    }
+    .primary,.secondary{
+      min-height:48px;border-radius:14px;font-weight:900;padding:0 18px;border:0;
+    }
+    .primary{
+      flex:1;background:var(--brand-orange);color:#171717;
+      box-shadow:0 11px 24px rgba(255,153,0,.23);
+    }
+    .primary:hover{filter:brightness(.98);transform:translateY(-1px)}
+    .secondary{background:#EEF2F6;color:#303744}
+    .microcopy{margin:10px 2px 0;color:var(--muted);font-size:11px;line-height:1.45}
+
+    .preview-column{position:sticky;top:106px}
+    .preview-toolbar{
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;
+    }
+    .preview-toolbar strong{font-size:14px}
+    .preview-toolbar span{font-size:12px;color:var(--muted)}
+
+    .preview-card{
+      min-height:710px;padding:30px;
+      display:grid;place-items:center;overflow:hidden;
+      background:
+        radial-gradient(circle at 25% 20%,rgba(20,110,180,.12),transparent 16rem),
+        radial-gradient(circle at 80% 80%,rgba(255,153,0,.10),transparent 18rem),
+        rgba(255,255,255,.82);
+      position:relative;
+    }
+    .preview-card::before{
+      content:"";position:absolute;inset:0;
+      background-image:linear-gradient(rgba(14,22,56,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(14,22,56,.025) 1px,transparent 1px);
+      background-size:24px 24px;mask-image:linear-gradient(to bottom,black,transparent 80%);
+    }
+
+    .device{
+      position:relative;
+      z-index:1;
+      width:min(290px,72%);
+      aspect-ratio:9/19.5;
+      background:#0B0C10;
+      border-radius:48px;
+      padding:10px;
+      box-shadow:0 34px 70px rgba(14,22,56,.26), 0 0 0 2px #2A2D35;
+      transition:.35s cubic-bezier(.2,.8,.2,1);
+    }
+    .device.tablet{width:min(400px,80%);aspect-ratio:3/4;border-radius:36px}
+    .device.desktop{
+      width:92%;aspect-ratio:16/10;border-radius:22px;padding:8px;margin-bottom:56px;
+    }
+    .device.desktop::after{
+      content:"";position:absolute;width:33%;height:55px;left:33.5%;bottom:-49px;
+      background:linear-gradient(#2B2E35,#111217);clip-path:polygon(40% 0,60% 0,72% 75%,95% 84%,95% 100%,5% 100%,5% 84%,28% 75%);
+    }
+    .device::before{
+      content:"";position:absolute;top:17px;left:50%;transform:translateX(-50%);
+      width:32%;height:22px;border-radius:999px;background:#101116;z-index:4;
+    }
+    .device.tablet::before{width:9px;height:9px;top:16px}
+    .device.desktop::before{display:none}
+
+    .wallpaper{
+      height:100%;width:100%;border-radius:39px;overflow:hidden;position:relative;
+      background:linear-gradient(145deg,#111B4F 0%,#0E1638 62%,#17275C 100%);
+      color:white;
+    }
+    .tablet .wallpaper{border-radius:28px}
+    .desktop .wallpaper{border-radius:16px}
+
+    .wallpaper .orb{
+      position:absolute;width:62%;aspect-ratio:1;right:-18%;top:-9%;border-radius:50%;
+      background:radial-gradient(circle at 35% 35%,rgba(255,153,0,.20),rgba(255,153,0,0) 65%);
+      border:1px solid rgba(255,153,0,.15);
+    }
+    .anniv{
+      position:absolute;left:11%;right:10%;top:30%;
+      display:flex;align-items:center;gap:14px;
+    }
+    .number{
+      font-size:clamp(58px,8vw,106px);font-weight:200;color:var(--brand-orange);line-height:.8;letter-spacing:-.08em;
+    }
+    .years{font-size:clamp(16px,2.2vw,30px);font-weight:900;line-height:1.05}
+    .years small{display:block;font-size:.45em;letter-spacing:.12em;margin-top:5px}
+    .company{
+      position:absolute;left:11%;top:51%;font-weight:900;letter-spacing:.02em;font-size:clamp(12px,1.5vw,22px);
+    }
+    .dot-wave{
+      position:absolute;left:-3%;right:-3%;height:30%;bottom:-2%;
+      background:
+        radial-gradient(circle,var(--brand-orange) 0 2px,transparent 2.4px);
+      background-size:16px 16px;
+      mask-image:radial-gradient(ellipse 70% 55% at 45% 45%,black 20%,transparent 72%);
+      transform:skewY(-6deg);
+      opacity:.95;
+    }
+    .wallpaper .safe{
+      position:absolute;inset:7%;
+      border:1px dashed rgba(255,255,255,.15);border-radius:20px;opacity:0;
+      transition:.2s;
+    }
+    .preview-card.show-safe .safe{opacity:1}
+
+    .preview-foot{
+      display:flex;justify-content:space-between;gap:12px;margin-top:13px;color:var(--muted);font-size:12px;
+    }
+    .safe-toggle{
+      border:0;background:transparent;color:var(--brand-blue);font-weight:800;padding:0;
+    }
+
+    .toast{
+      position:fixed;left:50%;bottom:28px;transform:translate(-50%,120px);
+      background:#111318;color:white;border-radius:13px;padding:12px 16px;
+      box-shadow:0 16px 40px rgba(0,0,0,.22);font-size:13px;font-weight:700;z-index:50;
+      transition:.3s ease;
+    }
+    .toast.show{transform:translate(-50%,0)}
+
+    @media (max-width:1050px){
+      main{grid-template-columns:1fr;gap:28px}
+      .preview-column{position:relative;top:0}
+      .preview-card{min-height:620px}
+    }
+    @media (max-width:720px){
+      .shell{padding:0 16px 34px}
+      header{height:66px}
+      nav{display:none}
+      main{padding-top:28px}
+      h1{font-size:42px}
+      .config{padding:15px}
+      .device-tabs{grid-template-columns:1fr}
+      .device-tab{justify-content:flex-start;padding-left:14px}
+      .recommend{grid-template-columns:auto 1fr}
+      .recommend .check{display:none}
+      .preview-card{min-height:520px;padding:22px}
+      .download-row{flex-direction:column}
+      .secondary{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <div class="brand-mark">30</div>
+        <div class="brand-copy">
+          <strong>TECOTEC GROUP 1996–2026</strong>
+          <span>Hành trình tiếp nối</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#">Tạo avatar</a>
+        <a href="#" class="active">Tải hình nền</a>
+        <a href="#">Trang chủ</a>
+      </nav>
+      <button class="header-cta" onclick="document.querySelector('.config').scrollIntoView()">Dùng ngay</button>
+    </header>
+
+    <main>
+      <section>
+        <div class="eyebrow">TECOTEC GROUP 1996–2026</div>
+        <h1>Tải hình nền đúng kích thước thiết bị</h1>
+        <p class="lead">Chọn nhóm thiết bị, sử dụng kích thước được đề xuất hoặc tìm trực tiếp theo model. Bản xem trước cập nhật tức thời trước khi tải.</p>
+
+        <div class="panel config">
+          <div class="device-tabs" role="tablist" aria-label="Nhóm thiết bị">
+            <button class="device-tab active" data-device="phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+              Điện thoại
+            </button>
+            <button class="device-tab" data-device="tablet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M11 18h2"/></svg>
+              Máy tính bảng
+            </button>
+            <button class="device-tab" data-device="desktop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              Máy tính
+            </button>
+          </div>
+
+          <div class="section-label">
+            <h2>Kích thước phù hợp</h2>
+            <span id="detectedLabel">Đề xuất theo nhóm thiết bị</span>
+          </div>
+
+          <div class="recommend" id="recommendCard" role="button" tabindex="0">
+            <div class="recommend-icon" id="recommendIcon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            </div>
+            <div>
+              <strong id="recommendSize">1290 × 2796 px</strong>
+              <small id="recommendMeta">Dọc · 19.5:9 · Điện thoại màn hình lớn</small>
+            </div>
+            <div class="check">✓</div>
+          </div>
+
+          <div class="option-list" id="optionList"></div>
+
+          <details class="helper">
+            <summary>Không chắc kích thước? Tìm theo thiết bị</summary>
+            <div class="search-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input class="model-input" id="modelInput" list="models" placeholder="Ví dụ: iPhone 16 Pro Max, iPad Pro, Dell U2725QE…" />
+              <datalist id="models"></datalist>
+            </div>
+            <div class="model-result" id="modelResult"></div>
+          </details>
+
+          <div class="download-row">
+            <button class="primary" id="downloadBtn">Tải hình nền 1290 × 2796</button>
+            <button class="secondary" id="copyBtn">Sao chép kích thước</button>
+          </div>
+          <p class="microcopy">PNG chất lượng cao. Nội dung quan trọng được giữ trong vùng an toàn để hạn chế bị che bởi đồng hồ, thanh trạng thái hoặc dock.</p>
+        </div>
+      </section>
+
+      <aside class="preview-column">
+        <div class="preview-toolbar">
+          <strong>Xem trước</strong>
+          <span id="previewMeta">Điện thoại · 1290 × 2796 px</span>
+        </div>
+        <div class="panel preview-card" id="previewCard">
+          <div class="device" id="deviceFrame">
+            <div class="wallpaper" id="wallpaper">
+              <div class="orb"></div>
+              <div class="anniv">
+                <div class="number">30</div>
+                <div class="years">YEARS<small>1996 · 2026</small></div>
+              </div>
+              <div class="company">TECOTEC GROUP</div>
+              <div class="dot-wave"></div>
+              <div class="safe"></div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-foot">
+          <span id="ratioText">Tỷ lệ 19.5:9 · dọc</span>
+          <button class="safe-toggle" id="safeToggle">Hiện vùng an toàn</button>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Đã sao chép kích thước</div>
+
+  <script>
+    const data = {
+      phone: {
+        label: "Điện thoại",
+        recommended: {w:1290,h:2796,ratio:"19.5:9",desc:"Điện thoại màn hình lớn"},
+        options: [
+          {w:1179,h:2556,ratio:"19.5:9",desc:"iPhone Pro tiêu chuẩn"},
+          {w:1080,h:2400,ratio:"20:9",desc:"Nhiều thiết bị Android"},
+          {w:1440,h:3200,ratio:"20:9",desc:"Android độ phân giải cao"}
+        ],
+        models: {
+          "iPhone 16 Pro Max":{w:1320,h:2868,ratio:"19.5:9"},
+          "iPhone 16 Pro":{w:1206,h:2622,ratio:"19.5:9"},
+          "iPhone 15":{w:1179,h:2556,ratio:"19.5:9"},
+          "Samsung Galaxy S25 Ultra":{w:1440,h:3120,ratio:"19.5:9"},
+          "Google Pixel 9 Pro XL":{w:1344,h:2992,ratio:"20:9"}
+        }
+      },
+      tablet: {
+        label: "Máy tính bảng",
+        recommended: {w:2048,h:2732,ratio:"4:3",desc:"Tablet dọc độ phân giải cao"},
+        options: [
+          {w:1668,h:2388,ratio:"10:7",desc:"Tablet 11 inch"},
+          {w:1600,h:2560,ratio:"16:10",desc:"Android tablet dọc"},
+          {w:2732,h:2048,ratio:"4:3",desc:"Tablet ngang"}
+        ],
+        models: {
+          "iPad Pro 13 inch":{w:2064,h:2752,ratio:"4:3"},
+          "iPad Pro 11 inch":{w:1668,h:2420,ratio:"10:7"},
+          "iPad Air 11 inch":{w:1640,h:2360,ratio:"10:7"},
+          "Samsung Galaxy Tab S10 Ultra":{w:2960,h:1848,ratio:"16:10"}
+        }
+      },
+      desktop: {
+        label: "Máy tính",
+        recommended: {w:2560,h:1600,ratio:"16:10",desc:"Laptop và màn hình 16:10"},
+        options: [
+          {w:1920,h:1080,ratio:"16:9",desc:"Full HD phổ biến"},
+          {w:2560,h:1440,ratio:"16:9",desc:"Màn hình QHD"},
+          {w:3840,h:2160,ratio:"16:9",desc:"Màn hình 4K"},
+          {w:3440,h:1440,ratio:"21:9",desc:"Màn hình ultrawide"}
+        ],
+        models: {
+          "MacBook Pro 14 inch":{w:3024,h:1964,ratio:"16:10"},
+          "MacBook Pro 16 inch":{w:3456,h:2234,ratio:"16:10"},
+          "Dell U2725QE":{w:3840,h:2160,ratio:"16:9"},
+          "Dell UltraSharp QHD":{w:2560,h:1440,ratio:"16:9"},
+          "Màn hình Ultrawide 34 inch":{w:3440,h:1440,ratio:"21:9"}
+        }
+      }
+    };
+
+    let currentDevice = "phone";
+    let selected = {...data.phone.recommended};
+
+    const tabs = document.querySelectorAll(".device-tab");
+    const optionList = document.getElementById("optionList");
+    const deviceFrame = document.getElementById("deviceFrame");
+    const previewMeta = document.getElementById("previewMeta");
+    const ratioText = document.getElementById("ratioText");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const modelInput = document.getElementById("modelInput");
+    const modelList = document.getElementById("models");
+    const modelResult = document.getElementById("modelResult");
+    const toast = document.getElementById("toast");
+
+    function iconFor(type){
+      if(type==="phone") return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>';
+      if(type==="tablet") return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M11 18h2"/></svg>';
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>';
+    }
+
+    function renderDevice(){
+      const d = data[currentDevice];
+      document.getElementById("recommendSize").textContent = `${d.recommended.w} × ${d.recommended.h} px`;
+      document.getElementById("recommendMeta").textContent = `${d.recommended.h >= d.recommended.w ? "Dọc" : "Ngang"} · ${d.recommended.ratio} · ${d.recommended.desc}`;
+      document.getElementById("recommendIcon").innerHTML = iconFor(currentDevice);
+
+      optionList.innerHTML = "";
+      d.options.forEach(opt=>{
+        const node = document.createElement("button");
+        node.className = "size-option";
+        node.type = "button";
+        node.innerHTML = `
+          <span class="radio"></span>
+          <span class="size-main"><strong>${opt.w} × ${opt.h} px</strong><span>${opt.desc}</span></span>
+          <span class="ratio-pill">${opt.ratio}</span>`;
+        node.addEventListener("click",()=>selectSize(opt,node));
+        optionList.appendChild(node);
+      });
+
+      modelList.innerHTML = Object.keys(d.models).map(name=>`<option value="${name}"></option>`).join("");
+      modelInput.value = "";
+      modelResult.style.display = "none";
+      selected = {...d.recommended};
+
+      deviceFrame.className = `device ${currentDevice === "phone" ? "" : currentDevice}`;
+      updateSelectionUI();
+    }
+
+    function selectSize(opt,node){
+      selected = {...opt};
+      document.querySelectorAll(".size-option").forEach(x=>x.classList.remove("selected"));
+      if(node) node.classList.add("selected");
+      document.getElementById("recommendCard").style.boxShadow = "none";
+      updateSelectionUI();
+    }
+
+    function updateSelectionUI(){
+      const orientation = selected.h >= selected.w ? "dọc" : "ngang";
+      previewMeta.textContent = `${data[currentDevice].label} · ${selected.w} × ${selected.h} px`;
+      ratioText.textContent = `Tỷ lệ ${selected.ratio} · ${orientation}`;
+      downloadBtn.textContent = `Tải hình nền ${selected.w} × ${selected.h}`;
+      const wp = document.getElementById("wallpaper");
+      if(currentDevice !== "phone"){
+        const aspect = selected.w / selected.h;
+        if(aspect > 1.15) deviceFrame.style.aspectRatio = aspect;
+        else deviceFrame.style.aspectRatio = selected.w + "/" + selected.h;
+      } else {
+        deviceFrame.style.aspectRatio = selected.w + "/" + selected.h;
+      }
+    }
+
+    tabs.forEach(tab=>tab.addEventListener("click",()=>{
+      tabs.forEach(x=>x.classList.remove("active"));
+      tab.classList.add("active");
+      currentDevice = tab.dataset.device;
+      renderDevice();
+    }));
+
+    document.getElementById("recommendCard").addEventListener("click",()=>{
+      selected = {...data[currentDevice].recommended};
+      document.querySelectorAll(".size-option").forEach(x=>x.classList.remove("selected"));
+      document.getElementById("recommendCard").style.boxShadow = "0 0 0 3px rgba(20,110,180,.10)";
+      updateSelectionUI();
+    });
+
+    modelInput.addEventListener("change",()=>{
+      const found = data[currentDevice].models[modelInput.value];
+      if(!found){
+        modelResult.style.display = "block";
+        modelResult.textContent = "Chưa có model này trong dữ liệu demo. Hãy chọn một gợi ý có sẵn.";
+        return;
+      }
+      selected = {...found,desc:modelInput.value};
+      modelResult.style.display = "block";
+      modelResult.innerHTML = `<strong>${modelInput.value}</strong><br>Kích thước đề xuất: ${found.w} × ${found.h} px · ${found.ratio}`;
+      document.querySelectorAll(".size-option").forEach(x=>x.classList.remove("selected"));
+      updateSelectionUI();
+    });
+
+    document.getElementById("safeToggle").addEventListener("click",e=>{
+      const card = document.getElementById("previewCard");
+      card.classList.toggle("show-safe");
+      e.currentTarget.textContent = card.classList.contains("show-safe") ? "Ẩn vùng an toàn" : "Hiện vùng an toàn";
+    });
+
+    document.getElementById("copyBtn").addEventListener("click",async()=>{
+      await navigator.clipboard.writeText(`${selected.w} × ${selected.h} px`);
+      showToast("Đã sao chép kích thước");
+    });
+
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(()=>toast.classList.remove("show"),1800);
+    }
+
+    function drawWallpaper(){
+      const c = document.createElement("canvas");
+      c.width = selected.w;
+      c.height = selected.h;
+      const ctx = c.getContext("2d");
+      const W=c.width,H=c.height;
+
+      const g=ctx.createLinearGradient(0,0,W,H);
+      g.addColorStop(0,"#111B4F");
+      g.addColorStop(.62,"#0E1638");
+      g.addColorStop(1,"#17275C");
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+      ctx.globalAlpha=.16;
+      const rg=ctx.createRadialGradient(W*.78,H*.12,0,W*.78,H*.12,Math.max(W,H)*.42);
+      rg.addColorStop(0,"#FF9900");rg.addColorStop(1,"rgba(255,153,0,0)");
+      ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+      ctx.globalAlpha=1;
+
+      const scale=Math.min(W,H);
+      ctx.fillStyle="#FF9900";
+      ctx.font=`200 ${scale*.28}px Arial`;
+      ctx.fillText("30",W*.10,H*.45);
+
+      ctx.fillStyle="#FFFFFF";
+      ctx.font=`900 ${scale*.085}px Arial`;
+      ctx.fillText("YEARS",W*.54,H*.38);
+      ctx.font=`700 ${scale*.038}px Arial`;
+      ctx.fillText("1996 · 2026",W*.54,H*.42);
+      ctx.font=`900 ${scale*.055}px Arial`;
+      ctx.fillText("TECOTEC GROUP",W*.10,H*.56);
+
+      ctx.fillStyle="#FF9900";
+      const dot=Math.max(2,scale*.0055);
+      for(let y=H*.73;y<H*1.02;y+=dot*4.4){
+        for(let x=-W*.04;x<W*1.04;x+=dot*4.4){
+          const wave=Math.sin((x/W)*Math.PI*3.1 + (y/H)*5.5);
+          const envelope=Math.max(0,1-Math.abs((y/H)-.88)*5.4);
+          ctx.globalAlpha=.18+.8*envelope*(.55+.45*wave);
+          ctx.beginPath();ctx.arc(x,y+wave*dot*5,dot,0,Math.PI*2);ctx.fill();
+        }
+      }
+      ctx.globalAlpha=1;
+      return c;
+    }
+
+    document.getElementById("downloadBtn").addEventListener("click",()=>{
+      const canvas=drawWallpaper();
+      canvas.toBlob(blob=>{
+        const a=document.createElement("a");
+        a.href=URL.createObjectURL(blob);
+        a.download=`TECOTEC-30-nam-${selected.w}x${selected.h}.png`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast("Đang tải hình nền PNG");
+      },"image/png");
+    });
+
+    renderDevice();
+  </script>
+</body>
+</html>

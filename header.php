@@ -42,11 +42,7 @@
                         </div>
                     </button>
                     <nav class="main-navigation" id="main-navigation">
-                        <a href="<?php echo home_url('/'); ?>" class="active">TRANG CHỦ</a>
-                        <a href="#history">HÀNH TRÌNH 30 NĂM</a>
-                        <a href="#achievements">THÀNH TỰU</a>
-                        <a href="#people">CON NGƯỜI TECOTEC</a>
-                        <a href="<?php echo esc_url(home_url('/category/su-kien-noi-bat/')); ?>">TIN TỨC & SỰ KIỆN</a>
+                        <a href="<?php echo esc_url(home_url('/tin-tuc/')); ?>">TIN TỨC & SỰ KIỆN</a>
                         <a href="<?php echo esc_url(home_url('/tao-avatar-30/')); ?>">DẤU ẤN CÁ NHÂN</a>
                         <a href="<?php echo esc_url(home_url('/hinh-nen-30/')); ?>">HÌNH NỀN 30 NĂM</a>
                     </nav>
@@ -58,6 +54,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var menuToggle = document.getElementById('menu-toggle');
                 var mainNav = document.getElementById('main-navigation');
+                var headerRight = document.querySelector('.header-right');
 
                 if (menuToggle && mainNav) {
                     menuToggle.addEventListener('click', function (e) {
@@ -72,6 +69,25 @@
                             mainNav.classList.remove('is-active');
                         }
                     });
+
+                    // Close menu when a link is clicked
+                    var navLinks = mainNav.querySelectorAll('a');
+                    navLinks.forEach(function (link) {
+                        link.addEventListener('click', function () {
+                            menuToggle.classList.remove('is-active');
+                            mainNav.classList.remove('is-active');
+                        });
+                    });
+                }
+
+                if (headerRight) {
+                    var updateScrollProgress = function () {
+                        var scrollY = window.scrollY || window.pageYOffset;
+                        var progress = Math.min(scrollY / window.innerHeight, 1);
+                        headerRight.style.setProperty('--scroll-progress', progress);
+                    };
+                    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+                    updateScrollProgress(); // Initial call
                 }
             });
         </script>

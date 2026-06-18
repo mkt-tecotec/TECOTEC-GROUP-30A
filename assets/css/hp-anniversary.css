@@ -65,9 +65,10 @@
     margin: 0 0 1.25rem;
     font-size: clamp(2rem, 3.5vw, 3rem);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.35;
     color: #ffffff;
     letter-spacing: -0.02em;
+    text-transform: uppercase;
 }
 
 .hp-wallpaper__title span {
@@ -341,9 +342,10 @@
     margin: 0 0 1.25rem;
     font-size: clamp(2rem, 3.5vw, 3rem);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.35;
     color: #ffffff;
     letter-spacing: -0.02em;
+    text-transform: uppercase;
 }
 
 .hp-avatar__title span {
@@ -441,13 +443,13 @@
 .hp-avatar__carousel {
     position: relative;
     width: 100%;
-    max-width: 480px;
+    max-width: 580px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0;
-    height: 440px;
+    height: 580px;
 }
 
 /* Individual avatar mockup cards */
@@ -617,11 +619,11 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .hp-wallpaper__grid,
     .hp-avatar__grid {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 3.5rem;
     }
 
     .hp-avatar__content {
@@ -637,9 +639,39 @@
         padding: 70px 0;
     }
 
+    .hp-wallpaper__desc,
+    .hp-avatar__desc {
+        max-width: 100%;
+    }
+
+    .hp-wallpaper__title,
+    .hp-avatar__title {
+        font-size: 2.1rem;
+    }
+
+    .hp-wallpaper__title br,
+    .hp-avatar__title br {
+        display: none;
+    }
+
+    /* Fix visual section overflow & alignment on tablet */
+    .hp-wallpaper__visual {
+        padding-right: 30px; /* Room for the phone frame */
+    }
+
+    .hp-wallpaper__devices {
+        max-width: 640px; /* Allow it to be wider on tablet */
+        width: 100%;
+        margin: 0 auto;
+    }
+
     .hp-wallpaper__phone-frame {
-        right: -10px;
-        width: 80px;
+        right: -25px;
+        width: 100px;
+    }
+
+    .hp-anniv-hashtag {
+        margin-top: 3.8rem;
     }
 }
 
@@ -660,7 +692,7 @@
     }
 
     .hp-avatar__carousel {
-        height: 320px;
+        height: 400px;
     }
 
     .hp-avatar__card--center {
@@ -669,23 +701,32 @@
     }
 
     .hp-avatar__card--left {
-        transform: translateX(-130px) scale(0.82) rotate(-8deg);
+        transform: translateX(-105px) scale(0.82) rotate(-8deg);
     }
 
     .hp-avatar__card--right {
-        transform: translateX(130px) scale(0.82) rotate(8deg);
+        transform: translateX(105px) scale(0.82) rotate(8deg);
     }
 
     .hp-avatar__card--top {
-        transform: translateY(-135px) scale(0.78) rotate(5deg);
+        transform: translateY(-115px) scale(0.78) rotate(5deg);
     }
 
     .hp-avatar__card--bottom {
-        transform: translateY(135px) scale(0.78) rotate(-5deg);
+        transform: translateY(115px) scale(0.78) rotate(-5deg);
+    }
+
+    .hp-wallpaper__visual {
+        padding-right: 15px; /* Adjust room for phone frame on mobile */
     }
 
     .hp-wallpaper__devices {
         max-width: 320px;
+    }
+
+    .hp-wallpaper__phone-frame {
+        right: -15px;
+        width: 80px;
     }
 
     .hp-anniv-hashtag {

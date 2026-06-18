@@ -1,394 +1,358 @@
+/* ═══════════════════════════════════════════════════════════════
+   wallpaper.css – Tải hình nền 30 năm TECOTEC GROUP
+   Inherits: --a30-* tokens from microsite-a30.css
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Page wrapper ─────────────────────────────────────────────── */
 .wl-page {
-    --wl-bg: var(--a30-bg);
-    --wl-surface: var(--a30-surface);
-    --wl-primary: var(--a30-primary);
-    --wl-ink: var(--a30-ink);
-    --wl-muted: var(--a30-muted);
-    --wl-border: var(--a30-border);
-    --wl-accent: var(--a30-accent);
-    --wl-shadow: var(--a30-shadow);
-    background: var(--wl-bg);
-    color: var(--wl-ink);
-    padding: 2rem 0;
+    background: var(--a30-bg, #f4f6f8);
+    color: var(--a30-ink, #18181b);
+    padding: 3rem 0 4rem;
     min-height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
 }
 
+/* ─── Shell & grid ──────────────────────────────────────────────── */
 .wl-shell {
     width: min(1200px, calc(100% - 3rem));
     margin: 0 auto;
 }
 
-.wl-workspace {
-    width: 100%;
-}
-
 .wl-workspace-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3rem;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 4rem;
     align-items: flex-start;
+}
+
+/* ─── Config column ─────────────────────────────────────────────── */
+.wl-config-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Hero / heading area */
+.wl-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .wl-kicker {
     margin: 0;
-    color: var(--wl-primary);
-    font-weight: 600;
+    color: var(--a30-primary, #146eb4);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
 }
 
 .wl-title {
-    margin: 0.5rem 0 1rem;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.15;
+    margin: 0;
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 800;
 }
 
 .wl-lead {
     margin: 0;
-    max-width: 66ch;
-    color: var(--wl-muted);
+    color: var(--a30-muted, #71717a);
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 60ch;
 }
 
-.wl-preview-area {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 140px);
-    max-height: 850px;
-    gap: 1.5rem;
-}
-
-.wl-preview-card {
-    margin: 0;
-    padding: 3rem;
-    background-color: #F4F7FA; /* Light cool grey/blue */
-    background-image: radial-gradient(circle at 60% 50%, rgba(255, 107, 0, 0.08) 0%, transparent 60%);
-    border: 1px solid rgba(24, 24, 27, 0.06);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    min-height: 0;
-    position: relative;
-}
-
-.wl-device {
-    display: none;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    z-index: 2; /* keep above the background decorations */
-}
-
-.wl-device.is-active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wl-device--phone.is-active {
-    display: block;
-    position: relative;
-    background: #000; /* Screen inner bezel */
-    border: 6px solid #18181b; /* Dark frame */
-    padding: 6px; /* Bezel width */
-    border-radius: 3rem;
-    box-shadow: 
-        inset 0 0 0 1px rgba(255,255,255,0.05),
-        0 30px 60px -12px rgba(255, 107, 0, 0.15),
-        0 18px 36px -18px rgba(0,0,0,0.2);
-    height: 100%;
-    width: auto;
-    max-width: 100%;
-    aspect-ratio: 1170 / 2532;
-    margin: auto;
-    overflow: visible; /* To allow buttons to show outside */
-}
-
-/* Phone Buttons */
-.wl-phone-buttons {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Power Button */
-.wl-phone-buttons::after {
-    content: '';
-    position: absolute;
-    top: 140px;
-    right: -8px;
-    width: 3px;
-    height: 60px;
-    background: #27272a;
-    border-radius: 0 3px 3px 0;
-    box-shadow: inset 1px 0 2px rgba(255,255,255,0.1);
-}
-
-/* Volume Buttons */
-.wl-phone-buttons::before {
-    content: '';
-    position: absolute;
-    top: 120px;
-    left: -8px;
-    width: 3px;
-    height: 45px;
-    background: #27272a;
-    border-radius: 3px 0 0 3px;
-    box-shadow: 
-        inset -1px 0 2px rgba(255,255,255,0.1),
-        0 60px 0 0 #27272a; /* Volume Down button below */
-}
-
-.wl-device--phone .wl-screen {
-    width: 100%;
-    height: 100%;
-    background: #111;
-    border-radius: 2.3rem; /* Inner radius */
-    overflow: hidden;
-    position: relative;
-}
-
-/* Dynamic Island / Notch */
-.wl-device--phone .wl-notch {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 28px;
-    background: #000;
-    border-radius: 20px;
-    z-index: 10;
-}
-
-/* Screen glare overlay */
-.wl-device--phone .wl-screen::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%);
-    pointer-events: none;
-    z-index: 11;
-}
-
-.wl-device--phone img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    image-rendering: high-quality;
-}
-
-.wl-device--desktop.is-active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    height: auto;
-    width: 100%;
-    max-height: 100%;
-    margin: auto;
-}
-
-.wl-device--desktop .wl-screen {
-    background: #000;
-    padding: 12px 12px 28px 12px; /* Thick bottom chin for Monitor look */
-    border-radius: 1rem;
-    box-shadow: 
-        0 30px 60px -12px rgba(255, 107, 0, 0.15),
-        0 0 0 2px #18181b; /* Dark frame */
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-}
-
-/* Little power light/logo detail on desktop chin */
-.wl-device--desktop .wl-screen::after {
-    content: '';
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-}
-
-.wl-device--desktop img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    border-radius: 0.25rem; /* Inner screen corner */
-    image-rendering: high-quality;
-}
-
-/* Stand base */
-.wl-device--desktop .wl-desktop-base {
-    width: 120px;
-    height: 30px;
-    background: linear-gradient(to bottom, #27272a, #18181b);
-    border-radius: 0 0 0.5rem 0.5rem;
-    position: relative;
-    z-index: 1;
-    margin-top: -4px; /* Hide behind screen */
-    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
-}
-
-/* Base bottom foot */
-.wl-device--desktop .wl-desktop-base::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 160px;
-    height: 6px;
-    background: #18181b;
-    border-radius: 4px 4px 0 0;
-}
-
-.wl-preview-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 0;
-    flex-shrink: 0;
-}
-
-.wl-panel-title {
-    margin: 0 0 1rem;
-    font-size: 1.05rem;
-    font-family: 'Geist', sans-serif;
-}
-
-.wl-tab-row {
-    display: inline-flex;
-    gap: 0;
+/* ─── Config panel card ─────────────────────────────────────────── */
+.wl-panel {
     background: #ffffff;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 999px;
-    padding: 0.3rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    border: 1px solid rgba(226, 232, 240, 0.7);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(14, 22, 56, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
-.wl-tab {
-    border: 1px solid transparent;
+/* ─── Device tabs ───────────────────────────────────────────────── */
+.wl-device-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: #eff2f6;
+    padding: 6px;
+    border-radius: 15px;
+}
+
+.wl-device-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
     background: transparent;
-    color: var(--wl-primary);
-    border-radius: 999px;
-    padding: 0.6rem 1rem;
+    padding: 10px 8px;
+    border-radius: 11px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--a30-muted, #71717a);
     cursor: pointer;
-    font-family: 'Geist', sans-serif;
-    font-weight: 500;
-    transition: background 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    white-space: nowrap;
 }
 
-.wl-tab.is-active {
-    background: var(--wl-accent);
-    color: #ffffff;
+.wl-device-tab svg {
+    flex-shrink: 0;
+    transition: stroke 180ms ease;
 }
 
-.wl-download-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin-top: 0.75rem;
-}
-
-.wl-download-item, .wl-feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem;
-    text-decoration: none;
-    color: var(--wl-ink);
-    border: 1px solid var(--wl-border);
-    border-radius: 0.7rem;
+.wl-device-tab.is-active {
     background: #ffffff;
-    font-family: 'Geist', sans-serif;
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    color: var(--a30-ink, #18181b);
+    box-shadow: 0 4px 14px rgba(14, 22, 56, 0.10);
 }
 
-.wl-download-item:hover {
-    transform: translateY(-1px);
-    border-color: var(--wl-primary);
-}
-
-.wl-download-icon {
+/* ─── Section label row ─────────────────────────────────────────── */
+.wl-section-label {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--wl-accent);
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0;
 }
 
-.wl-download-text, .wl-feature-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+.wl-section-heading {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
 }
 
-.wl-download-text strong, .wl-feature-text strong {
-    font-size: 1.05rem;
-    color: var(--wl-ink);
+.wl-section-sub {
+    font-size: 0.75rem;
+    color: var(--a30-muted, #71717a);
+    white-space: nowrap;
 }
 
-.wl-download-text span, .wl-feature-text span {
-    color: var(--wl-muted);
-    font-size: 0.85rem;
-}
-
-.wl-features-grid {
+/* ─── Recommend card ────────────────────────────────────────────── */
+.wl-recommend {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin-top: 0.75rem;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 16px;
+    background: linear-gradient(145deg, #f5fbff, #edf7ff);
+    border: 1.5px solid rgba(20, 110, 180, 0.25);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-.wl-feature-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+.wl-recommend::before {
+    content: "ĐỀ XUẤT";
+    position: absolute;
+    top: -10px;
+    right: 14px;
+    background: var(--a30-primary, #146eb4);
     color: #ffffff;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+
+.wl-recommend:hover,
+.wl-recommend.is-selected {
+    border-color: var(--a30-primary, #146eb4);
+    box-shadow: 0 0 0 3px rgba(20, 110, 180, 0.10);
+}
+
+.wl-recommend-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: #ffffff;
+    color: var(--a30-primary, #146eb4);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 16px rgba(20, 110, 180, 0.10);
     flex-shrink: 0;
 }
 
-.wl-icon-orange {
-    background: var(--wl-accent);
+.wl-recommend-icon svg {
+    width: 22px;
+    height: 22px;
 }
 
-.wl-icon-navy {
-    background: var(--wl-bg); /* Use background color which is very dark blue according to the image, actually image shows a dark navy/grey */
-    background: #17253d;
+.wl-recommend-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
+.wl-recommend-info strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.wl-recommend-info small {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--a30-muted, #71717a);
+}
+
+.wl-recommend-check {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--a30-primary, #146eb4);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(20, 110, 180, 0.22);
+    flex-shrink: 0;
+}
+
+/* ─── Option list ───────────────────────────────────────────────── */
+.wl-option-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.wl-size-option {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 13px 14px;
+    background: #ffffff;
+    border: 1px solid #e4e9ef;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.wl-size-option:hover {
+    transform: translateY(-1px);
+    border-color: #b8c8d8;
+}
+
+.wl-size-option.is-selected {
+    border-color: var(--a30-primary, #146eb4);
+    box-shadow: 0 0 0 3px rgba(20, 110, 180, 0.09);
+}
+
+/* Radio indicator */
+.wl-radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #b8c8d8;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: border-color 150ms ease;
+}
+
+.wl-size-option.is-selected .wl-radio {
+    border-color: var(--a30-primary, #146eb4);
+}
+
+.wl-size-option.is-selected .wl-radio::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--a30-primary, #146eb4);
+}
+
+.wl-size-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.wl-size-main strong {
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.wl-size-main span {
+    font-size: 0.75rem;
+    color: var(--a30-muted, #71717a);
+}
+
+.wl-ratio-pill {
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #f2f4f7;
+    color: #5e6675;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+/* ─── Download row ──────────────────────────────────────────────── */
+.wl-download-row {
+    display: flex;
+    gap: 10px;
+}
+
+.wl-btn-primary {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 13px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+    background: var(--a30-accent, #ff9900);
+    color: #1a1200;
+    box-shadow: 0 10px 22px rgba(255, 153, 0, 0.25);
+    transition: filter 180ms ease, transform 180ms ease;
+}
+
+.wl-btn-primary:hover {
+    filter: brightness(0.97);
+    transform: translateY(-1px);
+}
+
+.wl-microcopy {
+    margin: 0;
+    font-size: 0.73rem;
+    line-height: 1.55;
+    color: var(--a30-muted, #71717a);
+}
+
+/* ─── Timeline ──────────────────────────────────────────────────── */
 .wl-timeline {
     display: flex;
     justify-content: space-between;
     position: relative;
-    margin-top: 3rem;
-    padding: 0 1rem;
+    padding: 0 0.75rem;
 }
 
 .wl-timeline-line {
     position: absolute;
     top: 6px;
-    left: 2rem;
-    right: 2rem;
+    left: 1.5rem;
+    right: 1.5rem;
     height: 1px;
-    background: var(--wl-border);
+    background: rgba(20, 110, 180, 0.18);
     z-index: 0;
 }
 
@@ -398,44 +362,372 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
 }
 
 .wl-timeline-dot {
     width: 12px;
     height: 12px;
-    background: var(--wl-primary);
     border-radius: 50%;
+    background: var(--a30-primary, #146eb4);
     border: 2px solid #ffffff;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+    box-shadow: 0 0 0 1px rgba(20, 110, 180, 0.22);
 }
 
 .wl-timeline-year {
-    font-size: 0.95rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    color: var(--wl-primary);
-    font-family: 'Geist', sans-serif;
+    color: var(--a30-primary, #146eb4);
 }
 
 .wl-timeline-point.is-active .wl-timeline-dot {
-    background: var(--wl-accent);
+    background: var(--a30-accent, #ff9900);
+    box-shadow: 0 0 0 1px rgba(255, 153, 0, 0.30);
 }
 
 .wl-timeline-point.is-active .wl-timeline-year {
-    color: var(--wl-accent);
+    color: var(--a30-accent, #ff9900);
+    font-weight: 800;
 }
 
-@media (max-width: 900px) {
+/* ═══════════════════════════════════════════════════════════════
+   Preview column
+   ═══════════════════════════════════════════════════════════════ */
+.wl-preview-col {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.wl-preview-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.wl-preview-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.wl-preview-meta {
+    font-size: 0.78rem;
+    color: var(--a30-muted, #71717a);
+}
+
+/* Preview card background */
+.wl-preview-card {
+    margin: 0;
+    min-height: 680px;
+    padding: 2.5rem;
+    border-radius: 22px;
+    border: 1px solid rgba(20, 22, 56, 0.07);
+    background:
+        radial-gradient(circle at 28% 20%, rgba(20, 110, 180, 0.10), transparent 18rem),
+        radial-gradient(circle at 78% 76%, rgba(255, 153, 0, 0.09), transparent 16rem),
+        rgba(255, 255, 255, 0.88);
+    box-shadow: 0 18px 60px rgba(14, 22, 56, 0.08);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle dot-grid texture */
+.wl-preview-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(14, 22, 56, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 22, 56, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, black, transparent 80%);
+    pointer-events: none;
+}
+
+/* ─── Device frames (hidden by default) ─────────────────────────── */
+.wl-device {
+    display: none;
+    position: relative;
+    z-index: 2;
+}
+
+.wl-device.is-active {
+    display: block;
+}
+
+/* ── Phone ── */
+.wl-device--phone.is-active {
+    width: auto;
+    height: 100%;
+    max-height: 580px;
+    aspect-ratio: 1170 / 2532;
+    background: #0b0c10;
+    border: 6px solid #1c1c1e;
+    border-radius: 3.2rem;
+    padding: 7px;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 32px 70px rgba(14, 22, 56, 0.28),
+        0 0 0 1.5px rgba(255, 255, 255, 0.04);
+    overflow: visible;
+}
+
+.wl-phone-buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Power button (right side) */
+.wl-phone-buttons::after {
+    content: '';
+    position: absolute;
+    top: 130px;
+    right: -8px;
+    width: 3px;
+    height: 55px;
+    background: #2a2a2d;
+    border-radius: 0 3px 3px 0;
+    box-shadow: inset 1px 0 2px rgba(255, 255, 255, 0.08);
+}
+
+/* Volume buttons (left side) */
+.wl-phone-buttons::before {
+    content: '';
+    position: absolute;
+    top: 110px;
+    left: -8px;
+    width: 3px;
+    height: 40px;
+    background: #2a2a2d;
+    border-radius: 3px 0 0 3px;
+    box-shadow:
+        inset -1px 0 2px rgba(255, 255, 255, 0.08),
+        0 55px 0 0 #2a2a2d;
+}
+
+.wl-device--phone .wl-screen {
+    width: 100%;
+    height: 100%;
+    background: #111;
+    border-radius: 2.6rem;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Screen glare */
+.wl-device--phone .wl-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 38%);
+    pointer-events: none;
+    z-index: 11;
+}
+
+.wl-notch {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88px;
+    height: 26px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.wl-device--phone img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* ── Tablet ── */
+.wl-device--tablet.is-active {
+    width: min(340px, 85%);
+    aspect-ratio: 3 / 4;
+    background: #0b0c10;
+    border: 5px solid #1c1c1e;
+    border-radius: 1.8rem;
+    padding: 8px;
+    box-shadow:
+        0 30px 65px rgba(14, 22, 56, 0.24),
+        0 0 0 1.5px rgba(255, 255, 255, 0.04);
+}
+
+.wl-device--tablet .wl-screen {
+    width: 100%;
+    height: 100%;
+    background: #111;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.wl-notch--tablet {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 9px;
+    height: 9px;
+    background: #000;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.wl-device--tablet img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* ── Desktop ── */
+.wl-device--desktop {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wl-device--desktop.is-active {
+    display: flex;
+}
+
+.wl-device--desktop .wl-screen {
+    width: 100%;
+    background: #0b0c10;
+    border-radius: 0.9rem 0.9rem 0 0;
+    padding: 10px 10px 24px;
+    box-shadow:
+        0 28px 60px rgba(14, 22, 56, 0.22),
+        0 0 0 1.5px #1c1c1e;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Chin logo dot */
+.wl-device--desktop .wl-screen::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+}
+
+.wl-device--desktop img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 0.2rem;
+}
+
+/* Stand */
+.wl-desktop-stand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wl-desktop-neck {
+    width: 80px;
+    height: 28px;
+    background: linear-gradient(to bottom, #2a2a2d, #1c1c1e);
+}
+
+.wl-desktop-base {
+    width: 140px;
+    height: 10px;
+    background: linear-gradient(to bottom, #1c1c1e, #141416);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+/* ─── Preview footer ────────────────────────────────────────────── */
+.wl-preview-foot {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 0.25rem;
+}
+
+.wl-ratio-text {
+    font-size: 0.75rem;
+    color: var(--a30-muted, #71717a);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
     .wl-workspace-grid {
         grid-template-columns: 1fr;
+        gap: 2.5rem;
     }
-    .wl-download-grid, .wl-features-grid {
-        grid-template-columns: 1fr;
+
+    .wl-preview-col {
+        position: relative;
+        top: 0;
+    }
+
+    .wl-preview-card {
+        min-height: 560px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
+    .wl-page {
+        padding: 2rem 0 3rem;
+    }
+
     .wl-shell {
         width: min(1200px, calc(100% - 1.5rem));
+    }
+
+    .wl-device-tabs {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .wl-device-tab {
+        justify-content: flex-start;
+        padding-left: 14px;
+    }
+
+    .wl-recommend {
+        grid-template-columns: auto 1fr;
+    }
+
+    .wl-recommend-check {
+        display: none;
+    }
+
+    .wl-preview-card {
+        min-height: 440px;
+        padding: 1.5rem;
+    }
+
+    .wl-device--phone.is-active {
+        max-height: 380px;
+    }
+
+    .wl-download-row {
+        flex-direction: column;
     }
 }

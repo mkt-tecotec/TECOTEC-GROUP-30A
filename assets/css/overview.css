@@ -298,7 +298,6 @@
     background-repeat: no-repeat;
     background-position: left bottom;
     background-size: 0% 100%;
-    display: inline-block; /* Keeps words together */
     white-space: nowrap; /* Prevents breaking inside the span */
 }
 

@@ -38,6 +38,27 @@ function tecotec_group_setup()
 }
 add_action('after_setup_theme', 'tecotec_group_setup');
 
+// Require CPT Registrations
+require_once get_template_directory() . '/inc/CPT/tin-tuc/register/register.php';
+
+/**
+ * ACF: Chỉ định thư mục load JSON cho field groups
+ * ACF sẽ tự động đọc file JSON trong inc/CPT/tin-tuc/acf-json/
+ */
+add_filter('acf/settings/load_json', function ($paths) {
+    // Để giữ lại cả các file cũ nếu có (ở inc/acf-json), ta vẫn nên push đường dẫn mới vào mảng
+    $paths[] = get_template_directory() . '/inc/acf-json';
+    $paths[] = get_template_directory() . '/inc/CPT/tin-tuc/acf-json';
+    return $paths;
+});
+
+/**
+ * ACF: Chỉ định thư mục save JSON
+ */
+add_filter('acf/settings/save_json', function ($path) {
+    return get_template_directory() . '/inc/CPT/tin-tuc/acf-json';
+});
+
 /**
  * Helper: enqueue a theme CSS file with filemtime versioning.
  *
@@ -88,7 +109,7 @@ function tecotec_enqueue_script(string $name, array $deps = [], bool $in_footer 
  */
 function tecotec_group_scripts()
 {
-    $version = '1.1.1';
+    $version = '1.1.2';
     $dir_uri = get_template_directory_uri();
     $dir_path = get_template_directory();
 
@@ -152,19 +173,3 @@ function tecotec_remove_wp_block_library_css()
 }
 add_action('wp_enqueue_scripts', 'tecotec_remove_wp_block_library_css', 100);
 
-if (file_exists(get_template_directory() . '/inc/sample-posts.php')) {
-    require_once get_template_directory() . '/inc/sample-posts.php';
-}
-
-// Temporary trigger to import dummy data
-add_action('init', function () {
-    if (isset($_GET['import_dummy']) && $_GET['import_dummy'] === '1') {
-        if (function_exists('tecotec_a30_import_sample_posts')) {
-            $results = tecotec_a30_import_sample_posts();
-            echo '<h1>Import Complete!</h1>';
-            echo '<pre>' . print_r($results, true) . '</pre>';
-            echo '<a href="' . home_url('/') . '">Quay lại trang chủ</a>';
-            exit;
-        }
-    }
-});

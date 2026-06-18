@@ -27,7 +27,7 @@ add_action('wp_footer', function () {
             <h1 class="hp-hero-title">
                 <span class="hero-anim" style="display:inline-block; opacity:0; transform:translateY(30px);"><span
                         class="hp-hero-highlight">30 NĂM</span></span> <br>
-                <span class="hero-anim" style="display:inline-block; opacity:0; transform:translateY(30px);">CHÍNH XÁC
+                <span class="hero-anim pdx-10" style="display:inline-block; opacity:0; transform:translateY(30px);">CHÍNH XÁC
                     ĐỂ KIẾN TẠO NIỀM TIN</span> <br>
                 <span class="hero-anim" style="display:inline-block; opacity:0; transform:translateY(30px);">TĂNG TRƯỞNG
                     ĐỂ PHÁT TRIỂN BỀN VỮNG</span>

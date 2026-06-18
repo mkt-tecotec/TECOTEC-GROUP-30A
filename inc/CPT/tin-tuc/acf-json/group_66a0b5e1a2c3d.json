@@ -1,0 +1,63 @@
+{
+    "key": "group_66a0b5e1a2c3d",
+    "title": "Tin tức Fields",
+    "fields": [
+        {
+            "key": "field_66a0b5e1a3f1",
+            "label": "Mô tả ngắn",
+            "name": "short_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Mô tả ngắn gọn về bài viết tin tức.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_66a0b5e1a4b2",
+            "label": "URL liên kết ngoài",
+            "name": "external_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Điền URL nếu bài viết này trỏ đến một website khác.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https:\/\/example.com\/bai-viet-lien-quan"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "tin_tuc"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1781576575
+}

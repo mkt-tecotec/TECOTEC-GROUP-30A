@@ -13,12 +13,14 @@ body.page-template-template-avatar-frame #colophon {
 .af-page {
     --af-bg: #f4f6f8;
     --af-surface: #ffffff;
-    --af-primary: #146eb4; /* Brand blue */
+    --af-primary: #146eb4;
+    /* Brand blue */
     --af-primary-light: rgba(20, 110, 180, 0.08);
     --af-ink: #18181b;
     --af-muted: #71717a;
     --af-border: rgba(226, 232, 240, 0.8);
-    --af-accent: #ff9900; /* Brand orange */
+    --af-accent: #ff9900;
+    /* Brand orange */
     --af-accent-light: #fff5e6;
     --af-shadow: 0 12px 36px rgba(20, 110, 180, 0.06);
     --af-header-h: 79px;
@@ -62,9 +64,11 @@ body.page-template-template-avatar-frame #colophon {
     scrollbar-width: thin;
     scrollbar-color: var(--af-muted) transparent;
 }
+
 .af-left::-webkit-scrollbar {
     width: 6px;
 }
+
 .af-left::-webkit-scrollbar-thumb {
     background-color: var(--af-muted);
     border-radius: 99px;
@@ -93,7 +97,7 @@ body.page-template-template-avatar-frame #colophon {
 
 .af-lead {
     margin: 0;
-    max-width: 90%;
+    max-width: 100%;
     color: var(--af-muted);
     font-size: 1.05rem;
     line-height: 1.5;
@@ -111,7 +115,7 @@ body.page-template-template-avatar-frame #colophon {
     border: 1px solid var(--af-border);
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .af-step-title {
@@ -153,10 +157,12 @@ body.page-template-template-avatar-frame #colophon {
     position: relative;
 }
 
-.af-upload:hover, .af-upload--dragging {
+.af-upload:hover,
+.af-upload--dragging {
     border-color: var(--af-primary);
     background: #f0f7fd;
 }
+
 .af-upload--dragging {
     transform: scale(1.02);
 }
@@ -223,13 +229,13 @@ body.page-template-template-avatar-frame #colophon {
     background: #fbfcfd;
 }
 
-.af-frame-item input:checked + .af-frame-content {
+.af-frame-item input:checked+.af-frame-content {
     border-color: var(--af-primary);
     background: #f0f7fd;
     box-shadow: 0 4px 12px var(--af-primary-light);
 }
 
-.af-frame-item input:checked + .af-frame-content .af-frame-name {
+.af-frame-item input:checked+.af-frame-content .af-frame-name {
     color: var(--af-primary);
 }
 
@@ -340,7 +346,7 @@ body.page-template-template-avatar-frame #colophon {
         height: auto;
         overflow: auto;
     }
-    
+
     .af-page {
         height: auto;
         overflow: visible;
@@ -350,9 +356,9 @@ body.page-template-template-avatar-frame #colophon {
     .af-layout {
         grid-template-columns: 1fr;
         gap: 2rem;
-        padding: 2.5rem 0;
+        padding: 2.5rem 1.5rem;
     }
-    
+
     .af-left {
         height: auto;
         overflow-y: visible;
@@ -379,9 +385,11 @@ body.page-template-template-avatar-frame #colophon {
     .af-frame-grid {
         grid-template-columns: 1fr;
     }
+
     .af-cta-row {
         flex-direction: column;
     }
+
     .af-preview-panel {
         padding: 1.25rem;
     }

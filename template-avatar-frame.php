@@ -23,21 +23,6 @@ get_template_part( 'components/microsite/a30-header' );
             </header>
 
             <div class="af-tool-steps">
-                <!-- Chọn khung -->
-                <section class="af-step">
-                    <h2 class="af-step-title">Chọn kiểu khung</h2>
-                    <div class="af-frame-selector" style="display: flex; gap: 16px; margin-bottom: 24px;">
-                        <label class="af-frame-option" style="cursor: pointer; border: 2px solid var(--color-primary-500, #f90); border-radius: 8px; overflow: hidden; width: 80px; height: 80px; display: block; transition: all 0.2s; flex-shrink: 0;">
-                            <input type="radio" name="af_frame" value="Frame1.png" checked style="display: none;">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/frames/Frame1.png" alt="Khung 1" style="width: 100%; height: 100%; object-fit: cover;">
-                        </label>
-                        <label class="af-frame-option" style="cursor: pointer; border: 2px solid transparent; border-radius: 8px; overflow: hidden; width: 80px; height: 80px; display: block; transition: all 0.2s; flex-shrink: 0;">
-                            <input type="radio" name="af_frame" value="Frame2.png" style="display: none;">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/frames/Frame2.png" alt="Khung 2" style="width: 100%; height: 100%; object-fit: cover;">
-                        </label>
-                    </div>
-                </section>
-
                 <!-- Tải ảnh -->
                 <section class="af-step">
                     <h2 class="af-step-title">Tải ảnh của bạn</h2>
