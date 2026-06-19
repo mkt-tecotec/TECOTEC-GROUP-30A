@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="header-right">
-                    <button class="menu-toggle" id="menu-toggle" aria-expanded="false">
+                    <button class="menu-toggle" aria-label="Toggle menu" id="menu-toggle" aria-expanded="false">
                         <div class="hamburger-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
                                 xmlns="http://www.w3.org/2000/svg">
